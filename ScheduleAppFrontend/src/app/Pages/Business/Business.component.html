@@ -1,0 +1,40 @@
+@if (businessInfo === null) {
+    <div class="pt-8 flex flex-col items-center">
+        <h2 class="text-goldenDark text-[2rem] mb-[2rem]">Business Setup</h2>
+        <form [formGroup]="businessSetupForm" class="grid w-[17rem] grid-cols-1 grid-rows-[auto_auto_auto_auto_1rem_3rem]" method="post" (submit)="SetupBusiness($event)">
+            <label class="text-white mb-2 col-start-1" for="name-field">
+                Name:
+                @if (this.businessSetupForm.controls.Name.hasError('required') && this.businessSetupForm.dirty) {
+                    <span class="pl-2 text-red-600 text-[0.9rem]">Field is required</span>
+                } 
+            </label>
+            <input class="h-[1.7rem] mb-4 col-start-1 col-span-2 p-1 rounded" type="text" name="name-field" formControlName="Name">
+            
+            <label class="text-white mb-2 col-start-1 row-start-3" for="description-field">Description:</label>
+            <textarea class="h-[6rem] p-1 col-start-1 row-start-4 col-span-2 rounded" name="description-field" formControlName="Description"></textarea>
+
+            <MainButton class="row-start-6 justify-self-center" [disabled]="!businessSetupForm.valid">
+                <div class="h-[2rem] pl-2 pr-2 flex items-center">
+                    Submit
+                </div>
+            </MainButton>
+        </form>
+    </div>
+} @else {
+    <div class="pt-10">
+        <div class="pl-4 pr-4 pb-10 grid grid-cols-[auto_1fr] grid-rows-1">
+            <div class="border-4 border-goldenDark text-goldenDark w-fit p-1 rounded-[50%]">
+                <Icon size="4.5rem" type="store"/>
+            </div>
+            <div class="font-arial pl-4 pt-2">
+                <div class="text-goldenDark text-[1.3rem]">
+                    {{businessInfo.name}}
+                </div>
+                <div class="text-gray-200 text-[0.9rem]">
+                    {{businessInfo.description}}
+                </div>
+            </div>
+        </div>
+        <EditCard header="Services"></EditCard>
+    </div>
+}

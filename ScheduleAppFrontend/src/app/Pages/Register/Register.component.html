@@ -1,0 +1,47 @@
+<main class="h-[calc(100vh-4rem)] bg-[#222222] flex flex-col items-center pt-[8%]">
+    <h2 class="text-main text-[2rem] mb-[2rem]">Register</h2>
+    <form [formGroup]="registerForm" class="grid w-[15rem] auto-rows-auto gap-[0.2rem]" (submit)="Register($event)">
+        <label class="text-white mb-1" for="first-name-field">First Name:</label>
+        <input class="h-[1.7rem] border-r-2 border-b-2 focus:border-r-2 focus:border-b-2 focus:border-main p-1 rounded outline-none" 
+        type="text" name="first-name-field" formControlName="FirstName">
+        
+        <label class="text-white mb-1" for="last-name-field">Last Name:</label>
+        <input class="h-[1.7rem] border-r-2 border-b-2 focus:border-r-2 focus:border-b-2 focus:border-main p-1 rounded outline-none" 
+        type="text" name="last-name-field" formControlName="LastName">
+        
+        <label class="text-white mb-1" for="email-field">Email:</label>
+        <input class="h-[1.7rem] border-r-2 border-b-2 focus:border-r-2 focus:border-b-2 focus:border-main p-1 rounded outline-none" 
+        type="text" name="email-field" formControlName="Email">
+        
+        <label class="text-white mb-1" for="password-field">Password:</label>
+        <input class="h-[1.7rem] border-r-2 border-b-2 border-transparent focus:border-r-2 focus:border-b-2 focus:border-main rounded outline-none"
+        type="password" name="password-field" formControlName="Password">
+        
+        <div class="grid grid-cols-2 h-[2rem] mt-4">
+            <button type="submit" class="bg-goldenDark hover:bg-golden uppercase text-[0.9rem] w-[80%] rounded disabled:bg-gray-300" [disabled]="!registerForm.valid">Register</button>
+            <button type="button" class="bg-gray-200 hover:bg-white uppercase text-[0.9rem] w-[80%] rounded justify-self-end" (click)="GoToLoginPage()">Cancel</button>
+        </div>
+    </form>
+    @if(!registerForm.valid && (registerForm.dirty || registerForm.touched)) {
+        <div class="w-[15rem] border rounded border-red-600 bg-red-200 p-1 pr-2 pl-6 mt-4">
+            @if(this.registerForm.controls.Password.errors?.["hasCapital"] === false) {
+                <li class="text-red-600">Password needs to contain a capital letter.</li>
+            }
+            @if(this.registerForm.controls.Password.errors?.["hasNumber"] === false) {
+                <li class="text-red-600">Password needs to contain a number.</li>
+            }
+            @if(this.registerForm.controls.Password.errors?.["hasSymbol"] === false) {
+                <li class="text-red-600">Password needs to contain a symbol.</li>
+            }
+            @if(this.registerForm.controls.Password.errors?.["minlength"]) {
+                <li class="text-red-600">Password too short.</li>
+            }
+            @if(this.registerForm.controls.Email.errors?.["emailAvailable"] === false) {
+                <li class="text-red-600">Email already taken.</li>
+            }
+            @if(this.registerForm.controls.Email.errors?.["email"]) {
+                <li class="text-red-600">Email address is not valid.</li>
+            }
+        </div>
+    }
+</main>

@@ -1,0 +1,13 @@
+<main class="h-[calc(100vh-4rem)] bg-[#222222] flex flex-col items-center pt-[8%]">
+        <h2 class="text-goldenDark text-[2rem] mb-[2rem]">Login</h2>
+        <form [formGroup]="loginForm" class="grid w-[15rem] grid-cols-[1fr_1fr] grid-rows-[1fr_1fr_1fr_1fr_1rem_2rem]" method="post" (submit)="Login($event)">
+            <label class="text-white mb-1 col-start-1" for="email-field">Email:</label>
+            <input class="h-[1.7rem] col-start-1 col-span-2 p-1 rounded" type="text" name="email-field" formControlName="Email">
+            
+            <label class="text-white mb-1 col-start-1 row-start-3" for="password-field">Password:</label>
+            <input class="h-[1.7rem] col-start-1 row-start-4 col-span-2 rounded" type="password" name="password-field" formControlName="Password">
+            
+            <button type="submit" class="bg-goldenDark hover:bg-golden uppercase text-[0.9rem] col-start-1 row-start-6 w-[80%] rounded disabled:bg-gray-300" [disabled]="!loginForm.valid">Login</button>
+            <button type="button" class="bg-gray-200 hover:bg-white uppercase text-[0.9rem] col-start-2 row-start-6 w-[80%] rounded justify-self-end" (click)="GoToRegisterPage()">Register</button>
+        </form>
+</main>

@@ -1,0 +1,10 @@
+ScheduleAppFrontend/.angular
+ScheduleAppFrontend/.vscode
+ScheduleAppFrontend/node_modules
+
+ScheduleAppBackend/obj
+ScheduleAppBackend/bin
+ScheduleAppBackend/.vs
+ScheduleAppBackend/appsettings.Development.json
+ScheduleAppBackend/appsettings.json
+ScheduleAppBackend.csproj.user

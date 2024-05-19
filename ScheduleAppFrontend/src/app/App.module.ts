@@ -1,0 +1,33 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './AppRouting.module';
+import { App } from './App.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AnonymousLayout } from './Components/Layouts/AnonymousLayout/AnonymousLayout.component';
+import AuthService from './Services/AuthService';
+import { AuthenticatedLayout } from './Components/Layouts/AuthenticatedLayout/AuthenticatedLayout.component';
+import RouteService from './Services/RouteService';
+import { Layout } from './Components/Layouts/Layout/Layout.component';
+import BusinessService from './Services/BusinessService';
+
+@NgModule({
+  declarations: [
+    App
+  ],
+  imports: [
+    AnonymousLayout,
+    Layout,
+    AuthenticatedLayout,
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule
+  ],
+  providers: [
+    AuthService,
+    RouteService,
+    BusinessService,
+  ],
+  bootstrap: [App]
+})
+export class AppModule { }

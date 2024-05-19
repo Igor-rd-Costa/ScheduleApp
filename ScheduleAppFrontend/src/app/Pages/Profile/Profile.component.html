@@ -1,0 +1,24 @@
+<div class="pl-6 pt-10 grid grid-cols-[auto_1fr] grid-rows-1">
+    <div class="border-4 border-goldenDark text-goldenDark w-fit p-1 rounded-[50%]">
+        <Icon size="5rem" type="person"/>
+    </div>
+    <div class="font-arial pl-4 pt-2">
+        <div class="text-goldenDark text-[1.8rem]">
+            {{userInfo().firstName + " " + userInfo().lastName}}
+        </div>
+        <div class="text-gray-200">
+            {{userInfo().email}}
+        </div>
+    </div>
+</div>
+<div class="mt-4 grid grid-rows-1 grid-cols-2 items-end">
+    <MainButton class="ml-[2.3rem]" [OnClick]="Logout.bind(this)">
+        Logout
+    </MainButton>
+    <MainButton [OnClick]="GoToBusiness.bind(this)">
+        <div class="flex h-8 items-center">
+            <Icon type="work"/>
+            <span class="pl-2">My Business</span>
+        </div>
+    </MainButton>
+</div>
