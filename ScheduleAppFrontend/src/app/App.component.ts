@@ -1,7 +1,6 @@
-import { AfterViewChecked, AfterViewInit, Component, effect, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import AuthService from './Services/AuthService';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import RouteService from './Services/RouteService';
+
 
 @Component({
   selector: 'App',

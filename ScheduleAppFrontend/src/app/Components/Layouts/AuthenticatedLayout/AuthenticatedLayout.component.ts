@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import AuthService from 'src/app/Services/AuthService';
 import { AppLogo } from '../../AppLogo/AppLogo.component';
 import { UserMenu } from '../../UserMenu/UserMenu.component';
-import { Icon } from '../../Icon/icon.component';
+import { Icon } from '../../Icon/Icon.component';
 
 @Component({
   selector: 'AuthenticatedLayout',

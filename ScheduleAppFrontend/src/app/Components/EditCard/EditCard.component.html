@@ -1,0 +1,12 @@
+<div class="grid items-center font-arial text-[#262626] pr-4 auto-rows-auto grid-cols-[auto_1fr_auto_auto] w-screen pl-4 h-[3rem] from-transparent to-goldenDark bg-gradient-to-b">
+    <h2 class="text-[1.1rem]">{{header}}</h2>
+    <button class="col-start-3 text-[1rem] cursor-pointer" (click)="OnEdit">
+        <Icon type="edit"/>
+    </button>
+    <button class="col-start-4 text-[1rem] cursor-pointer" [style]="{rotate: !minimized ? '180deg' : ''}" (click)="ToggleVisibility()">
+        <Icon type="arrow_drop_down"/>
+    </button>
+</div>
+<div class="h-fit overflow-hidden" #content>
+    <ng-content/>
+</div>

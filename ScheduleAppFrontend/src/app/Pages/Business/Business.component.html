@@ -27,7 +27,7 @@
                 <Icon size="4.5rem" type="store"/>
             </div>
             <div class="font-arial pl-4 pt-2">
-                <div class="text-goldenDark text-[1.3rem]">
+                <div class="text-goldenDark text-[1.4rem]">
                     {{businessInfo.name}}
                 </div>
                 <div class="text-gray-200 text-[0.9rem]">
@@ -35,6 +35,16 @@
                 </div>
             </div>
         </div>
-        <EditCard header="Services"></EditCard>
+        <h2 class="grid grid-rows-1 items-center grid-cols-[auto_1fr_auto] text-goldenDark ml-4 text-[1.3rem] mb-[0.5rem] mr-4">
+            <div class="justify-start w-fit">All Services</div>
+            <button class="col-start-3">
+                <Icon type="edit"/>
+            </button>
+        </h2>
+        <EditCard header="Cortes de cabelo">
+                <div class="min-h-[6rem] pb-[0.5rem] grid gap-[0.75rem] w-screen overflow-y-scroll" #servicesWrapper>
+                    <BusinessServiceCard/>
+                </div>
+        </EditCard>
     </div>
 }

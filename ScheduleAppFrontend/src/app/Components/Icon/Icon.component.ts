@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 export type IconType =  'visibility' | 'cut' | 'schedule' | 'person' | 'work' | 'store' |
-                        'edit';
+                        'edit' | 'arrow_drop_down';
 
 @Component({
   selector: 'Icon',

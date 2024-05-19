@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { Icon, IconType } from '../Icon/icon.component';
+import { Icon, IconType } from '../Icon/Icon.component';
+import { CardBase } from '../CardBase/CardBase.component';
 
 @Component({
   selector: 'AppointmentCard',
   standalone: true,
-  imports: [Icon],
+  imports: [Icon, CardBase],
   templateUrl: './AppointmentCard.component.html',
 })
 export class AppointmentCard {

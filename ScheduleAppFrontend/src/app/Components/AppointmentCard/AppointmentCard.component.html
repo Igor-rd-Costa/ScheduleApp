@@ -1,20 +1,12 @@
-<div class="h-[7rem] rounded text-white font-arial mt-4 ml-4 mr-4 grid grid-rows-[2rem_0.5rem_1.5rem_1.5rem_1fr] bg-[#414141] shadow-md overflow-hidden">
-    <div class="row-start-1 h-[2rem] p-3 rounded-br-[5rem] rounded-tl text-[#262626] col-start-1 bg-golden shadow-[1px_1px_2px_1px] shadow-golden flex items-center w-fit max-w-[90%]">
-        <Icon [type]="appointmentIcon"/>
-        <span class="pl-2 pr-2">{{appointmentName}}</span>
+<CardBase [cardIcon]="appointmentIcon" [heading]="appointmentName">
+    <div>
+        <div class="flex pl-2 items-center">
+            <Icon size="1rem" type="work"/>
+            <div class="pl-1">{{businessName}}</div>
+        </div>
+        <div class="flex pl-2 items-center">
+            <Icon size="1rem" type="schedule"/>
+            <div class="pl-1">{{appointmentTime}}</div>
+        </div>
     </div>
-    <div class="row-start-3 col-start-1 pl-2 flex">
-        <span class="material-symbols-outlined text-[1rem] self-center">
-            work
-        </span>
-        <span class="pl-1">{{businessName}}</span>
-    </div>
-    <div class="row-start-4 col-start-1 pl-2 flex">
-        <span class="material-symbols-outlined text-[1rem] self-center">
-            schedule
-        </span>
-        <span class="pl-1">{{appointmentTime}}</span>
-    </div>
-    <div class="justify-self-end row-start-2 row-span-4 col-start-1 w-[5rem] h-fill border-t border-l border-[#DDB06C] rounded-tl-[5rem] shadow-[-1px_-1px_2px_1px] shadow-golden"></div>
-    <div class="justify-self-end row-start-4 row-span-2 col-start-1 w-[3rem] h-fill border-t border-l border-[#DDB06C] rounded-tl-[5rem] shadow-[-1px_-1px_2px_1px] shadow-golden"></div>
-</div>
+</CardBase>
