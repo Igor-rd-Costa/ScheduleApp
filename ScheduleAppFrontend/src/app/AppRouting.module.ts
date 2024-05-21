@@ -8,6 +8,7 @@ import { Profile } from './Pages/Profile/Profile.component';
 import { AuthGuard } from './Services/AuthGuard';
 import { Businesses } from './Pages/Businesses/Businesses.component';
 import { Business } from './Pages/Business/Business.component';
+import { EditServices } from './Pages/Edit/EditServices/EditServices.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,16 @@ const routes: Routes = [
     path: 'business',
     component: Business,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit',
+    children: [
+      {
+        path: 'services',
+        component: EditServices,
+        canActivate: [AuthGuard]
+      }
+    ]
   }
 ];
 

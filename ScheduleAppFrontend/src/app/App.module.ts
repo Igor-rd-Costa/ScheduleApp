@@ -10,6 +10,7 @@ import { AuthenticatedLayout } from './Components/Layouts/AuthenticatedLayout/Au
 import RouteService from './Services/RouteService';
 import { Layout } from './Components/Layouts/Layout/Layout.component';
 import BusinessService from './Services/BusinessService';
+import { ServicesService } from './Services/ServicesService';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import BusinessService from './Services/BusinessService';
     AuthService,
     RouteService,
     BusinessService,
+    ServicesService
   ],
   bootstrap: [App]
 })

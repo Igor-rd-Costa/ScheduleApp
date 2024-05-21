@@ -1,10 +1,12 @@
 import { AfterViewChecked, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BusinessServiceCard } from 'src/app/Components/BusinessServiceCard/BusinessServiceCard.component';
 import { EditCard } from 'src/app/Components/EditCard/EditCard.component';
 import { Icon } from 'src/app/Components/Icon/Icon.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import BusinessService, { BusinessInfo } from 'src/app/Services/BusinessService';
+import { BusinessCategory, ServicesService, BusinessService as BusinessServiceInfo } from 'src/app/Services/ServicesService';
 
 @Component({
   selector: 'Business',
@@ -20,12 +22,10 @@ export class Business implements AfterViewChecked {
     Description: new FormControl("")
   });
 
-  public constructor(private businessService : BusinessService) {
+  public constructor(private businessService : BusinessService, protected servicesService : ServicesService, private router : Router) {
     this.businessService.GetBusinessInfo().then(info => {
       this.businessInfo = info;
-
-    })
-
+    });
   }
 
   ngAfterViewChecked(): void {
@@ -43,6 +43,16 @@ export class Business implements AfterViewChecked {
       wrapper.style.columnGap = width / count + '';
   }
 
+  GetServicesInCategory(id : number) : BusinessServiceInfo[] {
+    let servicesInCategory : BusinessServiceInfo[] = [];
+    this.servicesService.GetAllServices().forEach(service => {
+      if (service.categoryId === id)
+        servicesInCategory.push(service);
+    })
+    return servicesInCategory;
+  }
+
+
   SetupBusiness(event : SubmitEvent) {
     event.preventDefault();
     this.businessService.SetupBusiness(
@@ -53,5 +63,9 @@ export class Business implements AfterViewChecked {
         this.businessInfo = result;
       }
     });
+  }
+
+  GoToEditServices() {
+    this.router.navigate(['edit/services']);
   }
 }

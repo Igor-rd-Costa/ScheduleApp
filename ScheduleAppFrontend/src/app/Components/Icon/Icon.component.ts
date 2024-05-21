@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 export type IconType =  'visibility' | 'cut' | 'schedule' | 'person' | 'work' | 'store' |
-                        'edit' | 'arrow_drop_down';
+                        'edit' | 'arrow_drop_down' | 'add' | 'delete';
 
 @Component({
   selector: 'Icon',
@@ -11,6 +11,7 @@ export type IconType =  'visibility' | 'cut' | 'schedule' | 'person' | 'work' | 
 })
 export class Icon {
   protected Icon = Icon;
+  @ViewChild('element') element! : ElementRef<HTMLElement>;
   @Input() type : IconType = 'visibility';
   @Input() size : string = '24px';
 }

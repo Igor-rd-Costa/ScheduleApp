@@ -1,0 +1,76 @@
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CardBase } from 'src/app/Components/CardBase/CardBase.component';
+import { Icon, IconType } from 'src/app/Components/Icon/Icon.component';
+import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
+import { SecondaryButton } from 'src/app/Components/SecondaryButton/SecondaryButton.component';
+import { BusinessService, ServicesService } from 'src/app/Services/ServicesService';
+
+@Component({
+  selector: 'EditableServiceCard',
+  standalone: true,
+  imports: [CardBase, Icon, MainButton, SecondaryButton, ReactiveFormsModule],
+  templateUrl: './EditableServiceCard.component.html',
+})
+export class EditableServiceCard {
+  @ViewChild(CardBase) base! : CardBase;
+  @Input() serviceId : number = -1;  
+  @Input() serviceName : string = "";
+  @Input() serviceDescription : string = "";
+  @Input() serviceIcon : IconType = 'visibility';
+  @Input() serviceDuration : number = 0;
+  @Input() servicePrice : number | null = 30;
+  @Input() serviceCategory : number | null = null;
+  @Output() Updated = new EventEmitter<BusinessService>(); 
+  protected isInEditMode : boolean = false;
+  protected editServiceForm = new FormGroup({
+    Name: new FormControl('', {validators: [Validators.required]}),
+    Description: new FormControl(''),
+    Price: new FormControl(0),
+    Duration: new FormControl(0, {validators: [Validators.required]}),
+    Category: new FormControl<number|null>(null)
+  });
+
+  public constructor(protected servicesService : ServicesService) {}
+
+  ngAfterViewInit(): void {
+      const icon = this.base.icon.element.nativeElement;
+      if (icon === undefined)
+        return;
+
+      icon.addEventListener('click', this.EnterEditMode.bind(this));
+      icon.style.cursor = 'pointer';
+  }
+
+  Edit(event : SubmitEvent) {
+    event.preventDefault();
+    const name = this.editServiceForm.controls.Name.value!;
+    const description = this.editServiceForm.controls.Description.value ?? "";
+    const price = this.editServiceForm.controls.Price.value;
+    const duration = this.editServiceForm.controls.Duration.value!;
+    const category = this.editServiceForm.controls.Category.value;
+
+    this.servicesService.UpdateService(this.serviceId, name, description, price, duration, category).then(() => {
+      this.LeaveEditMode()
+    });
+  }
+
+  EnterEditMode() {
+    this.isInEditMode = true;
+    this.editServiceForm.controls.Name.setValue(this.serviceName);
+    this.editServiceForm.controls.Description.setValue(this.serviceDescription);
+    this.editServiceForm.controls.Duration.setValue(this.serviceDuration);
+    this.editServiceForm.controls.Price.setValue(this.servicePrice);
+    this.editServiceForm.controls.Category.setValue(this.serviceCategory);
+  }
+
+  LeaveEditMode() {
+    this.isInEditMode = false;
+  }
+  
+  GetDurationString() {
+    const hours = Math.floor(this.serviceDuration / 60);
+    const minutes = this.serviceDuration % 60;
+    return (hours < 10 ? "0"+hours : hours) + ":" + (minutes < 10 ? "0"+minutes : minutes);
+  }
+}

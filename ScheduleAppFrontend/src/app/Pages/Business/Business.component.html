@@ -6,7 +6,7 @@
                 Name:
                 @if (this.businessSetupForm.controls.Name.hasError('required') && this.businessSetupForm.dirty) {
                     <span class="pl-2 text-red-600 text-[0.9rem]">Field is required</span>
-                } 
+                }
             </label>
             <input class="h-[1.7rem] mb-4 col-start-1 col-span-2 p-1 rounded" type="text" name="name-field" formControlName="Name">
             
@@ -37,14 +37,21 @@
         </div>
         <h2 class="grid grid-rows-1 items-center grid-cols-[auto_1fr_auto] text-goldenDark ml-4 text-[1.3rem] mb-[0.5rem] mr-4">
             <div class="justify-start w-fit">All Services</div>
-            <button class="col-start-3">
+            <button class="col-start-3" (click)="GoToEditServices()">
                 <Icon type="edit"/>
             </button>
         </h2>
-        <EditCard header="Cortes de cabelo">
-                <div class="min-h-[6rem] pb-[0.5rem] grid gap-[0.75rem] w-screen overflow-y-scroll" #servicesWrapper>
-                    <BusinessServiceCard/>
-                </div>
-        </EditCard>
+        <div class="grid gap-y-4">
+            @for (category of servicesService.GetAllCategories(); track category.id) {
+                <EditCard [header]="category.name">
+                    <div class="pb-[0.5rem] grid gap-[0.75rem] w-screen overflow-y-scroll" #servicesWrapper>
+                        @for (service of GetServicesInCategory(category.id); track service.id) {
+                            <BusinessServiceCard [serviceName]="service.name" [serviceDescription]="service.description"
+                            [servicePrice]="service.price" [serviceDuration]="service.duration"/>
+                        }
+                    </div>
+                </EditCard>
+            }
+        </div>
     </div>
 }
