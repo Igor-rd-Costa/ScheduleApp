@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ScheduleAppBackend.Models
 {
@@ -9,6 +10,7 @@ namespace ScheduleAppBackend.Models
     public class BusinessService
     {
         public int Id { get; set; }
+        [JsonIgnore]
         public int BusinessId { get; set; }
         public int? CategoryId {  get; set; }
         public string Name { get; set; } = "";
@@ -18,8 +20,10 @@ namespace ScheduleAppBackend.Models
         public ushort Duration { get; set; }
 
         [ForeignKey("BusinessId")]
+        [JsonIgnore]
         public Business Business { get; set; }
         [ForeignKey("CategoryId")]
+        [JsonIgnore]
         public BusinessServiceCategory Category { get; set; }
     }
 }

@@ -38,13 +38,6 @@ export class EditServices {
     const price = this.addServiceForm.controls.Price.value;
     const duration = this.addServiceForm.controls.Duration.value!;
     const category = this.addServiceForm.controls.Category.value;
-    console.log({
-      name,
-      description,
-      price,
-      duration,
-      category
-    })
     this.servicesService.AddService(name, description, price, duration, category).then(id =>{
       this.addServiceForm.reset();
     });

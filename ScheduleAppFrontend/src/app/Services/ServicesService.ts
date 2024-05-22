@@ -32,8 +32,9 @@ export class ServicesService {
         });
     }
 
-    GetServiceCategoryName(id : number) {
-        return this.categories.find(c => c.id === id)?.name ?? "";
+    GetServiceCategoryName(id : number | string) {
+        let catId : number = typeof id === 'string' ? parseInt(id) : id;
+        return this.categories.find(c => c.id == catId)?.name ?? "";
     }
 
     GetAllCategories() {
