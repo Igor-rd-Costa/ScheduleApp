@@ -106,6 +106,26 @@ export class ServicesService {
         });
     }
 
+    async DeleteService(id : number) {
+        return new Promise<void>(resolve => {
+            this.http.delete(this.controllerAddress, {body: {id}, withCredentials: true}).subscribe({
+                next: () => {
+                    for (let i = 0; i < this.services.length; i++) {
+                        if (this.services[i].id === id) {
+                            this.services.splice(i, 1);
+                            break;
+                        }
+                    }
+                    resolve();
+                },
+                error: err => {
+                    console.error(err);
+                    resolve();
+                }
+            });
+        });
+    }
+
     async GetCategories() {
         return new Promise<BusinessCategory[]>(resolve => {
             this.http.get<BusinessCategory[]>(this.controllerAddress+"category", {withCredentials: true}).subscribe({
@@ -158,5 +178,45 @@ export class ServicesService {
                 }
             });
         });
+    }
+
+    async DeleteCategory(id : number, deleteServices : boolean) {
+        return new Promise<void>(resolve => {
+            this.http.delete(this.controllerAddress+"category", {body: {id, deleteServices}, withCredentials: true}).subscribe({
+                next: () => {
+                    for (let i = 0; i < this.categories.length; i++) {
+                        if (this.categories[i].id === id) {
+                            this.categories.splice(i, 1);
+                            break;
+                        }
+                    }
+                    if (deleteServices) {
+                        let s : BusinessService[] = [];
+                        for (let i = 0; i < this.services.length; i++) {
+                            if (this.services[i].categoryId == id)
+                                s.push(this.services[i]);
+                        }
+                        for (let i = 0; i < s.length; i++) {
+                            for (let j = 0; j < this.services.length; j++) {
+                                if (this.services[j].id == s[i].id) {
+                                    this.services.splice(j, 1);
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        for (let i = 0; i < this.services.length; i++) {
+                            if (this.services[i].categoryId == id)
+                                this.services[i].categoryId = null;
+                        }
+                    }
+                    resolve();
+                },
+                error: err => {
+                    console.error(err);
+                    resolve();
+                }
+            })
+        })
     }
 }

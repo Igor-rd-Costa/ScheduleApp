@@ -11,6 +11,7 @@ import RouteService from './Services/RouteService';
 import { Layout } from './Components/Layouts/Layout/Layout.component';
 import BusinessService from './Services/BusinessService';
 import { ServicesService } from './Services/ServicesService';
+import { PopUpMessageBox } from './Components/PopUpMessageBox/PopUpMessageBox.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ServicesService } from './Services/ServicesService';
   imports: [
     AnonymousLayout,
     Layout,
+    PopUpMessageBox,
     AuthenticatedLayout,
     BrowserModule,
     AppRoutingModule,

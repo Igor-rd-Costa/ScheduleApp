@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, ViewChildren } from '@angular/core';
 import { Icon, IconType } from '../Icon/Icon.component';
 
 @Component({
@@ -8,8 +8,8 @@ import { Icon, IconType } from '../Icon/Icon.component';
   templateUrl: './CardBase.component.html',
 })
 export class CardBase {
-  @ViewChild(Icon) icon! : Icon;
-  @Input() cardIcon : IconType = 'visibility';
+  @ViewChildren(Icon) icons! : Icon[];
+  @Input() cardIcons : IconType[] = [];
   @Input() heading : string = "";
   @Input() minHeight : string = "7rem";
 }

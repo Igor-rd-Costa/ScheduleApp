@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { App } from 'src/app/App.component';
 import { CardBase } from 'src/app/Components/CardBase/CardBase.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
+import { MessageType } from 'src/app/Components/PopUpMessageBox/PopUpMessageBox.component';
 import { SecondaryButton } from 'src/app/Components/SecondaryButton/SecondaryButton.component';
 import { ServicesService } from 'src/app/Services/ServicesService';
 
@@ -23,12 +25,15 @@ export class EditableCategoryCard implements AfterViewInit {
   public constructor(private servicesService : ServicesService) {}
 
   ngAfterViewInit(): void {
-      const icon = this.base.icon.element.nativeElement;
-      if (icon === undefined)
-        return;
+    const [ editIcon, deleteIcon ] = this.base.icons.map(icon => icon.element.nativeElement);
+    if (editIcon === undefined || deleteIcon === undefined)
+      return;
 
-      icon.addEventListener('click', this.EnterEditMode.bind(this));
-      icon.style.cursor = 'pointer';
+      editIcon.addEventListener('click', this.EnterEditMode.bind(this));
+      editIcon.style.cursor = 'pointer';
+
+      deleteIcon.addEventListener('click', this.Delete.bind(this));
+      deleteIcon.style.cursor = 'pointer';
   }
 
   Edit(event : SubmitEvent) {
@@ -37,6 +42,16 @@ export class EditableCategoryCard implements AfterViewInit {
     this.servicesService.UpdateCategory(this.categoryId, this.editCategoryForm.controls.Name.value!).then(() => {
       this.LeaveEditMode();
     })
+  }
+
+  Delete() {
+    App.PopUpMessageBox.YesCancel(MessageType.INFO, "Delete", `Delete category ${this.categoryName}?`).then(result => {
+      if (result) {
+        App.PopUpMessageBox.YesNo(MessageType.INFO, "", `Delete ${this.categoryName}'s services?`).then(deleteServices => {
+          this.servicesService.DeleteCategory(this.categoryId, deleteServices);
+        });
+      }
+    });
   }
 
   EnterEditMode() {

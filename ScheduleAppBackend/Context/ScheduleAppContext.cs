@@ -15,6 +15,7 @@ namespace ScheduleAppBackend.Context
         public DbSet<User> Users { get; set; } = default!;
         public DbSet<Business> Businesses { get; set; } = default!;
         public DbSet<BusinessService> BusinessesServices { get; set; } = default!;
+        public DbSet<BusinessServiceCategory> BusinessesServicesCategories { get; set; } = default!;
         public DbSet<BusinessHours> BusinessesHours { get; set;} = default!;
     }
 }

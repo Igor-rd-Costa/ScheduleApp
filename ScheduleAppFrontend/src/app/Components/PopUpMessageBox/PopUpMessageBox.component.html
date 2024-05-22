@@ -1,0 +1,30 @@
+@defer () {
+    <div [style]="{display: visible() ? 'block' : 'none'}" class="w-[90%] z-10 absolute left-2/4 translate-x-[-50%] top-[25%]">
+        <CardBase [cardIcons]="['delete']" [heading]="heading()">
+            <div class="grid gap-y-4 pl-2 pb-2 max-w-[78%]">    
+                <div class="min-h-[1rem]" [style]="{color: messageType() === MessageType.INFO ? 'white' : 'rgb(220, 38, 38)'}">
+                    {{message()}}
+                </div>
+                <div class="flex gap-x-4">
+                    <MainButton [OnClick]="MainButtonClick.bind(this)">
+                        @if (boxType() === MessageBoxType.OK) {
+                            Ok
+                        }
+                        @else {
+                            Yes
+                        }
+                    </MainButton>
+                    @if (boxType() !== MessageBoxType.OK) {
+                        <SecondaryButton [OnClick]="SecondaryButtonClick.bind(this)">
+                            @if (boxType() === MessageBoxType.YES_CANCEL) {
+                                Cancel
+                            } @else {
+                                No
+                            }
+                        </SecondaryButton>
+                    }
+                </div>
+            </div>
+        </CardBase>
+    </div>
+}

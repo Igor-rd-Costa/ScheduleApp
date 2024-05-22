@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { App } from 'src/app/App.component';
 import { CardBase } from 'src/app/Components/CardBase/CardBase.component';
 import { Icon, IconType } from 'src/app/Components/Icon/Icon.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
+import { MessageType } from 'src/app/Components/PopUpMessageBox/PopUpMessageBox.component';
 import { SecondaryButton } from 'src/app/Components/SecondaryButton/SecondaryButton.component';
 import { BusinessService, ServicesService } from 'src/app/Services/ServicesService';
 
@@ -34,12 +36,15 @@ export class EditableServiceCard {
   public constructor(protected servicesService : ServicesService) {}
 
   ngAfterViewInit(): void {
-      const icon = this.base.icon.element.nativeElement;
-      if (icon === undefined)
+      const [ editIcon, deleteIcon ] = this.base.icons.map(icon => icon.element.nativeElement);
+      if (editIcon === undefined || deleteIcon == undefined)
         return;
 
-      icon.addEventListener('click', this.EnterEditMode.bind(this));
-      icon.style.cursor = 'pointer';
+      editIcon.addEventListener('click', this.EnterEditMode.bind(this));
+      editIcon.style.cursor = 'pointer';
+
+      deleteIcon.addEventListener('click', this.Delete.bind(this));
+      deleteIcon.style.cursor = 'pointer';
   }
 
   Edit(event : SubmitEvent) {
@@ -53,6 +58,14 @@ export class EditableServiceCard {
     this.servicesService.UpdateService(this.serviceId, name, description, price, duration, category).then(() => {
       this.LeaveEditMode()
     });
+  }
+
+  Delete() {
+    App.PopUpMessageBox.YesCancel(MessageType.INFO, "Delete", `Delete service ${this.serviceName}?`).then(result => {
+      if (result) {
+        this.servicesService.DeleteService(this.serviceId);
+      }
+    })
   }
 
   EnterEditMode() {
