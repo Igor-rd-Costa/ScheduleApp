@@ -1,5 +1,13 @@
-﻿namespace ScheduleAppBackend.Types
+﻿using ScheduleAppBackend.Models;
+
+namespace ScheduleAppBackend.Types
 {
+
+    public class LoginResult
+    {
+        public User User { get; set; }
+        public Business? Business { get; set; }
+    }
     public class LoginInfo
     {
         public string Email { get; set; } = "";

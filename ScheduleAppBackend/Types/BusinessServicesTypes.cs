@@ -1,5 +1,11 @@
 ﻿namespace ScheduleAppBackend.Types
 {
+    public class CreationResult
+    {
+        public int Id { get; set; }
+        public DateTime Date { get; set; }
+    }
+
     public class CreateServiceInfo
     {
         public string Name { get; set; }

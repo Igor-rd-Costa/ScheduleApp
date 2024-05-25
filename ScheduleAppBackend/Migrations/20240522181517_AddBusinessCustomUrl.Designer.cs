@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ScheduleAppBackend.Context;
@@ -11,9 +12,11 @@ using ScheduleAppBackend.Context;
 namespace ScheduleAppBackend.Migrations
 {
     [DbContext(typeof(ScheduleAppContext))]
-    partial class ScheduleAppContextModelSnapshot : ModelSnapshot
+    [Migration("20240522181517_AddBusinessCustomUrl")]
+    partial class AddBusinessCustomUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,9 +41,6 @@ namespace ScheduleAppBackend.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<DateTime>("LastEditDate")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -77,9 +77,6 @@ namespace ScheduleAppBackend.Migrations
                     b.Property<int>("IntervalStart")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("LastEditDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BusinessId");
@@ -109,9 +106,6 @@ namespace ScheduleAppBackend.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("LastEditDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -138,9 +132,6 @@ namespace ScheduleAppBackend.Migrations
 
                     b.Property<int>("BusinessId")
                         .HasColumnType("integer");
-
-                    b.Property<DateTime>("LastEditDate")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -173,18 +164,11 @@ namespace ScheduleAppBackend.Migrations
                     b.Property<bool>("IsEmailConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("LastEditDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ProfileUrl")
                         .IsRequired()
                         .HasColumnType("text");
 

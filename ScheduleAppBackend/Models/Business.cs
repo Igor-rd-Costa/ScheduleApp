@@ -15,6 +15,9 @@ namespace ScheduleAppBackend.Models
         [MaxLength(100)]
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
+        [MaxLength(60)]
+        public string BusinessUrl { get; set; } = "";
+        public DateTime LastEditDate { get; set; }
 
         [ForeignKey("OwnerId")]
         [JsonIgnore]

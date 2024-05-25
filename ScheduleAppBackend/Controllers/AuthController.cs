@@ -42,9 +42,10 @@ namespace ScheduleAppBackend.Controllers
             if (user == null)
                 return Unauthorized();
 
+            Business? business = m_Context.Businesses.Where(b => b.OwnerId == user.Id).FirstOrDefault();
             var result = await m_SignInManager.PasswordSignInAsync(user, info.Password, false, false);
             if (result.Succeeded)
-                return Ok();
+                return Ok(new LoginResult() { User = user, Business = business});
             return Unauthorized();
         }
 
@@ -58,12 +59,24 @@ namespace ScheduleAppBackend.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterInfo info)
         {
+            info.FirstName = char.ToUpper(info.FirstName[0]) + info.FirstName.Substring(1).ToLower();
+            info.LastName= char.ToUpper(info.LastName[0]) + info.LastName.Substring(1).ToLower();
+            string baseUrl = info.FirstName.ToLower() + "-" + info.LastName.ToLower();
+            string profileUlr = baseUrl;
+            while (m_Context.Users.Where(u => u.ProfileUrl == profileUlr).Count() != 0)
+            {
+                profileUlr = baseUrl + "-" + new Random().Next();
+            }
             User user = new User()
             {
                 FirstName = info.FirstName,
                 LastName = info.LastName,
                 Email = info.Email,
+                ProfileUrl = profileUlr,
+                LastEditDate = DateTime.UtcNow
             };
+
+
             IdentityResult result = await m_UserManager.CreateAsync(user, info.Password);
             if (!result.Succeeded)
                 return BadRequest();
@@ -89,14 +102,20 @@ namespace ScheduleAppBackend.Controllers
             return Ok(m_Context.Users.Where(user => user.Email.Equals(email)).Count() == 0);
         }
 
-        [HttpGet("user")]
-        async public Task<ActionResult<UserInfo>> GetUserInfo()
+        [HttpGet]
+        async public Task<IActionResult> Get()
         {
             User? user = await m_UserManager.GetUserAsync(User);
             if (user == null)
                 return Unauthorized();
-            UserInfo info = new(user.FirstName, user.LastName, user.Email);
-            return Ok(info);
+            return Ok(user);
+        }
+
+        [HttpGet("user")]
+        public IActionResult GetUser([FromQuery] string url)
+        {
+            User? user = m_Context.Users.Where(u => u.ProfileUrl == url).FirstOrDefault();
+            return Ok(user);
         }
     }
 }

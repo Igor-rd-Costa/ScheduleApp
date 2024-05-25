@@ -43,9 +43,9 @@
                 <label for="category-field">Category:</label>
                 <select class="w-full h-[1.5rem] rounded text-black ml-1 pl-2 bg-white" formControlName="Category">
                     <option></option>
-                    @for (category of servicesService.GetAllCategories(); track category.id) {
+                    <!-- @for (category of servicesService.GetAllCategories(); track category.id) {
                         <option [value]="category.id">{{category.name}}</option>
-                    }
+                    } -->
                 </select>
             </div>
             <div class="grid pt-2 grid-cols-[auto_auto] gap-x-4 items-center w-fit">
@@ -81,7 +81,7 @@
                     @if (serviceCategory === null) {
                         <span class="text-gray-300">None</span>
                     } @else {
-                        {{servicesService.GetServiceCategoryName(serviceCategory)}}
+                        {{servicesService.GetCategoryName(serviceCategory) ?? ""}}
                     }
                 </div>
             </div>

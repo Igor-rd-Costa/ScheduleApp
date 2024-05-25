@@ -15,6 +15,7 @@ namespace ScheduleAppBackend.Models
         public DayOfWeek Day {  get; set; }
         public ushort IntervalStart { get; set; }
         public ushort IntervalEnd { get; set; }
+        public DateTime LastEditDate { get; set; }
 
         [ForeignKey("BusinessId")]
         [JsonIgnore]

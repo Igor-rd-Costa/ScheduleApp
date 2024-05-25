@@ -11,7 +11,7 @@ export class App implements AfterViewInit {
   public static backendAddress = "http://localhost:5245/api/";
   @ViewChild(PopUpMessageBox) messageBox! : PopUpMessageBox;
   public static PopUpMessageBox : PopUpMessageBox;
-  title = 'ScheduleAppFrontend';
+  private static title = 'ScheduleAppFrontend';
   
   constructor(protected authService : AuthService) {}
 
@@ -31,6 +31,10 @@ export class App implements AfterViewInit {
       wrapper.style.userSelect = '';
       wrapper.style.pointerEvents = '';
     }  
+  }
+
+  public static Title() {
+    return this.title;
   }
 
   ngAfterViewInit(): void {

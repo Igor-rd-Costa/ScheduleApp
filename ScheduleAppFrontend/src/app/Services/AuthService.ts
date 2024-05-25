@@ -1,11 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, signal } from "@angular/core";
 import { App } from "../App.component";
+import CacheService from "./CacheService";
+import { Business } from "./BusinessService";
 
-export type UserInfo = {
+export type User = {
+    id: number,
     firstName : string,
     lastName : string,
-    email : string
+    email : string,
+    lastEditDate : Date
 }
 
 
@@ -13,12 +17,17 @@ export type UserInfo = {
 export default class AuthService {
     private authAddress = App.backendAddress+"auth/";
     public isLogged = false;
-    public constructor(private http : HttpClient) {}
+    public constructor(private http : HttpClient, private cache : CacheService) {}
 
     async Login(email : string, password : string) : Promise<boolean> {
         return new Promise<boolean>(resolve => {
-            this.http.post(this.authAddress+"login", {email, password}, {withCredentials: true}).subscribe({
-                next: () => {
+            this.http.post<{ user: User, business : Business | null }>(this.authAddress+"login", {email, password}, {withCredentials: true}).subscribe({
+                next: (info : { user: User, business : Business | null }) => {
+                    this.cache.SetLoggedUser(info.user);
+                    if (info.business)
+                        this.cache.SetLoggedBusiness(info.business)
+                    else
+                        this.cache.DeleteLoggedBusiness();
                     resolve(true);
                 },
                 error: err => {
@@ -35,6 +44,7 @@ export default class AuthService {
         return new Promise<void>(resolve => {
             this.http.post(this.authAddress+"logout", {}, {withCredentials: true}).subscribe({
                 next: () => {
+                    this.cache.DeleteLoggedUser();
                     resolve();
                 },
                 error: err => {
@@ -92,18 +102,20 @@ export default class AuthService {
         });
     }
 
-    async GetUserInfo() : Promise<UserInfo> {
-        return new Promise<UserInfo>(resolve => {
-            this.http.get<UserInfo>(this.authAddress+"user", {withCredentials: true}).subscribe({
+    async GetUser(userUrl : string | null) : Promise<User> {
+        return new Promise<User>(resolve => {
+            this.http.get<User>(this.authAddress, {withCredentials: true}).subscribe({
                 next: result => {
                     resolve(result);
                 },
                 error: err => {
                     console.error(err);
                     resolve({
+                        id: -1,
                         firstName: "",
                         lastName: "",
-                        email: ""
+                        email: "",
+                        lastEditDate: new Date(0)
                     });
                 }
             })

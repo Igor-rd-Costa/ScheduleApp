@@ -1,31 +1,70 @@
-import { AfterViewChecked, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BusinessServiceCard } from 'src/app/Components/BusinessServiceCard/BusinessServiceCard.component';
 import { EditCard } from 'src/app/Components/EditCard/EditCard.component';
 import { Icon } from 'src/app/Components/Icon/Icon.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
+import { MinimizableCard } from 'src/app/Components/MinimizableCard/MinimizableCard.component';
 import BusinessService, { BusinessInfo } from 'src/app/Services/BusinessService';
-import { BusinessCategory, ServicesService, BusinessService as BusinessServiceInfo } from 'src/app/Services/ServicesService';
+import CacheService from 'src/app/Services/CacheService';
+import { ServicesService, BusinessService as BusinessServiceInfo } from 'src/app/Services/ServicesService';
 
 @Component({
   selector: 'Business',
   standalone: true,
-  imports: [MainButton, ReactiveFormsModule, Icon, EditCard, BusinessServiceCard],
+  imports: [MainButton, ReactiveFormsModule, Icon, EditCard, MinimizableCard, BusinessServiceCard],
   templateUrl: './Business.component.html',
 })
-export class Business implements AfterViewChecked {
+export class Business implements AfterViewChecked, AfterViewInit {
   @ViewChild('servicesWrapper') servicesWrapper! : ElementRef<HTMLElement>;
-  businessInfo : BusinessInfo|null = null;
+  allowEdit = true;
   businessSetupForm = new FormGroup({
     Name: new FormControl("", {validators: [Validators.required]}),
     Description: new FormControl("")
   });
+  businessInfo : BusinessInfo = {
+    business: undefined,
+    services: null,
+    categories: null,
+  };
 
-  public constructor(private businessService : BusinessService, protected servicesService : ServicesService, private router : Router) {
-    this.businessService.GetBusinessInfo().then(info => {
-      this.businessInfo = info;
-    });
+  
+  public constructor(private cache : CacheService, protected businessService : BusinessService, protected servicesService : ServicesService, private router : Router) {
+    
+  }
+  
+  ngAfterViewInit(): void {
+      let route = this.router.url.substring('/business'.length);
+      if (route === "") {
+        this.businessService.GetBusiness(null).then(business => {
+          this.allowEdit = true;
+          this.businessInfo.business = business;
+          if (this.businessInfo.business) {
+            this.servicesService.GetCategories(null).then(categories => {
+              this.businessInfo.categories = categories;
+            });
+            this.servicesService.GetServices(null).then(services => {
+              this.businessInfo.services = services;
+            });
+          }
+        });
+      } else {
+        if (route.startsWith('/'))
+          route = route.substring(1);
+        this.businessService.GetBusiness(route).then(business => {
+          this.businessInfo.business = business;
+          this.allowEdit = false;
+          if (this.businessInfo.business) {
+            this.servicesService.GetCategories(this.businessInfo.business.id).then(categories => {
+              this.businessInfo.categories = categories;
+            })
+            this.servicesService.GetServices(this.businessInfo.business.id).then(services => {
+              this.businessInfo.services = services;
+            })
+          }
+        });
+      }
   }
 
   ngAfterViewChecked(): void {
@@ -45,7 +84,10 @@ export class Business implements AfterViewChecked {
 
   GetServicesInCategory(id : number) : BusinessServiceInfo[] {
     let servicesInCategory : BusinessServiceInfo[] = [];
-    this.servicesService.GetAllServices().forEach(service => {
+    if (!this.businessInfo)
+      return servicesInCategory;
+
+    this.businessInfo.services?.forEach(service => {
       if (service.categoryId === id)
         servicesInCategory.push(service);
     })
@@ -55,12 +97,14 @@ export class Business implements AfterViewChecked {
 
   SetupBusiness(event : SubmitEvent) {
     event.preventDefault();
-    this.businessService.SetupBusiness(
+    this.businessService.CreateBusiness(
       this.businessSetupForm.controls.Name.value ?? "",
       this.businessSetupForm.controls.Description.value ?? ""
     ).then(result => {
       if (result != null) {
         this.businessInfo = result;
+        if (result.business != null)
+          this.cache.SetBusiness(result.business.id, result.business);
       }
     });
   }

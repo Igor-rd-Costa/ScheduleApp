@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ScheduleAppBackend.Context;
 using Microsoft.AspNetCore.Identity;
 using ScheduleAppBackend.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +37,8 @@ var auth = builder.Services.AddAuthentication(options =>
 auth.AddCookie(IdentityConstants.ApplicationScheme, options =>
 {
     options.Cookie.SameSite = SameSiteMode.Lax;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+  
     options.Events.OnRedirectToLogin = (context) =>
     {
         context.Response.StatusCode = 401;
@@ -48,6 +50,7 @@ auth.AddCookie(IdentityConstants.ApplicationScheme, options =>
         return Task.CompletedTask;
     };
 });
+
 //auth.AddCookie(IdentityConstants.ExternalScheme, options =>
 //{
 //    options.Cookie.SameSite = SameSiteMode.None;

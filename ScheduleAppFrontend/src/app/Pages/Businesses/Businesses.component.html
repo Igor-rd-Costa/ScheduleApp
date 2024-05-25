@@ -1,5 +1,20 @@
-<div class="flex h-[5rem] pl-6 pr-6 pt-6 justify-center w-screen">
-    <div class="border rounded-xl w-full h-[2rem]">
-        
+<div class="flex flex-col pl-6 pr-6 pt-6 justify-center w-screen">
+    <div class="flex w-full h-[2rem]">
+        <form [formGroup]="searchForm" class="flex w-full gap-x-4" (submit)="Search($event)">
+            <div class="flex bg-[#414141] rounded shadow-[1px_1px_2px_0px_#111111] pl-2 pr-2 items-center relative w-full">
+                <Icon type="search"/>
+                <input class="h-[2rem] bg-transparent pl-1 w-full outline-none text-white" type="text" formControlName="Search"/>
+            </div>
+            <MainButton [disabled]="!searchForm.valid">
+                <div class="flex items-center justify-center gap-x-1">
+                    Search
+                </div>
+            </MainButton>
+        </form>
+    </div>
+    <div>
+        @for (business of searchResult; track business.id) {
+            <BusinessCard [businessName]="business.name" [businessDescription]="business.description" [customUrl]="business.businessUrl"/>
+        }
     </div>
 </div>

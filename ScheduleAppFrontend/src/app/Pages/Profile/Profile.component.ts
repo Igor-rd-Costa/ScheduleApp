@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Icon } from 'src/app/Components/Icon/Icon.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
-import AuthService, { UserInfo } from 'src/app/Services/AuthService';
+import AuthService, { User } from 'src/app/Services/AuthService';
 
 @Component({
   selector: 'Profile',
@@ -11,20 +11,24 @@ import AuthService, { UserInfo } from 'src/app/Services/AuthService';
   templateUrl: './Profile.component.html',
 })
 export class Profile {
-  protected userInfo = signal<UserInfo>({
+  protected user = signal<User>({
+    id: -1,
     firstName: "",
     lastName: "",
-    email: ""
+    email: "",
+    lastEditDate: new Date(0)
   });
+
   public constructor(private authService : AuthService, private router : Router) {
-    this.authService.GetUserInfo().then(info => {
-      this.userInfo.set(info);
+    this.authService.GetUser(null).then(info => {
+      this.user.set(info);
     })
   }
 
   Logout() {
-    this.authService.Logout();
-    this.router.navigate(['login']);
+    this.authService.Logout().then(() => {
+      this.router.navigate(['login']);
+    });
   }
 
   GoToBusiness() {

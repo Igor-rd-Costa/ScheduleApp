@@ -44,7 +44,14 @@ const routes: Routes = [
   {
     path: 'business',
     component: Business,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    children:
+    [
+      {
+        path: ':businessUrl',
+        component: Business,
+      }
+    ]
   },
   {
     path: 'edit',

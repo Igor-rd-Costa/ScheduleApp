@@ -23,7 +23,8 @@ export class EditableServiceCard {
   @Input() serviceDuration : number = 0;
   @Input() servicePrice : number | null = 30;
   @Input() serviceCategory : number | null = null;
-  @Output() Updated = new EventEmitter<BusinessService>(); 
+  @Output() Edited = new EventEmitter<number>(); 
+  @Output() Deleted = new EventEmitter<number>();
   protected isInEditMode : boolean = false;
   protected editServiceForm = new FormGroup({
     Name: new FormControl('', {validators: [Validators.required]}),
@@ -55,15 +56,21 @@ export class EditableServiceCard {
     const duration = this.editServiceForm.controls.Duration.value!;
     const category = this.editServiceForm.controls.Category.value;
 
-    this.servicesService.UpdateService(this.serviceId, name, description, price, duration, category).then(() => {
+    this.servicesService.UpdateService(this.serviceId, name, description, price, duration, category).then(success => {
       this.LeaveEditMode()
+      if (success) 
+        this.Edited.emit(this.serviceId);
     });
   }
 
   Delete() {
     App.PopUpMessageBox.YesCancel(MessageType.INFO, "Delete", `Delete service ${this.serviceName}?`).then(result => {
       if (result) {
-        this.servicesService.DeleteService(this.serviceId);
+        this.servicesService.DeleteService(this.serviceId).then(success => {
+          if (success)
+            this.Deleted.emit(this.serviceId);
+        });
+
       }
     })
   }
@@ -86,4 +93,6 @@ export class EditableServiceCard {
     const minutes = this.serviceDuration % 60;
     return (hours < 10 ? "0"+hours : hours) + ":" + (minutes < 10 ? "0"+minutes : minutes);
   }
+
+
 }

@@ -9,9 +9,9 @@ namespace ScheduleAppBackend.Models
     public class BusinessServiceCategory
     {
         public int Id { get; set; }
-        [JsonIgnore]
         public int BusinessId { get; set; }
         public string Name { get; set; }
+        public DateTime LastEditDate { get; set; }
 
         [ForeignKey("BusinessId")]
         [JsonIgnore]

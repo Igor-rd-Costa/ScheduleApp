@@ -6,6 +6,7 @@
         <CardBase cardIcon="add" heading="Add Category">
             <form [formGroup]="addCategoryForm" class="pl-2 pb-2 grid gap-y-1 max-w-[70%]" method="post" (submit)="AddCategory($event)">
                 <label for="name-field">
+
                     Name:
                     @if (addCategoryForm.controls.Name.hasError('required') && addCategoryForm.dirty) {
                         <span class="text-[0.8rem] text-red-600">Field is required</span>
@@ -17,8 +18,8 @@
                 </MainButton>
             </form>
         </CardBase>
-        @for(category of servicesService.GetAllCategories(); track category.id) {
-            <EditableCategoryCard [categoryId]="category.id" [categoryName]="category.name"/>
+        @for(category of categories; track category.id) {
+            <EditableCategoryCard [categoryId]="category.id" [categoryName]="category.name" (Edited)="OnCategoryEdit($event)" (Deleted)="OnCategoryDelete($event)"/>
         }
     </MinimizableCard>
     <MinimizableCard header="Services">
@@ -61,7 +62,7 @@
                     <label for="category-field">Category:</label>
                     <select class="w-full h-[1.5rem] rounded text-black ml-1 pl-2 bg-white" formControlName="Category">
                         <option></option>
-                        @for(category of servicesService.GetAllCategories(); track category.id) {
+                        @for(category of categories; track category.id) {
                             <option [value]="category.id">{{category.name}}</option>
                         }
                     </select>
@@ -71,8 +72,8 @@
                 </MainButton>
             </form>
         </CardBase>
-        @for (service of servicesService.GetAllServices(); track service.id) {
-            <EditableServiceCard [serviceId]="service.id" [serviceName]="service.name" [serviceDuration]="service.duration" 
+        @for (service of services; track service.id) {
+            <EditableServiceCard (Edited)="OnServiceEdited($event)" (Deleted)="OnServiceDeleted($event)" [serviceId]="service.id" [serviceName]="service.name" [serviceDuration]="service.duration" 
             [servicePrice]="service.price" [serviceDescription]="service.description" [serviceCategory]="service.categoryId"/>
         }
     </MinimizableCard>

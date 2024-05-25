@@ -4,9 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using ScheduleAppBackend.Context;
 using ScheduleAppBackend.Models;
 using ScheduleAppBackend.Types;
+using ScheduleAppBackend.Helpers;
 
 namespace ScheduleAppBackend.Controllers
 {
+
+
     [Route("api/business-service")]
     [ApiController]
     public class BusinessServicesController : ControllerBase
@@ -21,15 +24,40 @@ namespace ScheduleAppBackend.Controllers
         }
 
         [HttpGet]
-        async public Task<IActionResult> Get()
+        async public Task<IActionResult> Get([FromQuery (Name = "businessId")] string? bId, [FromQuery(Name = "cache")] string cacheString)
         {
-            User? user = await m_UserManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
-            Business? business = m_Context.Businesses.Where(b => b.OwnerId == user.Id).FirstOrDefault();
+            Business? business = null;
+            if (bId == null)
+            {
+                User? user = await m_UserManager.GetUserAsync(User);
+                if (user == null)
+                    return Unauthorized();
+                business = m_Context.Businesses.Where(b => b.OwnerId == user.Id).FirstOrDefault();
+            }
+            else
+            {
+                int businessId = int.Parse(bId);
+                business = m_Context.Businesses.Where(b => b.Id == businessId).FirstOrDefault();
+            }
             if (business == null)
                 return BadRequest();
-            return Ok(m_Context.BusinessesServices.Where(bs => bs.BusinessId == business.Id).ToList());
+
+            Cache cache = HelperFunctions.ParseCacheStringArray(cacheString);
+            List<CachedDataInfo> cachedData = m_Context.BusinessesServices.Select(bs => new CachedDataInfo() { 
+                Id = bs.Id,
+                LastEditDate = bs.LastEditDate,
+            }).Where(cdi => cache.CachedIds.Contains(cdi.Id)).ToList();
+            cache.CachedIds.Clear();
+            foreach(CachedDataInfo cachedDataInfo in cachedData)
+            {
+                if (cache.CachedDates[cachedDataInfo.Id] >= cachedDataInfo.LastEditDate)
+                    cache.CachedIds.Add(cachedDataInfo.Id);
+            }
+
+            return Ok(m_Context.BusinessesServices.Where(
+                bs => bs.BusinessId == business.Id
+                && !cache.CachedIds.Contains(bs.Id)
+            ).ToList());
         }
 
         [HttpPost]
@@ -49,6 +77,7 @@ namespace ScheduleAppBackend.Controllers
                     return BadRequest();
             }
 
+            DateTime date = DateTime.UtcNow;
             BusinessService service = new()
             {
                 Name = info.Name,
@@ -57,12 +86,13 @@ namespace ScheduleAppBackend.Controllers
                 Description = info.Description,
                 Price = info.Price,
                 Duration = info.Duration,
+                LastEditDate = date
             };
             var result = m_Context.BusinessesServices.Add(service);
             if (result.State == EntityState.Added)
             {
                 m_Context.SaveChanges();
-                return Ok(service.Id);
+                return Ok(new CreationResult() { Id = service.Id, Date = date });
             }
             return BadRequest();
         }
@@ -87,12 +117,13 @@ namespace ScheduleAppBackend.Controllers
             service.Description = info.Description;
             service.Price = info.Price;
             service.Duration = info.Duration;
+            service.LastEditDate = DateTime.UtcNow;
 
             var result = m_Context.BusinessesServices.Update(service);
             if (result.State == EntityState.Modified)
             {
                 m_Context.SaveChanges();
-                return Ok();
+                return Ok(service.LastEditDate);
             }
             return BadRequest();
         }
@@ -123,15 +154,43 @@ namespace ScheduleAppBackend.Controllers
 
 
         [HttpGet("category")]
-        async public Task<IActionResult> GetCategories()
+        async public Task<IActionResult> GetCategories([FromQuery(Name = "businessId")] string? bId, [FromQuery(Name = "cache")] string cacheString)
         {
-            User? user = await m_UserManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
-            Business? business = m_Context.Businesses.Where(b => b.OwnerId == user.Id).FirstOrDefault();
+            Business? business = null;
+
+            if (bId == null)
+            {
+                User? user = await m_UserManager.GetUserAsync(User);
+                if (user == null)
+                    return Unauthorized();
+                business = m_Context.Businesses.Where(b => b.OwnerId == user.Id).FirstOrDefault();
+            }
+            else
+            {
+                int businessId = int.Parse(bId);
+                business = m_Context.Businesses.Where(b => b.Id == businessId).FirstOrDefault();
+            }
             if (business == null)
                 return BadRequest();
-            return Ok(m_Context.BusinessesServicesCategories.Where(bsc => bsc.BusinessId == business.Id).ToList());
+
+            Cache cache = HelperFunctions.ParseCacheStringArray(cacheString);
+            List<CachedDataInfo> cachedData = m_Context.BusinessesServicesCategories.Select(bsc => new CachedDataInfo()
+            {
+                Id = bsc.Id,
+                LastEditDate = bsc.LastEditDate,
+            }).Where(cdi => cache.CachedIds.Contains(cdi.Id)).ToList();
+            cache.CachedIds.Clear();
+
+            foreach (CachedDataInfo cachedDataInfo in cachedData)
+            {
+                if (cache.CachedDates[cachedDataInfo.Id] >= cachedDataInfo.LastEditDate)
+                    cache.CachedIds.Add(cachedDataInfo.Id);
+            }
+            List<BusinessServiceCategory> list = m_Context.BusinessesServicesCategories.Where(
+                bsc => bsc.BusinessId == business.Id
+                && !cache.CachedIds.Contains(bsc.Id)
+            ).ToList();
+            return Ok(list);
         }
 
         [HttpPost("category")]
@@ -144,16 +203,18 @@ namespace ScheduleAppBackend.Controllers
             if (business == null)
                 return BadRequest();
 
+            DateTime date = DateTime.UtcNow;
             BusinessServiceCategory category = new()
             {
                 BusinessId = business.Id,
-                Name = info.Name,
+                Name = info.Name,   
+                LastEditDate = date
             };
             var result = m_Context.BusinessesServicesCategories.Add(category);
             if (result.State == EntityState.Added)
             {
                 m_Context.SaveChanges();
-                return Ok(category.Id);
+                return Ok(new CreationResult() { Id = category.Id, Date = date });
             }
             return BadRequest();
         }
@@ -173,11 +234,12 @@ namespace ScheduleAppBackend.Controllers
                 return BadRequest();
 
             category.Name = info.Name;
+            category.LastEditDate = DateTime.UtcNow;
             var result = m_Context.Update(category);
             if (result.State == EntityState.Modified)
             {
                 m_Context.SaveChanges();
-                return Ok();
+                return Ok(category.LastEditDate);
             }
             return BadRequest();
         }
@@ -193,13 +255,15 @@ namespace ScheduleAppBackend.Controllers
                 return BadRequest();
             
             BusinessServiceCategory? category = 
-                m_Context.BusinessesServicesCategories.Where(bsc => bsc.Id == info.Id && bsc.BusinessId == business.Id)
+                m_Context.BusinessesServicesCategories.Where(
+                    bsc => bsc.Id == info.Id && bsc.BusinessId == business.Id)
                 .FirstOrDefault();
             if (category == null)
                 return BadRequest();
 
             List<BusinessService> services = 
-                m_Context.BusinessesServices.Where(bs => bs.BusinessId == business.Id && bs.CategoryId == category.Id)
+                m_Context.BusinessesServices.Where(
+                    bs => bs.BusinessId == business.Id && bs.CategoryId == category.Id)
                 .ToList();
 
             if (info.DeleteServices)

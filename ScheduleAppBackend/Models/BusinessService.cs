@@ -10,7 +10,6 @@ namespace ScheduleAppBackend.Models
     public class BusinessService
     {
         public int Id { get; set; }
-        [JsonIgnore]
         public int BusinessId { get; set; }
         public int? CategoryId {  get; set; }
         public string Name { get; set; } = "";
@@ -18,6 +17,7 @@ namespace ScheduleAppBackend.Models
         public string Description { get; set; } = "";
         public decimal? Price { get; set; }
         public ushort Duration { get; set; }
+        public DateTime LastEditDate { get; set; }
 
         [ForeignKey("BusinessId")]
         [JsonIgnore]

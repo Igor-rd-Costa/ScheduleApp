@@ -1,11 +1,12 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { App } from 'src/app/App.component';
 import { CardBase } from 'src/app/Components/CardBase/CardBase.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import { MessageType } from 'src/app/Components/PopUpMessageBox/PopUpMessageBox.component';
 import { SecondaryButton } from 'src/app/Components/SecondaryButton/SecondaryButton.component';
-import { ServicesService } from 'src/app/Services/ServicesService';
+import CacheService from 'src/app/Services/CacheService';
+import { CategoryDeleteInfo, ServicesService } from 'src/app/Services/ServicesService';
 
 @Component({
   selector: 'EditableCategoryCard',
@@ -17,6 +18,8 @@ export class EditableCategoryCard implements AfterViewInit {
   @ViewChild(CardBase) base! : CardBase;
   @Input() categoryId : number = -1;  
   @Input() categoryName : string = "";
+  @Output() Edited = new EventEmitter<number>();
+  @Output() Deleted = new EventEmitter<CategoryDeleteInfo>();
   protected isInEditMode : boolean = false;
   protected editCategoryForm = new FormGroup({
     Name: new FormControl(this.categoryName, {validators: [Validators.required]})
@@ -38,9 +41,12 @@ export class EditableCategoryCard implements AfterViewInit {
 
   Edit(event : SubmitEvent) {
     event.preventDefault();
-
-    this.servicesService.UpdateCategory(this.categoryId, this.editCategoryForm.controls.Name.value!).then(() => {
+    console.log("Here:", this.editCategoryForm.controls.Name.value!);
+    this.servicesService.UpdateCategory(this.categoryId, this.editCategoryForm.controls.Name.value!).then(success => {
+      console.log("Here too:", success);
       this.LeaveEditMode();
+      if (success)
+        this.Edited.emit(this.categoryId);
     })
   }
 
@@ -48,10 +54,13 @@ export class EditableCategoryCard implements AfterViewInit {
     App.PopUpMessageBox.YesCancel(MessageType.INFO, "Delete", `Delete category ${this.categoryName}?`).then(result => {
       if (result) {
         App.PopUpMessageBox.YesNo(MessageType.INFO, "", `Delete ${this.categoryName}'s services?`).then(deleteServices => {
-          this.servicesService.DeleteCategory(this.categoryId, deleteServices);
+          this.servicesService.DeleteCategory(this.categoryId, deleteServices).then(result => {
+            if (result.categoryId !== -1)
+              this.Deleted.emit(result);
+          });
         });
       }
-    });
+    }); 
   }
 
   EnterEditMode() {

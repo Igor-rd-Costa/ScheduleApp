@@ -12,6 +12,7 @@ import { Layout } from './Components/Layouts/Layout/Layout.component';
 import BusinessService from './Services/BusinessService';
 import { ServicesService } from './Services/ServicesService';
 import { PopUpMessageBox } from './Components/PopUpMessageBox/PopUpMessageBox.component';
+import CacheService from './Services/CacheService';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PopUpMessageBox } from './Components/PopUpMessageBox/PopUpMessageBox.co
     AuthService,
     RouteService,
     BusinessService,
-    ServicesService
+    ServicesService,
+    CacheService
   ],
   bootstrap: [App]
 })
