@@ -1,6 +1,12 @@
-<header class="h-[4rem] font-arial bg-[#1A1A1A] grid items-center grid-cols-[auto_1fr_auto] pl-5">
-    <AppLogo/>
-    <button class="float-end col-start-3 pr-6 text-gray-200 hover:text-white text-lg" (click)="GoToLoginPage()">
-        Login
+<header class="h-[3.5rem] font-arial bg-[#151515] shadow-[0px_-1px_2px_0px_#050505] grid items-center grid-cols-3">
+    <button class="justify-self-center text-white" (click)="GoToBusinesses()">
+        <Icon type="work"/>
+    </button>
+
+    <button class="justify-self-center text-white" (click)="GoToHome()">
+        <Icon type="home"/>
+    </button>
+    <button class="justify-self-center text-white" (click)="GoToLoginPage()">
+        <Icon type="person"/>
     </button>
 </header>
