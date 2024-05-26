@@ -8,7 +8,6 @@ import { AnonymousLayout } from './Components/Layouts/AnonymousLayout/AnonymousL
 import AuthService from './Services/AuthService';
 import { AuthenticatedLayout } from './Components/Layouts/AuthenticatedLayout/AuthenticatedLayout.component';
 import RouteService from './Services/RouteService';
-import { Layout } from './Components/Layouts/Layout/Layout.component';
 import BusinessService from './Services/BusinessService';
 import { ServicesService } from './Services/ServicesService';
 import { PopUpMessageBox } from './Components/PopUpMessageBox/PopUpMessageBox.component';
@@ -20,9 +19,8 @@ import CacheService from './Services/CacheService';
   ],
   imports: [
     AnonymousLayout,
-    Layout,
-    PopUpMessageBox,
     AuthenticatedLayout,
+    PopUpMessageBox,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
