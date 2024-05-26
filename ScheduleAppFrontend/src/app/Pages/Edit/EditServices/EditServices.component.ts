@@ -87,8 +87,8 @@ export class EditServices {
     });
   }
 
-  OnServiceEdited(id : number) {
-    let service = this.cache.GetService(id);
+  async OnServiceEdited(id : number) {
+    let service = await this.cache.GetService(id);
     if (service === null)
       return;
     for (let i = 0; i < this.services.length; i++) {
@@ -107,8 +107,8 @@ export class EditServices {
     }
   }
 
-  OnCategoryEdit(id : number) {
-    let category = this.cache.GetCategory(id);
+  async OnCategoryEdit(id : number) {
+    let category = await this.cache.GetCategory(id);
     if (category === null)
       return;
     for (let i = 0; i < this.categories.length; i++) {

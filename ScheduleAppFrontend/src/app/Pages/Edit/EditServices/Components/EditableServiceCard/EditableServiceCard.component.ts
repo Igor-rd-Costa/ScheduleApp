@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { App } from 'src/app/App.component';
 import { CardBase } from 'src/app/Components/CardBase/CardBase.component';
@@ -25,6 +25,7 @@ export class EditableServiceCard {
   @Input() serviceCategory : number | null = null;
   @Output() Edited = new EventEmitter<number>(); 
   @Output() Deleted = new EventEmitter<number>();
+  protected serviceCategoryName = signal("");
   protected isInEditMode : boolean = false;
   protected editServiceForm = new FormGroup({
     Name: new FormControl('', {validators: [Validators.required]}),
@@ -46,6 +47,12 @@ export class EditableServiceCard {
 
       deleteIcon.addEventListener('click', this.Delete.bind(this));
       deleteIcon.style.cursor = 'pointer';
+
+      if (this.serviceCategory) {
+        this.servicesService.GetCategoryName(this.serviceCategory).then(result => {
+          this.serviceCategoryName.set(result ?? "");
+        });
+      }
   }
 
   Edit(event : SubmitEvent) {

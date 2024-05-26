@@ -1,9 +1,7 @@
-import { AfterViewInit, Component, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { AppointmentCard } from 'src/app/Components/AppointmentCard/AppointmentCard.component';
 import { MinimizableCard } from 'src/app/Components/MinimizableCard/MinimizableCard.component';
-import AuthService from 'src/app/Services/AuthService';
-import RouteService from 'src/app/Services/RouteService';
+import CacheService from 'src/app/Services/CacheService';
 
 @Component({
   selector: 'Dashboard',

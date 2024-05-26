@@ -81,7 +81,7 @@
                     @if (serviceCategory === null) {
                         <span class="text-gray-300">None</span>
                     } @else {
-                        {{servicesService.GetCategoryName(serviceCategory) ?? ""}}
+                        {{serviceCategoryName()}}
                     }
                 </div>
             </div>

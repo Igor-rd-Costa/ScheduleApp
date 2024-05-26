@@ -12,7 +12,10 @@ export const AuthGuard : CanActivateFn = async (route: ActivatedRouteSnapshot, s
     let rt = route.url[0]?.path ?? "";
     const isLogged = await authService.IsLogged();
     const isOtherUserBusinessPage = (rt === 'business' && route.children[0]);
-    const pathRequiresAuth = !(rt === 'login' || rt === 'register' || rt === '' || rt === 'businesses' || isOtherUserBusinessPage);
+    const pathRequiresAuth = !(rt === 'login' || rt === 'register' || rt === '');
+    const hasOptionalAuth = rt === 'businesses' || isOtherUserBusinessPage;
+    if (hasOptionalAuth)
+        return true;
     if (isLogged) {
         if (!pathRequiresAuth) {
             router.navigate(['dashboard']);

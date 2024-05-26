@@ -104,7 +104,7 @@ export class Business implements AfterViewChecked, AfterViewInit {
       if (result != null) {
         this.businessInfo = result;
         if (result.business != null)
-          this.cache.SetBusiness(result.business.id, result.business);
+          this.cache.AddBusiness(result.business);
       }
     });
   }

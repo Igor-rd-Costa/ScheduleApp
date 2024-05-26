@@ -3,6 +3,12 @@ import {DataCache, DataCacheMap} from "../Utils/DataCache";
 import { Business } from "./BusinessService";
 import { BusinessCategory, BusinessService } from "./ServicesService";
 import { User } from "./AuthService";
+import { CacheTable } from "../Utils/CacheTable";
+
+/* TODO: 
+    Add indexes to tables
+    Refactore xWhere() functions
+*/
 
 export type CachedDataInfo = {
     id : number,
@@ -11,84 +17,144 @@ export type CachedDataInfo = {
 
 Injectable()
 export default class CacheService {
-    private businesses : DataCacheMap<number, Business> = new DataCacheMap<number, Business>("Businesses");
-    private categories : DataCacheMap<number, BusinessCategory> = new DataCacheMap<number, BusinessCategory>("BusinessesServiceCategories");
-    private services : DataCacheMap<number, BusinessService> = new DataCacheMap<number, BusinessService>("BusinessesServices");
+    private static cacheDB : IDBDatabase | null = null;
+    private businesses : CacheTable<Business> | null = null;
+    private categories : CacheTable<BusinessCategory> | null = null;
+    private services : CacheTable<BusinessService> | null = null;
     private loggedUser :DataCache<User> = new DataCache<User>("LoggedUser");
     private loggedBusiness : DataCache<Business> = new DataCache<Business>('LoggedBusiness');
 
-    public constructor() {}
-
-    Log() {
-        console.log({
-            businesses: this.Businesses(),
-            categories: this.Categories(),
-            services: this.Services(),
-            loggedUser: this.GetLoggedUser(),
-            loggedBusiness: this.loggedBusiness.Get(),
-        });
+    public constructor() {
+        let request = window.indexedDB.open("ScheduleAppDB", 1);
+        request.onupgradeneeded = (() => {
+            CacheService.cacheDB = request.result;
+            this.SetupTables();
+        }).bind(this);
+        request.onerror = () => {
+            console.error("[IDB Error] Open failed", request.error);
+        }
+        request.onsuccess = () => {
+            CacheService.cacheDB = request.result;
+            this.businesses = new CacheTable<Business>("Businesses");
+            this.services = new CacheTable<BusinessService>("BusinessesServices");
+            this.categories = new CacheTable<BusinessCategory>("BusinessesCategories");
+        }
     }
 
-    public Businesses() {
-        return this.businesses.All();
+    static GetDBInstance() {
+        return this.cacheDB;
     }
 
-    public GetBusiness(id : number) {
-        return this.businesses.Get(id);
+    public async Businesses() {
+        return await this.businesses?.All() ?? [];
     }
 
-    public SetBusiness(id : number, business : Business) {
-        this.businesses.Set(id, business);
+    public async GetBusiness(id : number) {
+        return await this.businesses?.Get(id) ?? null;
     }
 
-    public RemoveBusiness(id : number) {
-        this.businesses.Delete(id);
+    public async BusinessesWhere(compFunc : (business : Business) => boolean) {
+        const businesses = await this.Businesses();
+        const results : Business[] = [];
+        for (let i = 0; i < businesses.length; i++) {
+            if (compFunc(businesses[i]))
+                results.push(businesses[i]);
+        }
+        return results;
     }
 
-    public ClearBusinesses() {
-        this.businesses.Clear();
+    public async AddBusiness(business : Business) {
+        return await this.businesses?.Add(business) ?? false;
+    }
+
+    public async AddBusinesses(businesses : Business[]) {
+        return await this.businesses?.AddRange(businesses) ?? false;
+    }
+
+    public async DeleteBusiness(id : number) {
+        return await this.businesses?.Delete(id) ?? false;
+    }
+
+    public async ClearBusinesses() {
+        return await this.businesses?.Clear() ?? false;
     }
     
 
-    public Categories() {
-        return this.categories.All();
+    public async Categories() {
+        return await this.categories?.All() ?? [];
     }
 
-    public GetCategory(id : number) {
-        return this.categories.Get(id);
+    public async CategoriesWhere(compFunc : (category : BusinessCategory) => boolean) {
+        const categories = await this.Categories();
+        const results : BusinessCategory[] = [];
+        for (let i = 0; i < categories.length; i++) {
+            if (compFunc(categories[i]))
+                results.push(categories[i]);
+        }
+        return results;
     }
 
-    public SetCategory(id : number, category : BusinessCategory) {
-        this.categories.Set(id, category);
+    public async GetCategory(id : number) {
+        return await this.categories?.Get(id) ?? null;
     }
 
-    public DeleteCategory(id : number) {
-        this.categories.Delete(id);
+    public async AddCategory(category : BusinessCategory) {
+        return await this.categories?.Add(category) ?? false;
     }
 
-    public ClearCategories() {
-        this.categories.Clear();
+    public async AddCategories(categories : BusinessCategory[]) {
+        return await this.categories?.AddRange(categories) ?? false;
+    }
+
+    public async DeleteCategory(id : number) {
+        return await this.categories?.Delete(id) ?? false;
+    }
+
+    public async DeleteCategories(ids : number[]) {
+        return await this.categories?.DeleteRange(ids) ?? false;
+    }
+
+    public async ClearCategories() {
+        return await this.categories?.Clear() ?? false;
     }
 
 
-    public Services() {
-        return this.services.All();
+    public async Services() {
+        return await this.services?.All() ?? [];
     }
 
-    public GetService(id : number) {
-        return this.services.Get(id);
+    public async ServicesWhere(compFunc : (service : BusinessService) => boolean) {
+        const services = await this.Services();
+        const results : BusinessService[] = [];
+        for (let i = 0; i < services.length; i++) {
+            if (compFunc(services[i]))
+                results.push(services[i]);
+        }
+        return results;
     }
 
-    public SetService(id : number, service : BusinessService) {
-        this.services.Set(id, service);
+    public async GetService(id : number) {
+        return await this.services?.Get(id) ?? null;
     }
 
-    public DeleteService(id : number) {
-        this.services.Delete(id);
+    public async AddService(service : BusinessService) {
+        return await this.services?.Add(service) ?? false;
     }
 
-    public ClearServices() {
-        this.services.Clear();
+    public async AddServices(services : BusinessService[]) {
+        return await this.services?.AddRange(services) ?? false;
+    }
+
+    public async DeleteService(id : number) {
+        return await this.services?.Delete(id) ?? false;
+    }
+
+    public async DeleteServices(ids : number[]) {
+        return await this.services?.DeleteRange(ids) ?? false;
+    }
+
+    public async ClearServices() {
+        return await this.services?.Clear() ?? false;
     }
 
 
@@ -117,5 +183,20 @@ export default class CacheService {
 
     public DeleteLoggedBusiness() {
         this.loggedBusiness.Delete();
+    }
+
+    private SetupTables() {
+        const db = CacheService.cacheDB;
+        if (!db)
+            return;
+
+        //Businesses setup
+        db.createObjectStore("Businesses", { keyPath: 'id' });
+
+        //Services setup
+        db.createObjectStore("BusinessesServices", {keyPath: 'id'});
+
+        //Categories setup
+        db.createObjectStore("BusinessesCategories", {keyPath: 'id'});
     }
 }

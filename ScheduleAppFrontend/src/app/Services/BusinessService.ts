@@ -26,35 +26,34 @@ export default class BusinessService {
 
     async SearchBusinesses(query : string) {
         query = query.toLowerCase();
-        return new Promise<Business[]>(resolve => {
-            let cached : CachedDataInfo[] = [];
-            this.cache.Businesses().forEach(business => {
-                if (business.name.toLowerCase().includes(query)) {
-                    cached.push({id: business.id, lastEditDate: business.lastEditDate});
-                }
-            }) 
-            return this.http.get<Business[]>(this.businessControllerAddress+`search?query=${query}&cached=${encodeURIComponent(JSON.stringify(cached))}`, {withCredentials: true}).subscribe({
-                next: businesses => {
-                    businesses.forEach(business => {
-                        this.cache.SetBusiness(business.id, business);
-                    });
-                    resolve(Array.from(this.cache.Businesses().values()));
+        return new Promise<Business[]>(async resolve => {
+            const cachedBusinesses = await this.cache.BusinessesWhere(
+                (business) => business.name.toLowerCase().includes(query)
+            );
+            const cachedData : CachedDataInfo[] = cachedBusinesses.map(
+                business => ({id: business.id, lastEditDate: business.lastEditDate } as CachedDataInfo)
+            );
+            this.http.get<Business[]>(this.businessControllerAddress+`search?query=${query}&cached=${encodeURIComponent(JSON.stringify(cachedData))}`, {withCredentials: true}).subscribe({
+                next: async businesses => {
+                    this.cache.AddBusinesses(businesses);
+                    cachedBusinesses.push(...businesses);
+                    resolve(cachedBusinesses);
                 },
                 error: err => {
                     console.error(err);
-                    resolve([]) ;
+                    resolve([]);
                 }
             });
         });
     }
 
     async GetBusiness(url : string | null) : Promise<Business|null> {
-        return new Promise<Business|null>(resolve => {
+        return new Promise<Business|null>(async resolve => {
             let cachedBusinessesData : CachedDataInfo | null = null;
             let cachedBusiness : Business | null = null;
             let bUrl = url !== null ? url : (this.cache.GetLoggedBusiness()?.businessUrl);
             if (bUrl) {
-                let businesses = Array.from(this.cache.Businesses().values());
+                let businesses = await this.cache.Businesses();
                 for (let i = 0; i < businesses.length; i++) {
                     if (businesses[i].businessUrl === bUrl) {
                         cachedBusiness = businesses[i];
@@ -66,13 +65,12 @@ export default class BusinessService {
                     }
                 }
             }
-
             this.http.get<Business|null>(
                 this.businessControllerAddress+`?businessUrl=${url === null ? '' : url}&cache=${cachedBusinessesData !== null ? JSON.stringify(cachedBusiness) : ''}`, 
                 {withCredentials: true}).subscribe({
                 next: business => {
                     if (business) {
-                        this.cache.SetBusiness(business.id, business);
+                        this.cache.AddBusiness(business);
                         if (this.cache.GetLoggedBusiness()?.id === business.id) {
                             this.cache.SetLoggedBusiness(business);
                         }

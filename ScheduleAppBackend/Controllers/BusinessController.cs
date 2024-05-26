@@ -85,8 +85,6 @@ namespace ScheduleAppBackend.Controllers
         async public Task<IActionResult> Search([FromQuery] SearchBusinessInfo info)
         {
             info.Cached = HttpUtility.UrlDecode(info.Cached) ?? "";
-            Console.WriteLine("Query:\n " + info.Query);
-            Console.WriteLine("Cached:\n " + info.Cached);
 
             var cachedArray = JsonArray.Parse(info.Cached);
             List<int> cachedIds = [];
@@ -114,7 +112,7 @@ namespace ScheduleAppBackend.Controllers
             cachedIds.Clear();
             foreach (CachedDataInfo item in cachedBusinesses)
             {
-                if (item.LastEditDate >= cachedDates[item.Id])
+                if (cachedDates[item.Id] >= item.LastEditDate)
                     cachedIds.Add(item.Id);
             }
 
