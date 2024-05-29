@@ -1,11 +1,15 @@
+import { WeekDay } from '@angular/common';
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BusinessServiceCard } from 'src/app/Components/BusinessServiceCard/BusinessServiceCard.component';
+import { CardBase } from 'src/app/Components/CardBase/CardBase.component';
 import { EditCard } from 'src/app/Components/EditCard/EditCard.component';
 import { Icon } from 'src/app/Components/Icon/Icon.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import { MinimizableCard } from 'src/app/Components/MinimizableCard/MinimizableCard.component';
+import { OpeningHoursDisplay } from 'src/app/Components/OpeningHoursDisplay/OpeningHoursDisplay.component';
+import { BusinessHourUpdateInfo, BusinessHoursService } from 'src/app/Services/BusinessHoursService';
 import BusinessService, { BusinessInfo } from 'src/app/Services/BusinessService';
 import CacheService from 'src/app/Services/CacheService';
 import { ServicesService, BusinessService as BusinessServiceInfo } from 'src/app/Services/ServicesService';
@@ -13,7 +17,7 @@ import { ServicesService, BusinessService as BusinessServiceInfo } from 'src/app
 @Component({
   selector: 'Business',
   standalone: true,
-  imports: [MainButton, ReactiveFormsModule, Icon, EditCard, MinimizableCard, BusinessServiceCard],
+  imports: [MainButton, ReactiveFormsModule, Icon, CardBase, EditCard, MinimizableCard, BusinessServiceCard, OpeningHoursDisplay],
   templateUrl: './Business.component.html',
 })
 export class Business implements AfterViewChecked, AfterViewInit {
@@ -28,9 +32,12 @@ export class Business implements AfterViewChecked, AfterViewInit {
     services: null,
     categories: null,
   };
+  openingHours = new Map<WeekDay, BusinessHourUpdateInfo[]>();
 
   
-  public constructor(private cache : CacheService, protected businessService : BusinessService, protected servicesService : ServicesService, private router : Router) {
+  public constructor(private cache : CacheService, protected businessService : BusinessService,
+    private businessHoursService : BusinessHoursService, 
+    protected servicesService : ServicesService, private router : Router) {
     
   }
   
@@ -47,6 +54,10 @@ export class Business implements AfterViewChecked, AfterViewInit {
             this.servicesService.GetServices(null).then(services => {
               this.businessInfo.services = services;
             });
+            this.businessHoursService.GetBusinessHours(null).then(hours => {
+              for (let day = WeekDay.Sunday; day <= WeekDay.Saturday; day++)
+                this.openingHours.set(day, hours.filter(h => h.day === day).sort((a, b) => a.intervalStart - b.intervalStart));
+            })
           }
         });
       } else {
@@ -61,6 +72,10 @@ export class Business implements AfterViewChecked, AfterViewInit {
             })
             this.servicesService.GetServices(this.businessInfo.business.id).then(services => {
               this.businessInfo.services = services;
+            })
+            this.businessHoursService.GetBusinessHours(this.businessInfo.business.id).then(hours => {
+              for (let day = WeekDay.Sunday; day <= WeekDay.Saturday; day++)
+                this.openingHours.set(day, hours.filter(h => h.day === day).sort((a, b) => a.intervalStart - b.intervalStart));
             })
           }
         });
@@ -111,5 +126,9 @@ export class Business implements AfterViewChecked, AfterViewInit {
 
   GoToEditServices() {
     this.router.navigate(['edit/services']);
+  }
+
+  GoToEditHours() {
+    this.router.navigate(['edit/hours']);
   }
 }

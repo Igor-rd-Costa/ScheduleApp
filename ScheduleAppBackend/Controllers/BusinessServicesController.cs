@@ -180,7 +180,7 @@ namespace ScheduleAppBackend.Controllers
                 LastEditDate = bsc.LastEditDate,
             }).Where(cdi => cache.CachedIds.Contains(cdi.Id)).ToList();
             cache.CachedIds.Clear();
-
+                
             foreach (CachedDataInfo cachedDataInfo in cachedData)
             {
                 if (cache.CachedDates[cachedDataInfo.Id] >= cachedDataInfo.LastEditDate)

@@ -1,0 +1,42 @@
+
+<div class="grid justify-items-center gap-y-4 pt-4 w-screen overflow-hidden">
+    <Heading>
+        Edit Opening Hours
+    </Heading>
+    <div class="flex flex-col items-center justify-center w-fit pb-4">
+        <div class="flex rounded shadow-[1px_1px_2px_0px_#111111]">
+            <DaysMenuItem (Selected)="OnDaySelect($event)" [day]="0"/>
+            <div class="border-r border-[#111111]"></div>
+            <DaysMenuItem (Selected)="OnDaySelect($event)" [day]="1"/>
+            <div class="border-r border-[#111111]"></div>
+            <DaysMenuItem (Selected)="OnDaySelect($event)" [day]="2"/>
+            <div class="border-r border-[#111111]"></div>
+            <DaysMenuItem (Selected)="OnDaySelect($event)" [day]="3"/>
+            <div class="border-r border-[#111111]"></div>
+            <DaysMenuItem (Selected)="OnDaySelect($event)" [day]="4"/>
+            <div class="border-r border-[#111111]"></div>
+            <DaysMenuItem (Selected)="OnDaySelect($event)" [day]="5"/>
+            <div class="border-r border-[#111111]"></div>
+            <DaysMenuItem (Selected)="OnDaySelect($event)" [day]="6"/>
+        </div>
+        <OpeningHoursInput [hours]="openingHours" [day]="selectedDay"/>
+        <div class="mt-4 flex w-full">
+            <div class="w-full flex justify-center">
+                <MainButton [OnClick]="Save.bind(this)" 
+                    [disabled]="input !== undefined ? (!input.touched() || input.sectionsPerDayCount > input.maxTimeSectionsPerDay) : true">
+                    Save
+                </MainButton>
+            </div>
+            <div class="w-full flex justify-center">
+                <SecondaryButton [OnClick]="ClearHoursInput.bind(this)">
+                    Clear
+                </SecondaryButton>
+            </div>
+            <div class="w-full flex justify-center">
+                <SecondaryButton [OnClick]="GoToBusiness.bind(this)">
+                    Cancel
+                </SecondaryButton>
+            </div>
+        </div>
+    </div>
+</div>

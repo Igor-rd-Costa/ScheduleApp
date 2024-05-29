@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { Icon } from '../Icon/Icon.component';
+import { Icon, IconType } from '../Icon/Icon.component';
 
 @Component({
   selector: 'EditCard',
@@ -9,6 +9,7 @@ import { Icon } from '../Icon/Icon.component';
 })
 export class EditCard {
   @ViewChild('content') content! : ElementRef<HTMLElement>;
+  @Input() icon : IconType | null = null;
   @Input() header : string = "";
   @Input() OnEdit : () => void = () => {};
   protected minimized = false;

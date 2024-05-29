@@ -10,7 +10,6 @@ namespace ScheduleAppBackend.Models
     public class BusinessHours
     {
         public int Id { get; set; }
-        [JsonIgnore]
         public int BusinessId { get; set; }
         public DayOfWeek Day {  get; set; }
         public ushort IntervalStart { get; set; }

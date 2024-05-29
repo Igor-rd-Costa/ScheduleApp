@@ -1,0 +1,17 @@
+<section class="grid w-full h-full grid-rows-[1fr_1.9rem] relative min-w-[4rem]">
+    <div (click)="Click()" class="h-full w-full hover:bg-golden border-r-[1px] border-r-[#111111] hover:border-r-0 hover:shadow-[2px_2px_2px_0px_#DDB06C] hover:z-[3] cursor-pointer" 
+    [style]="selected ? {backgroundColor: '#B58844', boxShadow: '2px 2px 2px 0px #DDB06C', zIndex: '3', borderRightWidth: '0px'} : {}" 
+    #element>
+
+    </div>
+    <div class="flex border-t w-full border-[#111111] w-full h-full bg-[#222222]  text-[12px]" #ruler>
+        <div class="h-full flex flex-col justify-end text-goldenDark pr-1 pb-3 relative">
+            @if (showMark) {
+                <div class="absolute border-r border-[#111111] h-[1rem] w-fit top-0 left-[-0.5px]"></div>
+            }
+            <span class="pl-1">
+                {{time}}
+            </span>
+        </div>     
+    </div>        
+</section>

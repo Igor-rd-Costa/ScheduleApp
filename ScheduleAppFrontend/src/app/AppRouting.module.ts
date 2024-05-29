@@ -9,6 +9,7 @@ import { AuthGuard } from './Services/AuthGuard';
 import { Businesses } from './Pages/Businesses/Businesses.component';
 import { Business } from './Pages/Business/Business.component';
 import { EditServices } from './Pages/Edit/EditServices/EditServices.component';
+import { EditHours } from './Pages/Edit/EditHours/EditHours.component';
 
 const routes: Routes = [
   {
@@ -60,8 +61,13 @@ const routes: Routes = [
         path: 'services',
         component: EditServices,
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'hours',
+        component: EditHours,
+        canActivate: [AuthGuard]
       }
-    ]
+    ],
   }
 ];
 

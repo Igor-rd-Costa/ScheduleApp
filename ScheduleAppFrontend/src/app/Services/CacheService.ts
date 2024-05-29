@@ -4,6 +4,7 @@ import { Business } from "./BusinessService";
 import { BusinessCategory, BusinessService } from "./ServicesService";
 import { User } from "./AuthService";
 import { CacheTable } from "../Utils/CacheTable";
+import { BusinessHours } from "./BusinessHoursService";
 
 /* TODO: 
     Add indexes to tables
@@ -20,6 +21,7 @@ export default class CacheService {
     private static cacheDB : IDBDatabase | null = null;
     private businesses : CacheTable<Business> | null = null;
     private categories : CacheTable<BusinessCategory> | null = null;
+    private businessHours : CacheTable<BusinessHours> | null = null;
     private services : CacheTable<BusinessService> | null = null;
     private loggedUser :DataCache<User> = new DataCache<User>("LoggedUser");
     private loggedBusiness : DataCache<Business> = new DataCache<Business>('LoggedBusiness');
@@ -38,6 +40,7 @@ export default class CacheService {
             this.businesses = new CacheTable<Business>("Businesses");
             this.services = new CacheTable<BusinessService>("BusinessesServices");
             this.categories = new CacheTable<BusinessCategory>("BusinessesCategories");
+            this.businessHours = new CacheTable<BusinessHours>("BusinessesHours");
         }
     }
 
@@ -158,7 +161,35 @@ export default class CacheService {
     }
 
 
+    public async BusinessesHours() {
+        return await this.businessHours?.All() ?? [];
+    }
 
+    public async BusinessHoursWhere(compFn : (val : BusinessHours) => boolean) {
+        const businessHours = await this.BusinessesHours();
+        let results : BusinessHours[] = [];
+        businessHours.forEach(bh => {
+            if (compFn(bh))
+                results.push(bh);
+        });
+        return results;
+    }
+
+    public async AddBusinessHour(hour : BusinessHours) {
+        return await this.businessHours?.Add(hour) ?? false;
+    }
+
+    public async AddBusinessHours(hours : BusinessHours[]) {
+        return await this.businessHours?.AddRange(hours) ?? false;
+    }
+
+    public async DeleteBusinessHours(hourIds : number[]) {
+        return await this.businessHours?.DeleteRange(hourIds) ?? false;
+    }
+
+    public async ClearBusinessesHours() {
+        return await this.businessHours?.Clear() ?? false;
+    }
 
     public GetLoggedUser() : User | null {
         return this.loggedUser.Get();
@@ -190,13 +221,9 @@ export default class CacheService {
         if (!db)
             return;
 
-        //Businesses setup
         db.createObjectStore("Businesses", { keyPath: 'id' });
-
-        //Services setup
         db.createObjectStore("BusinessesServices", {keyPath: 'id'});
-
-        //Categories setup
         db.createObjectStore("BusinessesCategories", {keyPath: 'id'});
+        db.createObjectStore("BusinessesHours", {keyPath: 'id'});
     }
 }

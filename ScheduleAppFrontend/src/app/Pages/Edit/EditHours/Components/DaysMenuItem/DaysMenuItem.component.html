@@ -1,0 +1,4 @@
+<div (click)="Click()" class="select-none flex relative items-center justify-center w-[3rem] h-[3rem] cursor-pointer uppercase bg-[#333333] text-[#DDDDDD]" 
+[style]="isSelected() ? {backgroundColor: '#B58844', color: 'black', boxShadow: '2px 2px 2px 0px #DDB06C'} : {}" #element>
+    {{GetDayString(day)}} 
+</div>

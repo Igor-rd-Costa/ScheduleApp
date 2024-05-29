@@ -1,3 +1,4 @@
+import { BusinessHours } from "../Services/BusinessHoursService";
 import CacheService from "../Services/CacheService";
 
 type DatabaseTransaction<T> = {
@@ -90,6 +91,16 @@ export class CacheTable<T> {
                 resolve(true);
             });
         });
+    }
+
+    async Where(compFunc : (val : T) => boolean) {
+        const all = await this.All();
+        let result : T[] = [];
+        all.forEach(val => {
+            if (compFunc(val))
+                result.push(val);
+        });
+        return result;
     }
 
     async Delete(id : number) : Promise<boolean> {

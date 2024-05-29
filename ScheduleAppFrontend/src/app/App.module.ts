@@ -12,6 +12,7 @@ import BusinessService from './Services/BusinessService';
 import { ServicesService } from './Services/ServicesService';
 import { PopUpMessageBox } from './Components/PopUpMessageBox/PopUpMessageBox.component';
 import CacheService from './Services/CacheService';
+import { BusinessHoursService } from './Services/BusinessHoursService';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import CacheService from './Services/CacheService';
   providers: [
     AuthService,
     RouteService,
+    BusinessHoursService,
     BusinessService,
     ServicesService,
     CacheService

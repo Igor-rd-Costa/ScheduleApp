@@ -66,5 +66,20 @@
                 }
             }
         </div>
+        <h2 class="grid grid-rows-1 items-center grid-cols-[auto_1fr_auto] text-goldenDark ml-4 text-[1.3rem] mb-[0.5rem] mr-4 mt-4">
+            <div class="justify-start w-fit">Opening Hours</div>
+            @if (allowEdit) {
+                <button class="col-start-3" (click)="GoToEditHours()">
+                    <Icon type="edit"/>
+                </button>
+            }
+        </h2>
+        <div>
+            <CardBase [cardIcons]="['schedule']">
+                <div class="pl-3 pt-2 w-[87%] h-full pb-2 text-[14px]">
+                    <OpeningHoursDisplay [hours]="openingHours"/>   
+                </div>
+            </CardBase>
+        </div>
     </div>
 }

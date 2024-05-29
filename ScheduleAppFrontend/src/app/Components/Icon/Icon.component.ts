@@ -1,7 +1,9 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 export type IconType =  'visibility' | 'cut' | 'schedule' | 'person' | 'work' | 'store' |
-                        'edit' | 'arrow_drop_down' | 'add' | 'delete' | 'search' | 'home';
+                        'edit' | 'arrow_drop_down' | 'add' | 'delete' | 'search' | 'home' | 
+                        'bedtime' | 'sunny' | 'partly_cloudy_day' | 'partly_cloudy_night' |
+                        'save' | 'transition_slide';
 
 @Component({
   selector: 'Icon',

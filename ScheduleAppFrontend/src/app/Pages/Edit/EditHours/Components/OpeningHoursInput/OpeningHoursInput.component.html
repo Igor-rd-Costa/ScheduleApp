@@ -1,0 +1,93 @@
+<div class="flex mt-2 pl-8 text-goldenDark">
+    <Icon size="26px" type="transition_slide"/> 
+    <div class="pl-1 flex gap-x-1">
+        <span [style]="sectionsPerDayCount > maxTimeSectionsPerDay ? {color: 'red'} : {}">
+            {{sectionsPerDayCount}}
+        </span>/
+        <span>{{maxTimeSectionsPerDay}}</span>
+    </div>
+</div>
+<div class="w-[95vw] text-goldenDark flex items-center gap-x-2 select-none">
+    <Icon type="bedtime"/>
+    <div class="bg-[#333333] rounded h-fit mt-4 shadow-[1px_1px_2px_0px_#111111] overflow-x-hidden *:overflow-x-hidden">
+        <div class="w-full h-[7rem] rounded select-none">
+            <div class="w-full h-full flex *:w-full overflow-x-scroll">
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="00:00" [showMark]="false" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="00:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="01:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="01:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="02:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="02:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="03:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="03:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="04:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="04:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="05:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="05:30" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="w-[95vw] text-goldenDark flex items-center gap-x-2 select-none">
+    <Icon type="partly_cloudy_day"/>
+    <div class="bg-[#333333] rounded h-fit mt-4 shadow-[1px_1px_2px_0px_#111111] overflow-x-hidden *:overflow-x-hidden">
+        <div class="w-full h-[7rem] rounded select-none">
+            <div class="w-full h-full flex *:w-full overflow-x-scroll">
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="06:00" [showMark]="false" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="06:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="07:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="07:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="08:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="08:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="09:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="09:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="10:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="10:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="11:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="11:30" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="w-[95vw] text-goldenDark flex items-center gap-x-2 select-none">
+    <Icon type="sunny"/>
+    <div class="bg-[#333333] rounded h-fit mt-4 shadow-[1px_1px_2px_0px_#111111] overflow-x-hidden *:overflow-x-hidden">
+        <div class="w-full h-[7rem] rounded select-none">
+            <div class="w-full h-full flex *:w-full overflow-x-scroll">
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="12:00" [showMark]="false" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="12:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="13:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="13:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="14:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="14:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="15:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="15:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="16:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="16:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="17:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="17:30" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="w-[95vw] text-goldenDark flex items-center gap-x-2 select-none">
+    <Icon type="partly_cloudy_night"/>
+    <div class="bg-[#333333] rounded h-fit mt-4 shadow-[1px_1px_2px_0px_#111111] overflow-x-hidden *:overflow-x-hidden">
+        <div class="w-full h-[7rem] rounded select-none">
+            <div class="w-full h-full flex *:w-full overflow-x-scroll">
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="18:00" [showMark]="false" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="18:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="19:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="19:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="20:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="20:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="21:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="21:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="22:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="22:30" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="23:00" />
+                <OpeningHoursInputSection (SelectionChange)="OnSectionSelectionChange($event)" time="23:30" />
+            </div>
+        </div>
+    </div>
+</div>
