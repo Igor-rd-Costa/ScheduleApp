@@ -3,6 +3,7 @@ import { OpeningHoursInputSection } from './OpeningHoursInputSection/OpeningHour
 import { Icon } from 'src/app/Components/Icon/Icon.component';
 import { BusinessHourUpdateInfo, BusinessHours, BusinessHoursService } from 'src/app/Services/BusinessHoursService';
 import { WeekDay } from '@angular/common';
+import { Time } from 'src/app/Utils/Time';
 
 @Component({
   selector: 'OpeningHoursInput',
@@ -30,13 +31,9 @@ export class OpeningHoursInput implements AfterViewInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const dayChange = changes['day'];
     if (changes['hours']) {
-      this.oldHours.set(WeekDay.Sunday, this.hours.filter(h => h.day === WeekDay.Sunday));
-      this.oldHours.set(WeekDay.Monday, this.hours.filter(h => h.day === WeekDay.Monday));
-      this.oldHours.set(WeekDay.Tuesday, this.hours.filter(h => h.day === WeekDay.Tuesday));
-      this.oldHours.set(WeekDay.Wednesday, this.hours.filter(h => h.day === WeekDay.Wednesday));
-      this.oldHours.set(WeekDay.Thursday, this.hours.filter(h => h.day === WeekDay.Thursday));
-      this.oldHours.set(WeekDay.Friday, this.hours.filter(h => h.day === WeekDay.Friday));
-      this.oldHours.set(WeekDay.Saturday, this.hours.filter(h => h.day === WeekDay.Saturday));
+      for (let day = WeekDay.Sunday; day <= WeekDay.Saturday; day++) {
+        this.oldHours.set(day, this.hours.filter(h => h.day === day));
+      }
       this.newHours = new Map<WeekDay, BusinessHourUpdateInfo[]>();
       this.oldHours.forEach((hours, key) => {
         let array : BusinessHourUpdateInfo[] = [];
@@ -90,19 +87,19 @@ export class OpeningHoursInput implements AfterViewInit, OnChanges {
     for (let i = 0; i < this.sections.length; i++) {
       const s = this.sections.get(i)!;
       if (s.selected && !isInsideSelection) {
-        currentSelection = {id: -1, day: this.day, intervalStart: this.businessHoursService.TimeStringToTime(s.time), intervalEnd: -1 };
+        currentSelection = {id: -1, day: this.day, intervalStart: Time.HourFromString(s.time), intervalEnd: -1 };
         isInsideSelection = true;
       }
       if (!s.selected && isInsideSelection) {
         if (currentSelection) {
-          currentSelection.intervalEnd = this.businessHoursService.TimeStringToTime(s.time);
+          currentSelection.intervalEnd = Time.HourFromString(s.time);
           timeSections.push(currentSelection);
         }
         isInsideSelection = false;
       }
     }
     if (isInsideSelection && currentSelection) {
-      currentSelection.intervalEnd = this.businessHoursService.TimeStringToTime(this.sections.first.time);
+      currentSelection.intervalEnd = Time.HourFromString(this.sections.first.time);
       timeSections.push(currentSelection);
     }
     const newSections : BusinessHourUpdateInfo[] = [];
@@ -215,7 +212,7 @@ export class OpeningHoursInput implements AfterViewInit, OnChanges {
         if (!section) {
           continue;
         }
-        let time = this.businessHoursService.TimeStringToTime(section.time);
+        let time = Time.HourFromString(section.time);
         if (time === hour.intervalStart) {
           section.SilentSelect();
           while (time !== hour.intervalEnd) {
@@ -228,7 +225,7 @@ export class OpeningHoursInput implements AfterViewInit, OnChanges {
             section = this.sections.get(j);
             if (!section)
               break;
-            time = this.businessHoursService.TimeStringToTime(section.time);
+            time = Time.HourFromString(section.time);
             if (time === hour.intervalEnd) {
               gotToEnd = true;
             }

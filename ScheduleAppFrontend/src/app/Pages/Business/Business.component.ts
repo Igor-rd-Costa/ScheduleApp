@@ -1,5 +1,5 @@
 import { WeekDay } from '@angular/common';
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BusinessServiceCard } from 'src/app/Components/BusinessServiceCard/BusinessServiceCard.component';
@@ -21,8 +21,8 @@ import { ServicesService, BusinessService as BusinessServiceInfo } from 'src/app
   templateUrl: './Business.component.html',
 })
 export class Business implements AfterViewChecked, AfterViewInit {
-  @ViewChild('servicesWrapper') servicesWrapper! : ElementRef<HTMLElement>;
-  allowEdit = true;
+  @ViewChildren('card') wrappers! : QueryList<ElementRef<HTMLElement>>;
+  allowEdit = true; 
   businessSetupForm = new FormGroup({
     Name: new FormControl("", {validators: [Validators.required]}),
     Description: new FormControl("")
@@ -83,21 +83,25 @@ export class Business implements AfterViewChecked, AfterViewInit {
   }
 
   ngAfterViewChecked(): void {
-    if (this.servicesWrapper === undefined)
+    if (this.wrappers === undefined) {
       return;
-      const wrapper = this.servicesWrapper.nativeElement;
-      let width = parseFloat(getComputedStyle(wrapper).width);
-      let count = 0;
-      while(width > (5 * 16)) {
-        width -= (5 * 16);
-        count++;
+    }
+
+      for (let i = 0; i < this.wrappers.length; i++) {
+        const wrapper = this.wrappers.get(i)!.nativeElement;
+        let width = parseFloat(getComputedStyle(wrapper).width);
+        let count = 0;
+        while(width > (5 * 16)) {
+          width -= (5 * 16);
+          count++;
+        }
+        wrapper.style.paddingLeft = width / count + "px";
+        wrapper.style.paddingRight = width / count + "px";
+        wrapper.style.columnGap = width / count + '';
       }
-      wrapper.style.paddingLeft = width / count + "px";
-      wrapper.style.paddingRight = width / count + "px";
-      wrapper.style.columnGap = width / count + '';
   }
 
-  GetServicesInCategory(id : number) : BusinessServiceInfo[] {
+  GetServicesInCategory(id : number | null) : BusinessServiceInfo[] {
     let servicesInCategory : BusinessServiceInfo[] = [];
     if (!this.businessInfo)
       return servicesInCategory;
@@ -107,6 +111,17 @@ export class Business implements AfterViewChecked, AfterViewInit {
         servicesInCategory.push(service);
     })
     return servicesInCategory;
+  }
+
+  HasServiceWithNoCategory() : boolean {
+    if (!this.businessInfo.services)
+      return false;
+
+    for (let i = 0; i < this.businessInfo.services.length; i++) {
+      if (this.businessInfo.services[i].categoryId === null)
+        return true;
+    }
+    return false;
   }
 
 

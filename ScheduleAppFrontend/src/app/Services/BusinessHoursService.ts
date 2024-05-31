@@ -153,33 +153,11 @@ export class BusinessHoursService {
     });
   }
 
-
-  public TimeToString(time : number) {
-    const hours = time >> 8;
-    const minutes = time & 0b11111111;
-    return `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
-  }
-
-  public TimeStringToTime(time : string) {
-    if (time.length !== 5 || (time[2] && time[2] !== ':'))
-        return 0;
-
-    const ts = time.split(':');
-    const hours = parseInt(ts[0]);
-    const minutes = parseInt(ts[1]);
-
-    return ((hours << 8) + minutes);
-  }
-
   private SortHoursByDay(hours : BusinessHours[]) : Map<WeekDay, BusinessHours[]> {
     const map = new Map<WeekDay, BusinessHours[]>();
-    map.set(WeekDay.Sunday, hours.filter(h => h.day === WeekDay.Sunday));
-    map.set(WeekDay.Monday, hours.filter(h => h.day === WeekDay.Monday));
-    map.set(WeekDay.Tuesday, hours.filter(h => h.day === WeekDay.Tuesday));
-    map.set(WeekDay.Wednesday, hours.filter(h => h.day === WeekDay.Wednesday));
-    map.set(WeekDay.Thursday, hours.filter(h => h.day === WeekDay.Thursday));
-    map.set(WeekDay.Friday, hours.filter(h => h.day === WeekDay.Friday));
-    map.set(WeekDay.Saturday, hours.filter(h => h.day === WeekDay.Saturday));
+    for (let day = WeekDay.Sunday; day <= WeekDay.Saturday; day++) {
+      map.set(day, hours.filter(h => h.day === day));  
+    }
     return map;
   }
 }
