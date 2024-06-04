@@ -1,0 +1,6 @@
+<div (click)="OnClick()" [style]="selected() ? {backgroundColor: '#B58844', color: '#000000', boxShadow: '2px 2px 2px 0px #DDB06C'} 
+    : {backgroundColor: '#333333', color: '#DDDDDD', boxShadow: '1px 1px 2px 0px #111111'}" 
+    class="text-[#000000] cursor-pointer h-[4rem] w-[4rem] flex flex-col rounded items-center justify-center">
+    <div class="uppercase">{{Time.WeekDayToString(date.getDay()).substring(0, 3)}}</div>
+    <div>{{MakeDate()}}</div>
+</div>

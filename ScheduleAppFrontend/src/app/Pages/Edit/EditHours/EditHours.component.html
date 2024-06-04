@@ -1,8 +1,15 @@
 
 <div class="grid justify-items-center gap-y-4 pt-4 w-screen overflow-hidden">
-    <Heading>
-        Edit Opening Hours
-    </Heading>
+    <div class="grid grid-cols-[auto_1fr] w-full items-center justify-items-center">
+        <div (click)="GoBack()" class="text-[#DDDDDD] hover:text-white cursor-pointer col-start-1 row-start-1 pl-2">
+            <Icon size="2.5rem" type="keyboard_arrow_left"/>
+        </div>
+        <div class="col-start-1 row-start-1 col-span-2">
+            <Heading>
+                Edit Opening Hours
+            </Heading>
+        </div>
+    </div>        
     <div class="flex flex-col items-center justify-center w-fit pb-4">
         <div class="flex rounded shadow-[1px_1px_2px_0px_#111111]">
             <DaysMenuItem (Selected)="OnDaySelect($event)" [day]="0"/>
@@ -30,11 +37,6 @@
             <div class="w-full flex justify-center">
                 <SecondaryButton [OnClick]="ClearHoursInput.bind(this)">
                     Clear
-                </SecondaryButton>
-            </div>
-            <div class="w-full flex justify-center">
-                <SecondaryButton [OnClick]="GoToBusiness.bind(this)">
-                    Cancel
                 </SecondaryButton>
             </div>
         </div>

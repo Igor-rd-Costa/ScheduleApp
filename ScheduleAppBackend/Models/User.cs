@@ -10,7 +10,9 @@ namespace ScheduleAppBackend.Models
     [PrimaryKey("Id")]
     public class User
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Column(TypeName = "uuid")]
+        public Guid Id { get; set; }
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
         [MaxLength(320)]

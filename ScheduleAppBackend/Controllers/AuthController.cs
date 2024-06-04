@@ -45,7 +45,11 @@ namespace ScheduleAppBackend.Controllers
             Business? business = m_Context.Businesses.Where(b => b.OwnerId == user.Id).FirstOrDefault();
             var result = await m_SignInManager.PasswordSignInAsync(user, info.Password, false, false);
             if (result.Succeeded)
-                return Ok(new LoginResult() { User = user, Business = business});
+                return Ok(new LoginResult()
+                {
+                    User = user,
+                    Business = business
+                });
             return Unauthorized();
         }
 
@@ -69,6 +73,7 @@ namespace ScheduleAppBackend.Controllers
             }
             User user = new User()
             {
+                Id = Guid.NewGuid(),
                 FirstName = info.FirstName,
                 LastName = info.LastName,
                 Email = info.Email,
@@ -90,6 +95,7 @@ namespace ScheduleAppBackend.Controllers
         [HttpGet("is-logged")]
         public IActionResult IsLogged()
         {
+            int a = new Random().Next();
             bool isLogged = m_SignInManager.IsSignedIn(User);
              if (isLogged)
                 return Ok(true);

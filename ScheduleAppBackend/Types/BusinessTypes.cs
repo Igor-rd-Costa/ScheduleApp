@@ -1,8 +1,10 @@
-﻿namespace ScheduleAppBackend.Types
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ScheduleAppBackend.Types
 {
-    public class CachedDataInfo
+    public class CachedDataInfo<T>
     {
-        public int Id { get; set; }
+        public T Id { get; set; }
         public DateTime LastEditDate { get; set; }
     }
 

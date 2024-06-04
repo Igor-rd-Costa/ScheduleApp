@@ -3,7 +3,8 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 export type IconType =  'visibility' | 'cut' | 'schedule' | 'person' | 'work' | 'store' |
                         'edit' | 'arrow_drop_down' | 'add' | 'delete' | 'search' | 'home' | 
                         'bedtime' | 'sunny' | 'partly_cloudy_day' | 'partly_cloudy_night' |
-                        'save' | 'transition_slide';
+                        'save' | 'transition_slide' | 'keyboard_arrow_left' | 'keyboard_arrow_right' |
+                        'keyboard_arrow_up' | 'keyboard_arrow_down' | 'location_on' | 'payments';
 
 @Component({
   selector: 'Icon',

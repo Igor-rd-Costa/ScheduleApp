@@ -8,7 +8,7 @@ import { BusinessHourUpdateInfo, BusinessHours, BusinessHoursService } from 'src
 import { OpeningHoursDisplay } from '../OpeningHoursDisplay/OpeningHoursDisplay.component';
 
 export enum MessageType {
-  INFO, ERROR
+  INFO, ERROR, SUCCESS
 }
 
 enum MessageBoxType {

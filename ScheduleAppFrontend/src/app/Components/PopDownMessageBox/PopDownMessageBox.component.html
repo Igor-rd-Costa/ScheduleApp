@@ -1,0 +1,17 @@
+<div (click)="OnClick()" [style]="{display: visible() ? 'block' : 'none'}" class="w-[90%] cursor-pointer z-10 absolute left-2/4 translate-x-[-50%] 
+top-[-10%] border rounded border-[#DDB06C] shadow shadow-golden" #messageBox>
+    <div class="relative h-fit min-h-[8rem] rounded text-[#DDDDDD] font-arial grid grid-cols-[4rem_1fr_4rem] grid-rows-[2rem_0.5rem_1fr] bg-[#333333] shadow-[2px_2px_5px_1px_#11111155] overflow-x-hidden">
+        <div class="col-start-2 row-start-2">
+            <div class="grid gap-y-4 pl-2 pb-2 justify-center">    
+                <div class="min-h-[1rem] text-[1rem]" [style]="{color: GetTextColor()}">
+                    {{message()}}
+                </div>
+            </div>
+        </div>
+        <div class="z-[2] absolute top-0 left-0 w-[4rem] h-[4rem] border-b border-r border-[#DDB06C] rounded-br-[5rem] shadow-[1px_1px_2px_1px] shadow-golden"></div>
+        <div class="z-[2] absolute top-0 left-0 w-[2.5rem] h-[2.5rem] border-b border-r border-[#DDB06C] rounded-br-[5rem] shadow-[1px_1px_2px_1px] shadow-golden"></div>
+        
+        <div class="z-[2] absolute bottom-0 right-0 w-[4rem] h-[4rem] border-t border-l border-[#DDB06C] rounded-tl-[5rem] shadow-[-1px_-1px_2px_1px] shadow-golden"></div>
+        <div class="z-[2] absolute bottom-0 right-0 w-[2.5rem] h-[2.5rem] border-t border-l border-[#DDB06C] rounded-tl-[5rem] shadow-[-1px_-1px_2px_1px] shadow-golden"></div>
+    </div>
+</div>

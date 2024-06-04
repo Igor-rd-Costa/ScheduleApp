@@ -12,8 +12,8 @@ using ScheduleAppBackend.Context;
 namespace ScheduleAppBackend.Migrations
 {
     [DbContext(typeof(ScheduleAppContext))]
-    [Migration("20240523030137_AddLastEditDate")]
-    partial class AddLastEditDate
+    [Migration("20240601224230_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,13 +27,10 @@ namespace ScheduleAppBackend.Migrations
 
             modelBuilder.Entity("ScheduleAppBackend.Models.Business", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CustomUrl")
+                    b.Property<string>("BusinessUrl")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("character varying(60)");
@@ -50,8 +47,8 @@ namespace ScheduleAppBackend.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -63,13 +60,10 @@ namespace ScheduleAppBackend.Migrations
             modelBuilder.Entity("ScheduleAppBackend.Models.BusinessHours", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BusinessId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("BusinessId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Day")
                         .HasColumnType("integer");
@@ -83,7 +77,7 @@ namespace ScheduleAppBackend.Migrations
                     b.Property<DateTime>("LastEditDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id", "BusinessId");
 
                     b.HasIndex("BusinessId");
 
@@ -93,13 +87,10 @@ namespace ScheduleAppBackend.Migrations
             modelBuilder.Entity("ScheduleAppBackend.Models.BusinessService", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BusinessId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("BusinessId")
+                        .HasColumnType("uuid");
 
                     b.Property<int?>("CategoryId")
                         .HasColumnType("integer");
@@ -122,11 +113,11 @@ namespace ScheduleAppBackend.Migrations
                     b.Property<decimal?>("Price")
                         .HasColumnType("numeric");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id", "BusinessId");
 
                     b.HasIndex("BusinessId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryId", "BusinessId");
 
                     b.ToTable("BusinessesServices");
                 });
@@ -134,13 +125,10 @@ namespace ScheduleAppBackend.Migrations
             modelBuilder.Entity("ScheduleAppBackend.Models.BusinessServiceCategory", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BusinessId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("BusinessId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("LastEditDate")
                         .HasColumnType("timestamp with time zone");
@@ -149,7 +137,7 @@ namespace ScheduleAppBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id", "BusinessId");
 
                     b.HasIndex("BusinessId");
 
@@ -158,11 +146,8 @@ namespace ScheduleAppBackend.Migrations
 
             modelBuilder.Entity("ScheduleAppBackend.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -184,6 +169,10 @@ namespace ScheduleAppBackend.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProfileUrl")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -224,7 +213,7 @@ namespace ScheduleAppBackend.Migrations
 
                     b.HasOne("ScheduleAppBackend.Models.BusinessServiceCategory", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId", "BusinessId");
 
                     b.Navigation("Business");
 

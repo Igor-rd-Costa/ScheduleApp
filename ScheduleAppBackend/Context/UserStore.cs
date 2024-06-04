@@ -49,7 +49,7 @@ namespace ScheduleAppBackend.Context
         {
             return Task.Factory.StartNew(() =>
             {
-                return m_Context.Users.Where(user => user.Id == int.Parse(userId)).FirstOrDefault();
+                return m_Context.Users.Where(user => user.Id == Guid.Parse(userId)).FirstOrDefault();
             });
         }
 

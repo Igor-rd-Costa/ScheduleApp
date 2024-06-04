@@ -1,5 +1,21 @@
-﻿namespace ScheduleAppBackend.Types
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace ScheduleAppBackend.Types
 {
+    public class BusinessServiceData
+    {
+        public int Id { get; set; }
+        public string BusinessId { get; set; }
+        public int? CategoryId { get; set; }
+        public string Name { get; set; } = "";
+        [MaxLength(300)]
+        public string Description { get; set; } = "";
+        public decimal? Price { get; set; }
+        public ushort Duration { get; set; }
+        public DateTime LastEditDate { get; set; }
+    }
+
     public class CreationResult
     {
         public int Id { get; set; }

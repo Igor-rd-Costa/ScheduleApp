@@ -5,7 +5,7 @@ import CacheService from "./CacheService";
 import { Business } from "./BusinessService";
 
 export type User = {
-    id: number,
+    id: string,
     firstName : string,
     lastName : string,
     email : string,
@@ -111,7 +111,7 @@ export default class AuthService {
                 error: err => {
                     console.error(err);
                     resolve({
-                        id: -1,
+                        id: "-1",
                         firstName: "",
                         lastName: "",
                         email: "",

@@ -1,12 +1,23 @@
-<CardBase [cardIcons]="[appointmentIcon]" [heading]="appointmentName">
-    <div>
+<CardBase [cardIcons]="[serviceIcon]" [heading]="serviceName">
+    <div class="grid gap-y-1 pb-2 relative">
         <div class="flex pl-2 items-center">
-            <Icon size="1rem" type="work"/>
+            <Icon size="1.4rem" type="work"/>
             <div class="pl-1">{{businessName}}</div>
         </div>
         <div class="flex pl-2 items-center">
-            <Icon size="1rem" type="schedule"/>
-            <div class="pl-1">{{appointmentTime}}</div>
+            <Icon size="1.4rem" type="person"/>
+            <div class="pl-1">{{employeeName}}</div>
+        </div>
+        <div class="flex pl-2 items-center">
+            <Icon size="1.4rem" type="schedule"/>
+            <div class="pl-1">{{FormatTime()}}</div>
+        </div>
+        <div class="flex pl-2 items-center">
+            <Icon size="1.4rem" type="schedule"/>
+            <div class="pl-1">{{Time.HourToString(serviceDuration)}}</div>
+        </div>
+        <div class="h-[2rem] flex items-center absolute top-[-2.5rem] right-0 pr-4">
+            {{servicePrice !== null ? "R$"+servicePrice.toFixed(2).replace('.', ',') : "0,00"}}
         </div>
     </div>
 </CardBase>

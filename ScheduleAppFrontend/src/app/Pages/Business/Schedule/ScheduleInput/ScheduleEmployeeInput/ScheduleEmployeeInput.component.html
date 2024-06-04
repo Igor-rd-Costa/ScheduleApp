@@ -1,0 +1,11 @@
+<div class="grid grid-cols-[auto_1fr_auto] h-[7.5rem] items-center w-screen select-none">
+    <Icon size="2.2rem" type="keyboard_arrow_left" #arrowLeft/>
+    <div class="w-full h-full overflow-x-hidden">
+        <div class="w-full h-[7.5rem] flex gap-x-2 overflow-x-scroll" #employeesWrapper>
+            @for (employee of businessEmployees; track employee.id) {
+                <EmployeeCard [employee]="employee" (Selected)="OnEmployeeSelect($event)"/>
+            }
+        </div>
+    </div>
+    <Icon size="2.2rem" type="keyboard_arrow_right" #arrowRight/>
+</div>

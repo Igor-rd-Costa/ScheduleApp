@@ -1,8 +1,10 @@
 ﻿using ScheduleAppBackend.Models;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ScheduleAppBackend.Types
 {
-
     public class LoginResult
     {
         public User User { get; set; }

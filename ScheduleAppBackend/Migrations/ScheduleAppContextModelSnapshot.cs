@@ -22,15 +22,45 @@ namespace ScheduleAppBackend.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ScheduleAppBackend.Models.Business", b =>
+            modelBuilder.Entity("ScheduleAppBackend.Models.Appointment", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("BusinessId")
+                        .HasColumnType("uuid");
 
-                    b.Property<string>("CustomUrl")
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id", "BusinessId", "ClientId");
+
+                    b.HasIndex("BusinessId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ServiceId", "BusinessId");
+
+                    b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("ScheduleAppBackend.Models.Business", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("BusinessUrl")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("character varying(60)");
@@ -47,8 +77,8 @@ namespace ScheduleAppBackend.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -57,16 +87,59 @@ namespace ScheduleAppBackend.Migrations
                     b.ToTable("Businesses");
                 });
 
+            modelBuilder.Entity("ScheduleAppBackend.Models.BusinessEmployee", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BusinessId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id", "EmployeeId");
+
+                    b.HasIndex("BusinessId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("BusinessEmployees");
+                });
+
+            modelBuilder.Entity("ScheduleAppBackend.Models.BusinessEmployeeHours", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BusinessId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("EndTime")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("StartTime")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id", "EmployeeId");
+
+                    b.HasIndex("BusinessId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("BusinessEmployeesHours");
+                });
+
             modelBuilder.Entity("ScheduleAppBackend.Models.BusinessHours", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BusinessId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("BusinessId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Day")
                         .HasColumnType("integer");
@@ -80,7 +153,7 @@ namespace ScheduleAppBackend.Migrations
                     b.Property<DateTime>("LastEditDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id", "BusinessId");
 
                     b.HasIndex("BusinessId");
 
@@ -90,13 +163,10 @@ namespace ScheduleAppBackend.Migrations
             modelBuilder.Entity("ScheduleAppBackend.Models.BusinessService", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BusinessId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("BusinessId")
+                        .HasColumnType("uuid");
 
                     b.Property<int?>("CategoryId")
                         .HasColumnType("integer");
@@ -119,11 +189,11 @@ namespace ScheduleAppBackend.Migrations
                     b.Property<decimal?>("Price")
                         .HasColumnType("numeric");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id", "BusinessId");
 
                     b.HasIndex("BusinessId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryId", "BusinessId");
 
                     b.ToTable("BusinessesServices");
                 });
@@ -131,13 +201,10 @@ namespace ScheduleAppBackend.Migrations
             modelBuilder.Entity("ScheduleAppBackend.Models.BusinessServiceCategory", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BusinessId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("BusinessId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("LastEditDate")
                         .HasColumnType("timestamp with time zone");
@@ -146,7 +213,7 @@ namespace ScheduleAppBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id", "BusinessId");
 
                     b.HasIndex("BusinessId");
 
@@ -155,11 +222,8 @@ namespace ScheduleAppBackend.Migrations
 
             modelBuilder.Entity("ScheduleAppBackend.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -193,6 +257,41 @@ namespace ScheduleAppBackend.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ScheduleAppBackend.Models.Appointment", b =>
+                {
+                    b.HasOne("ScheduleAppBackend.Models.Business", "Business")
+                        .WithMany()
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScheduleAppBackend.Models.User", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScheduleAppBackend.Models.User", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScheduleAppBackend.Models.BusinessService", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId", "BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Service");
+                });
+
             modelBuilder.Entity("ScheduleAppBackend.Models.Business", b =>
                 {
                     b.HasOne("ScheduleAppBackend.Models.User", "User")
@@ -202,6 +301,44 @@ namespace ScheduleAppBackend.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ScheduleAppBackend.Models.BusinessEmployee", b =>
+                {
+                    b.HasOne("ScheduleAppBackend.Models.Business", "Business")
+                        .WithMany()
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScheduleAppBackend.Models.User", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("ScheduleAppBackend.Models.BusinessEmployeeHours", b =>
+                {
+                    b.HasOne("ScheduleAppBackend.Models.Business", "Business")
+                        .WithMany()
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScheduleAppBackend.Models.User", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("ScheduleAppBackend.Models.BusinessHours", b =>
@@ -225,7 +362,7 @@ namespace ScheduleAppBackend.Migrations
 
                     b.HasOne("ScheduleAppBackend.Models.BusinessServiceCategory", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId", "BusinessId");
 
                     b.Navigation("Business");
 

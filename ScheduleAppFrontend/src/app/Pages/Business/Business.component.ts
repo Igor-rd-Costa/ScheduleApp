@@ -101,6 +101,11 @@ export class Business implements AfterViewChecked, AfterViewInit {
       }
   }
 
+  OnServiceClick(serviceId : number) {
+    const route = this.router.url.split('/');
+    this.router.navigate([...route, 'schedule', serviceId]);
+  }
+
   GetServicesInCategory(id : number | null) : BusinessServiceInfo[] {
     let servicesInCategory : BusinessServiceInfo[] = [];
     if (!this.businessInfo)
@@ -132,9 +137,11 @@ export class Business implements AfterViewChecked, AfterViewInit {
       this.businessSetupForm.controls.Description.value ?? ""
     ).then(result => {
       if (result != null) {
-        this.businessInfo = result;
-        if (result.business != null)
-          this.cache.AddBusiness(result.business);
+        this.businessInfo = {
+          business: result,
+          categories: [],
+          services: []
+        };
       }
     });
   }

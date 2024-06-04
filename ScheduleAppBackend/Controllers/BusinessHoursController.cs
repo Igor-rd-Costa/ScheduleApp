@@ -39,23 +39,23 @@ namespace ScheduleAppBackend.Controllers
             }
             else
             {
-                int businessId = -1;
-                if (!int.TryParse(id, out businessId))
+                Guid businessId = Guid.Empty;
+                if (!Guid.TryParse(id, out businessId))
                     return BadRequest();
 
-                business = m_Context.Businesses.Where(b => b.Id == int.Parse(id)).FirstOrDefault();
+                business = m_Context.Businesses.Where(b => b.Id == businessId).FirstOrDefault();
             }
             if (business == null)
                 return BadRequest();
 
-            Cache cache = HelperFunctions.ParseCacheStringArray(cacheString);
-            List<CachedDataInfo> cachedData = m_Context.BusinessesHours.Select(bh =>
-                new CachedDataInfo() { Id = bh.Id, LastEditDate = bh.LastEditDate }
+            Cache<int> cache = HelperFunctions.ParseIntCacheStringArray(cacheString);
+            List<CachedDataInfo<int>> cachedData = m_Context.BusinessesHours.Select(bh =>
+                new CachedDataInfo<int>() { Id = bh.Id, LastEditDate = bh.LastEditDate }
             ).Where(cdi => 
                 cache.CachedIds.Contains(cdi.Id)
             ).ToList();
             cache.CachedIds.Clear();
-            foreach(CachedDataInfo cachedDataInfo in cachedData)
+            foreach(CachedDataInfo<int> cachedDataInfo in cachedData)
             {
                 if (cache.CachedDates[cachedDataInfo.Id] >= cachedDataInfo.LastEditDate)
                     cache.CachedIds.Add(cachedDataInfo.Id);
@@ -103,20 +103,14 @@ namespace ScheduleAppBackend.Controllers
             }
             List<BusinessHours> newHours = businessHoursUpdateInfo.CreateInfo.Select(bhci => new BusinessHours()
             {
+                Id = new Random().Next(),
                 BusinessId = business.Id,
                 Day = bhci.Day,
                 IntervalStart = bhci.IntervalStart,
                 IntervalEnd = bhci.IntervalEnd,
                 LastEditDate = lastEditTime
             }).ToList();
-            foreach (BusinessHours hour in newHours)
-            {
-                Console.WriteLine($"{{ {hour.IntervalStart} - {hour.IntervalEnd} }}");
-            }
             m_Context.BusinessesHours.AddRange(newHours);
-
-            Console.WriteLine($"Added: {newHours.Count}, Updated: {toUpdate.Count}, Deleted: {toDelete.Count}");
-
             m_Context.SaveChanges();
             return Ok(newHours);
         }

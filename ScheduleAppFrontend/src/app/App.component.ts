@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import AuthService from './Services/AuthService';
 import { PopUpMessageBox } from './Components/PopUpMessageBox/PopUpMessageBox.component';
+import { PopDownMessageBox } from './Components/PopDownMessageBox/PopDownMessageBox.component';
 
 
 @Component({
@@ -9,8 +10,10 @@ import { PopUpMessageBox } from './Components/PopUpMessageBox/PopUpMessageBox.co
 })
 export class App implements AfterViewInit {
   public static backendAddress = "http://localhost:5245/api/";
-  @ViewChild(PopUpMessageBox) messageBox! : PopUpMessageBox;
+  @ViewChild(PopUpMessageBox) popUpMessageBox! : PopUpMessageBox;
+  @ViewChild(PopDownMessageBox) popDownMessageBox! : PopDownMessageBox;
   public static PopUpMessageBox : PopUpMessageBox;
+  public static PopDownMessageBox : PopDownMessageBox;
   private static title = 'ScheduleAppFrontend';
   
   constructor(protected authService : AuthService) {}
@@ -38,7 +41,8 @@ export class App implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-      App.PopUpMessageBox = this.messageBox;
+      App.PopUpMessageBox = this.popUpMessageBox;
+      App.PopDownMessageBox = this.popDownMessageBox;
   }
 }
 

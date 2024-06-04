@@ -24,7 +24,29 @@ namespace ScheduleAppBackend.Controllers
         }
 
         [HttpGet]
-        async public Task<IActionResult> Get([FromQuery (Name = "businessId")] string? bId, [FromQuery(Name = "cache")] string cacheString)
+        async public Task<IActionResult> Get([FromQuery] int id, [FromQuery(Name = "businessId")] Guid bId, [FromQuery(Name = "cache")] string cacheString)
+        {
+            User? user = await m_UserManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            BusinessService? service = m_Context.BusinessesServices.Where(
+                bs => bs.Id == id && bs.BusinessId == bId
+            ).FirstOrDefault();
+            if (service == null)
+                return NotFound();
+
+            Cache<int> cache = HelperFunctions.ParseIntCacheStringObject(cacheString);
+            DateTime value;
+            if (cache.CachedDates.TryGetValue(id, out value) && value >= service.LastEditDate)
+            {
+                return Ok();
+            }
+            return Ok(service);
+        }
+
+        [HttpGet("all")]
+        async public Task<IActionResult> GetAll([FromQuery (Name = "businessId")] string? bId, [FromQuery(Name = "cache")] string cacheString)
         {
             Business? business = null;
             if (bId == null)
@@ -36,19 +58,19 @@ namespace ScheduleAppBackend.Controllers
             }
             else
             {
-                int businessId = int.Parse(bId);
+                Guid businessId = Guid.Parse(bId);
                 business = m_Context.Businesses.Where(b => b.Id == businessId).FirstOrDefault();
             }
             if (business == null)
                 return BadRequest();
 
-            Cache cache = HelperFunctions.ParseCacheStringArray(cacheString);
-            List<CachedDataInfo> cachedData = m_Context.BusinessesServices.Select(bs => new CachedDataInfo() { 
+            Cache<int> cache = HelperFunctions.ParseIntCacheStringArray(cacheString);
+            List<CachedDataInfo<int>> cachedData = m_Context.BusinessesServices.Select(bs => new CachedDataInfo<int>() { 
                 Id = bs.Id,
                 LastEditDate = bs.LastEditDate,
             }).Where(cdi => cache.CachedIds.Contains(cdi.Id)).ToList();
             cache.CachedIds.Clear();
-            foreach(CachedDataInfo cachedDataInfo in cachedData)
+            foreach(CachedDataInfo<int> cachedDataInfo in cachedData)
             {
                 if (cache.CachedDates[cachedDataInfo.Id] >= cachedDataInfo.LastEditDate)
                     cache.CachedIds.Add(cachedDataInfo.Id);
@@ -80,6 +102,7 @@ namespace ScheduleAppBackend.Controllers
             DateTime date = DateTime.UtcNow;
             BusinessService service = new()
             {
+                Id = new Random().Next(),
                 Name = info.Name,
                 BusinessId = business.Id,
                 CategoryId = info.CategoryId,
@@ -152,7 +175,6 @@ namespace ScheduleAppBackend.Controllers
             return BadRequest();
         }
 
-
         [HttpGet("category")]
         async public Task<IActionResult> GetCategories([FromQuery(Name = "businessId")] string? bId, [FromQuery(Name = "cache")] string cacheString)
         {
@@ -167,21 +189,21 @@ namespace ScheduleAppBackend.Controllers
             }
             else
             {
-                int businessId = int.Parse(bId);
+                Guid businessId = Guid.Parse(bId);
                 business = m_Context.Businesses.Where(b => b.Id == businessId).FirstOrDefault();
             }
             if (business == null)
                 return BadRequest();
 
-            Cache cache = HelperFunctions.ParseCacheStringArray(cacheString);
-            List<CachedDataInfo> cachedData = m_Context.BusinessesServicesCategories.Select(bsc => new CachedDataInfo()
+            Cache<int> cache = HelperFunctions.ParseIntCacheStringArray(cacheString);
+            List<CachedDataInfo<int>> cachedData = m_Context.BusinessesServicesCategories.Select(bsc => new CachedDataInfo<int>()
             {
                 Id = bsc.Id,
                 LastEditDate = bsc.LastEditDate,
             }).Where(cdi => cache.CachedIds.Contains(cdi.Id)).ToList();
             cache.CachedIds.Clear();
                 
-            foreach (CachedDataInfo cachedDataInfo in cachedData)
+            foreach (CachedDataInfo<int> cachedDataInfo in cachedData)
             {
                 if (cache.CachedDates[cachedDataInfo.Id] >= cachedDataInfo.LastEditDate)
                     cache.CachedIds.Add(cachedDataInfo.Id);
@@ -206,6 +228,7 @@ namespace ScheduleAppBackend.Controllers
             DateTime date = DateTime.UtcNow;
             BusinessServiceCategory category = new()
             {
+                Id = new Random().Next(),
                 BusinessId = business.Id,
                 Name = info.Name,   
                 LastEditDate = date

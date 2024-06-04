@@ -9,11 +9,12 @@ import { Router } from '@angular/router';
 import { BusinessHours, BusinessHoursService } from 'src/app/Services/BusinessHoursService';
 import { App } from 'src/app/App.component';
 import CacheService from 'src/app/Services/CacheService';
+import { Icon } from 'src/app/Components/Icon/Icon.component';
 
 @Component({
   selector: 'EditHours',
   standalone: true,
-  imports: [Heading, DaysMenuItem, OpeningHoursInput, SecondaryButton, MainButton],
+  imports: [Heading, DaysMenuItem, OpeningHoursInput, SecondaryButton, MainButton, Icon],
   templateUrl: './EditHours.component.html',
 })
 export class EditHours implements AfterViewInit {
@@ -54,7 +55,7 @@ export class EditHours implements AfterViewInit {
             if (business) {
               this.openingHours = await this.cacheService.BusinessHoursWhere(bh => bh.businessId === business.id);
             }
-            this.GoToBusiness();
+            this.GoBack();
           }
         });
       }
@@ -77,7 +78,7 @@ export class EditHours implements AfterViewInit {
     this.input.Clear();
   }
 
-  GoToBusiness() {
+  GoBack() {
     this.router.navigate(['business']);
   }
 }

@@ -25,7 +25,7 @@ type BusinessHoursUpdateInfo = {
 
 export type BusinessHours = {
     id : number,
-    businessId : number,
+    businessId : string,
     day : WeekDay,
     intervalStart : number,
     intervalEnd : number,
@@ -38,11 +38,11 @@ export class BusinessHoursService {
 
   public constructor(private http : HttpClient, private cacheService : CacheService) {}
 
-  async GetBusinessHours(businessId : number | null) : Promise<BusinessHours[]> {
+  async GetBusinessHours(businessId : string | null) : Promise<BusinessHours[]> {
     return new Promise<BusinessHours[]>(async resolve => {
       const bId = businessId !== null ? businessId : this.cacheService.GetLoggedBusiness()?.id ?? -1;
       const cachedHours = await this.cacheService.BusinessHoursWhere(bh => bh.businessId === bId);
-      let cacheData : CachedDataInfo[] = [];
+      let cacheData : CachedDataInfo<number>[] = [];
       if (bId) {
         cacheData = cachedHours.map(ch => ({id: ch.id, lastEditDate: ch.lastEditDate}));
       }

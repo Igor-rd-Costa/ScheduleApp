@@ -11,8 +11,8 @@ import { BusinessHours } from "./BusinessHoursService";
     Refactore xWhere() functions
 */
 
-export type CachedDataInfo = {
-    id : number,
+export type CachedDataInfo<T> = {
+    id : T,
     lastEditDate : Date
 }
 
@@ -136,8 +136,11 @@ export default class CacheService {
         return results;
     }
 
-    public async GetService(id : number) {
-        return await this.services?.Get(id) ?? null;
+    public async GetService(id : number, businessId : string) {
+        const service = await this.services?.Get(id) ?? null;
+        if (service !== null && service.businessId === businessId)
+            return service;
+        return null;
     }
 
     public async AddService(service : BusinessService) {
@@ -221,7 +224,7 @@ export default class CacheService {
         if (!db)
             return;
 
-        db.createObjectStore("Businesses", { keyPath: 'id' });
+        db.createObjectStore("Businesses", { keyPath: 'businessUrl' });
         db.createObjectStore("BusinessesServices", {keyPath: 'id'});
         db.createObjectStore("BusinessesCategories", {keyPath: 'id'});
         db.createObjectStore("BusinessesHours", {keyPath: 'id'});

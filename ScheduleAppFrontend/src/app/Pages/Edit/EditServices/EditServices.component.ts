@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CardBase } from 'src/app/Components/CardBase/CardBase.component';
 import { Heading } from 'src/app/Components/Heading/Heading.component';
@@ -11,6 +11,7 @@ import { Icon } from 'src/app/Components/Icon/Icon.component';
 import { BusinessCategory, BusinessService, CategoryDeleteInfo, ServicesService } from 'src/app/Services/ServicesService';
 import BusinessServiceService from 'src/app/Services/BusinessService';
 import CacheService from 'src/app/Services/CacheService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'EditServices',
@@ -18,7 +19,8 @@ import CacheService from 'src/app/Services/CacheService';
   imports: [Heading, MinimizableCard, CardBase, Icon, MainButton, EditableCategoryCard, EditableServiceCard, ReactiveFormsModule, SecondaryButton],
   templateUrl: './EditServices.component.html',
 })
-export class EditServices {
+export class EditServices implements AfterViewInit {
+  @ViewChildren('wrapper') wrappers! : QueryList<ElementRef<HTMLElement>>;
   addCategoryForm = new FormGroup({
     Name: new FormControl('', {validators: [Validators.required, ]})
   });
@@ -32,12 +34,30 @@ export class EditServices {
   categories : BusinessCategory[] = [];
   services : BusinessService[] = [];
 
-  public constructor(protected servicesService : ServicesService, private cache : CacheService) {
+  public constructor(protected servicesService : ServicesService, private cache : CacheService, private router : Router) {
     this.servicesService.GetCategories(null).then(categories => {
       this.categories = categories;
     });
     this.servicesService.GetServices(null).then(services => {
       this.services = services;
+    });
+
+    
+  }
+
+  ngAfterViewInit(): void {
+    this.wrappers.forEach(w => {
+
+      const wrapper = w.nativeElement;
+      let width = parseFloat(getComputedStyle(wrapper).width);
+      let count = 0;
+      while(width > (5 * 16)) {
+        width -= (5 * 16);
+        count++;
+      }
+      wrapper.style.paddingLeft = width / count + "px";
+      wrapper.style.paddingRight = width / count + "px";
+      wrapper.style.columnGap = width / count + '';  
     });
   }
 
@@ -88,7 +108,7 @@ export class EditServices {
   }
 
   async OnServiceEdited(id : number) {
-    let service = await this.cache.GetService(id);
+    let service = await this.cache.GetService(id, this.cache.GetLoggedBusiness()?.id ?? "");
     if (service === null)
       return;
     for (let i = 0; i < this.services.length; i++) {
@@ -138,7 +158,9 @@ export class EditServices {
         }
       }
     }
-    
-    
+  }
+
+  GoBack() {
+    this.router.navigate(['business']);
   }
 }

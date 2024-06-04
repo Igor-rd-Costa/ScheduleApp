@@ -9,9 +9,12 @@ namespace ScheduleAppBackend.Models
     [PrimaryKey("Id")]
     public class Business
     {
-        public int Id { get; set; }
-        [JsonIgnore]
-        public int OwnerId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Column(TypeName = "uuid")]
+        public Guid Id { get; set; }
+        [JsonIgnore] 
+        [Column(TypeName = "uuid")]
+        public Guid OwnerId { get; set; }
         [MaxLength(100)]
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
@@ -19,8 +22,8 @@ namespace ScheduleAppBackend.Models
         public string BusinessUrl { get; set; } = "";
         public DateTime LastEditDate { get; set; }
 
-        [ForeignKey("OwnerId")]
         [JsonIgnore]
+        [ForeignKey("OwnerId")]
         public User User { get; set; }
     }
 }

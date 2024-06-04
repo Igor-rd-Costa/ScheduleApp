@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -15,13 +15,14 @@ namespace ScheduleAppBackend.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "character varying(320)", maxLength: 320, nullable: false),
                     IsEmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false)
+                    ProfileUrl = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    LastEditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,11 +33,12 @@ namespace ScheduleAppBackend.Migrations
                 name: "Businesses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    OwnerId = table.Column<int>(type: "integer", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    OwnerId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false)
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    BusinessUrl = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false),
+                    LastEditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,18 +55,38 @@ namespace ScheduleAppBackend.Migrations
                 name: "BusinessesHours",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    BusinessId = table.Column<int>(type: "integer", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false),
+                    BusinessId = table.Column<Guid>(type: "uuid", nullable: false),
                     Day = table.Column<int>(type: "integer", nullable: false),
                     IntervalStart = table.Column<int>(type: "integer", nullable: false),
-                    IntervalEnd = table.Column<int>(type: "integer", nullable: false)
+                    IntervalEnd = table.Column<int>(type: "integer", nullable: false),
+                    LastEditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BusinessesHours", x => x.Id);
+                    table.PrimaryKey("PK_BusinessesHours", x => new { x.Id, x.BusinessId });
                     table.ForeignKey(
                         name: "FK_BusinessesHours_Businesses_BusinessId",
+                        column: x => x.BusinessId,
+                        principalTable: "Businesses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BusinessesServicesCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false),
+                    BusinessId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    LastEditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BusinessesServicesCategories", x => new { x.Id, x.BusinessId });
+                    table.ForeignKey(
+                        name: "FK_BusinessesServicesCategories_Businesses_BusinessId",
                         column: x => x.BusinessId,
                         principalTable: "Businesses",
                         principalColumn: "Id",
@@ -75,17 +97,23 @@ namespace ScheduleAppBackend.Migrations
                 name: "BusinessesServices",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    BusinessId = table.Column<int>(type: "integer", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false),
+                    BusinessId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CategoryId = table.Column<int>(type: "integer", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: true),
                     Duration = table.Column<int>(type: "integer", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: false)
+                    LastEditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BusinessesServices", x => x.Id);
+                    table.PrimaryKey("PK_BusinessesServices", x => new { x.Id, x.BusinessId });
+                    table.ForeignKey(
+                        name: "FK_BusinessesServices_BusinessesServicesCategories_CategoryId_~",
+                        columns: x => new { x.CategoryId, x.BusinessId },
+                        principalTable: "BusinessesServicesCategories",
+                        principalColumns: new[] { "Id", "BusinessId" });
                     table.ForeignKey(
                         name: "FK_BusinessesServices_Businesses_BusinessId",
                         column: x => x.BusinessId,
@@ -108,6 +136,16 @@ namespace ScheduleAppBackend.Migrations
                 name: "IX_BusinessesServices_BusinessId",
                 table: "BusinessesServices",
                 column: "BusinessId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BusinessesServices_CategoryId_BusinessId",
+                table: "BusinessesServices",
+                columns: new[] { "CategoryId", "BusinessId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BusinessesServicesCategories_BusinessId",
+                table: "BusinessesServicesCategories",
+                column: "BusinessId");
         }
 
         /// <inheritdoc />
@@ -118,6 +156,9 @@ namespace ScheduleAppBackend.Migrations
 
             migrationBuilder.DropTable(
                 name: "BusinessesServices");
+
+            migrationBuilder.DropTable(
+                name: "BusinessesServicesCategories");
 
             migrationBuilder.DropTable(
                 name: "Businesses");

@@ -37,7 +37,7 @@ var auth = builder.Services.AddAuthentication(options =>
 auth.AddCookie(IdentityConstants.ApplicationScheme, options =>
 {
     options.Cookie.SameSite = SameSiteMode.Lax;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
   
     options.Events.OnRedirectToLogin = (context) =>
     {

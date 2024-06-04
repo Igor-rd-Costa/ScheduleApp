@@ -13,6 +13,8 @@ import { ServicesService } from './Services/ServicesService';
 import { PopUpMessageBox } from './Components/PopUpMessageBox/PopUpMessageBox.component';
 import CacheService from './Services/CacheService';
 import { BusinessHoursService } from './Services/BusinessHoursService';
+import { ScheduleService } from './Services/ScheduleService';
+import { PopDownMessageBox } from './Components/PopDownMessageBox/PopDownMessageBox.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +25,14 @@ import { BusinessHoursService } from './Services/BusinessHoursService';
     AuthenticatedLayout,
     PopUpMessageBox,
     BrowserModule,
+    PopDownMessageBox,
     AppRoutingModule,
     HttpClientModule
   ],
   providers: [
     AuthService,
     RouteService,
+    ScheduleService,
     BusinessHoursService,
     BusinessService,
     ServicesService,

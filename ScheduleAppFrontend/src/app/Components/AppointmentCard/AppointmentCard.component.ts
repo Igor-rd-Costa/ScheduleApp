@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Icon, IconType } from '../Icon/Icon.component';
 import { CardBase } from '../CardBase/CardBase.component';
+import { Time } from 'src/app/Utils/Time';
 
 @Component({
   selector: 'AppointmentCard',
@@ -8,9 +9,22 @@ import { CardBase } from '../CardBase/CardBase.component';
   imports: [Icon, CardBase],
   templateUrl: './AppointmentCard.component.html',
 })
-export class AppointmentCard {
-  @Input() appointmentIcon : IconType = 'visibility';
-  @Input() appointmentName : string = "";
+export class AppointmentCard {  
+  Time = Time;
+  @Input() serviceIcon : IconType = 'cut';
+  @Input() serviceName : string = "";
+  @Input() servicePrice : number | null = null;
+  @Input() serviceDuration : number = 0;
   @Input() businessName : string = "";
-  @Input() appointmentTime : string = "";
+  @Input() employeeName : string = "";
+  @Input() appointmentTime : Date = new Date(0);
+
+  FormatTime() {
+    const t = new Date(this.appointmentTime);
+    const day = t.getDate();
+    const month = t.getMonth() + 1;
+    const hour = t.getHours();
+    const minute = t.getMinutes();
+    return `${hour < 10 ? '0' : ''}${hour}:${minute < 10 ? '0' : ''}${minute} ${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${t.getFullYear()}`;    
+  }
 }

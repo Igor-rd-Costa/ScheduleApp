@@ -12,7 +12,7 @@ import AuthService, { User } from 'src/app/Services/AuthService';
 })
 export class Profile {
   protected user = signal<User>({
-    id: -1,
+    id: "-1",
     firstName: "",
     lastName: "",
     email: "",

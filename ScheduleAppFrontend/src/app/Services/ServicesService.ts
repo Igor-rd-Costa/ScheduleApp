@@ -2,12 +2,10 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { App } from "../App.component";
 import CacheService, { CachedDataInfo } from "./CacheService";
-import { Business } from "../Pages/Business/Business.component";
-import BusinessServiceService from "./BusinessService";
 
 export type BusinessService = {
     id: number,
-    businessId: number,
+    businessId: string,
     categoryId: number | null,
     name: string,
     description: string,
@@ -18,7 +16,7 @@ export type BusinessService = {
 
 export type BusinessCategory = {
     id : number,
-    businessId : number,
+    businessId : string,
     name: string,
     lastEditDate: Date
 }
@@ -33,22 +31,43 @@ export type CategoryDeleteInfo = {
     deleteServices : boolean
 }
 
-@Injectable()
+@Injectable()   
 export class ServicesService {
     private controllerAddress = App.backendAddress+"business-service/";
 
     public constructor(private http : HttpClient, private cache : CacheService) {}
 
-    async GetServices(businessId : number | null) {
+    async GetService(id : number, businessId : string) {
+        return new Promise<BusinessService | null>(async resolve => {
+            let cachedService = await this.cache.GetService(id, businessId);
+            const cachedData : CachedDataInfo<number> | null = cachedService === null ? null : {id: cachedService.id, lastEditDate: cachedService.lastEditDate};
+            this.http.get<BusinessService>(this.controllerAddress+`?id=${cachedService?.id ?? ''}&businessId=${businessId}&cache=${JSON.stringify(cachedData ?? {})}`, {withCredentials: true}).subscribe({
+                next: service => {
+                if (service) {
+                    this.cache.AddService(service);
+                    cachedService = service;
+                }
+                resolve(cachedService);
+            },
+            error: err => {
+                console.error(err);
+                resolve(null);
+            }
+        }); 
+
+        });
+    }
+
+    async GetServices(businessId : string | null) {
         return new Promise<BusinessService[]>(async resolve => {
             let bId = businessId !== null ? businessId : this.cache.GetLoggedBusiness()?.id ?? -1;
             const cachedServices : BusinessService[] = await this.cache.ServicesWhere(
                 (service => service.businessId === bId)
             );
-            const cachedServicesData : CachedDataInfo[] = cachedServices.map(
-                service => ({id: service.id, lastEditDate: service.lastEditDate} as CachedDataInfo)
+            const cachedServicesData : CachedDataInfo<number>[] = cachedServices.map(
+                service => ({id: service.id, lastEditDate: service.lastEditDate} as CachedDataInfo<number>)
             );
-            this.http.get<BusinessService[]>(this.controllerAddress+`?businessId=${businessId !== null ? businessId : ''}&cache=${JSON.stringify(cachedServicesData)}`, {withCredentials: true}).subscribe({
+            this.http.get<BusinessService[]>(this.controllerAddress+"all"+`?businessId=${businessId !== null ? businessId : ''}&cache=${JSON.stringify(cachedServicesData)}`, {withCredentials: true}).subscribe({
                 next: services => {
                 this.cache.AddServices(services);
                 cachedServices.push(...services);
@@ -64,8 +83,8 @@ export class ServicesService {
 
     async AddService(name : string, description : string, price : number | null, duration : number, categoryId : number | null) {
         return new Promise<CreationResult>(resolve => {
-            let businessId = this.cache.GetLoggedBusiness()?.id;
-            if (!businessId) {
+            let bId = this.cache.GetLoggedBusiness()?.id;
+            if (!bId) {
                 resolve({id: -1, date: new Date(0)});
                 return;
             }
@@ -73,7 +92,7 @@ export class ServicesService {
                 next: result => {
                     this.cache.AddService({
                         id: result.id,
-                        businessId: businessId,
+                        businessId: bId,
                         categoryId: categoryId,
                         name: name,
                         description: description,
@@ -140,14 +159,14 @@ export class ServicesService {
         return (await this.cache.GetCategory(id))?.name;
     }
 
-    async GetCategories(businessId : number | null) {
+    async GetCategories(businessId : string | null) {
         return new Promise<BusinessCategory[]>(async resolve => {
             let bId = businessId !== null ? businessId : this.cache.GetLoggedBusiness()?.id ?? -1;
             const cachedCategories = await this.cache.CategoriesWhere(
                 (category => category.businessId === bId)
             );
-            let cachedCategoriesData : CachedDataInfo[] = cachedCategories.map(
-                category => ({id: category.id, lastEditDate: category.lastEditDate} as CachedDataInfo)
+            let cachedCategoriesData : CachedDataInfo<number>[] = cachedCategories.map(
+                category => ({id: category.id, lastEditDate: category.lastEditDate} as CachedDataInfo<number>)
             );
             this.http.get<BusinessCategory[]>(this.controllerAddress+`category?businessId=${businessId !== null ? businessId : ''}&cache=${JSON.stringify(cachedCategoriesData)}`, {withCredentials: true}).subscribe({
                 next: categories => {
@@ -166,6 +185,7 @@ export class ServicesService {
     async AddCategory(name : string) {
         return new Promise<CreationResult>(resolve => {
             let businessId = this.cache.GetLoggedBusiness()?.id;
+            console.log("Got", businessId);
             if (!businessId) {
                 resolve({id: -1, date: new Date(0)});
                 return;

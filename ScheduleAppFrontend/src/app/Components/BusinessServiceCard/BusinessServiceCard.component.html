@@ -1,6 +1,6 @@
 <CardBase cardIcon="cut" [heading]="serviceName">
     <div class="grid auto-rows-auto pb-2 pl-2 relative">
-        <div class="row-start-1 pb-2 pt-1 text-[0.9rem] max-w-[70%] break-all">
+        <div class="row-start-1 pb-2 pt-1 text-[0.9rem] max-w-[73%] break-all">
             {{serviceDescription}}
         </div>
         <div class="flex items-center pb-1 gap-1">
@@ -8,8 +8,10 @@
             <div>{{GetDurationString()}}</div>
         </div>
         <div class="h-[2rem] flex items-center absolute top-[-2.5rem] right-0 pr-4">
-            {{servicePrice !== null ? "R$"+servicePrice.toFixed(2).replace('.', ',') : "Check"}}
+            {{servicePrice !== null ? "R$"+servicePrice.toFixed(2).replace('.', ',') : "0,00"}}
         </div>
-        <MainButton class="mt-1">Schedule</MainButton>
+        @if (showButton) {
+            <MainButton class="mt-1" [OnClick]="OnClick.bind(this)" [disabled]="!canSchedule">Schedule</MainButton>
+        }
     </div>
 </CardBase>
