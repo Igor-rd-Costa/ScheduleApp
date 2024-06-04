@@ -84,7 +84,7 @@
         </CardBase>
         @for (service of services; track service.id) {
             <EditableServiceCard (Edited)="OnServiceEdited($event)" (Deleted)="OnServiceDeleted($event)" [serviceId]="service.id" [serviceName]="service.name" [serviceDuration]="service.duration" 
-            [servicePrice]="service.price" [serviceDescription]="service.description" [serviceCategory]="service.categoryId"/>
+            [categories]="categories" [servicePrice]="service.price" [serviceDescription]="service.description" [serviceCategory]="service.categoryId"/>
         }
     </div>
     </MinimizableCard>

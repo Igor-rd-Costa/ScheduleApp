@@ -6,7 +6,7 @@ import { Icon, IconType } from 'src/app/Components/Icon/Icon.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import { MessageType } from 'src/app/Components/PopUpMessageBox/PopUpMessageBox.component';
 import { SecondaryButton } from 'src/app/Components/SecondaryButton/SecondaryButton.component';
-import { BusinessService, ServicesService } from 'src/app/Services/ServicesService';
+import { BusinessCategory, BusinessService, ServicesService } from 'src/app/Services/ServicesService';
 
 @Component({
   selector: 'EditableServiceCard',
@@ -23,6 +23,7 @@ export class EditableServiceCard {
   @Input() serviceDuration : number = 0;
   @Input() servicePrice : number | null = 30;
   @Input() serviceCategory : number | null = null;
+  @Input() categories : BusinessCategory[] = [];
   @Output() Edited = new EventEmitter<number>(); 
   @Output() Deleted = new EventEmitter<number>();
   protected serviceCategoryName = signal("");

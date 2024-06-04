@@ -7,7 +7,7 @@
                         {{message()}}
                     </div>
                     <div class="flex gap-x-4">
-                        <MainButton [OnClick]="MainButtonClick.bind(this)">
+                        <MainButton (Click)="MainButtonClick()">
                             @if (boxType() === MessageBoxType.OK) {
                                 Ok
                             }
@@ -16,7 +16,7 @@
                             }
                         </MainButton>
                         @if (boxType() !== MessageBoxType.OK) {
-                            <SecondaryButton [OnClick]="SecondaryButtonClick.bind(this)">
+                            <SecondaryButton (Click)="SecondaryButtonClick()">
                                 @if (boxType() === MessageBoxType.YES_CANCEL) {
                                     Cancel
                                 } @else {
@@ -39,10 +39,10 @@
                         </div>
                     </div>
                     <div class="pb-4 flex items-center gap-x-4">
-                        <MainButton [OnClick]="MainButtonClick.bind(this)">
+                        <MainButton (Click)="MainButtonClick()">
                             Save   
                         </MainButton>
-                        <SecondaryButton [OnClick]="SecondaryButtonClick.bind(this)">
+                        <SecondaryButton (Click)="SecondaryButtonClick()">
                             Cancel
                         </SecondaryButton>
                     </div>

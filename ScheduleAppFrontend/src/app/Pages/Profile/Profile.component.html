@@ -12,10 +12,10 @@
     </div>
 </div>
 <div class="mt-4 grid grid-rows-1 grid-cols-2 items-end">
-    <MainButton class="ml-[2.3rem]" [OnClick]="Logout.bind(this)">
+    <MainButton class="ml-[2.3rem]" (Click)="Logout()">
         Logout
     </MainButton>
-    <MainButton [OnClick]="GoToBusiness.bind(this)">
+    <MainButton (Click)="GoToBusiness()">
         <div class="flex h-8 items-center">
             <Icon type="work"/>
             <span class="pl-2">My Business</span>

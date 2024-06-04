@@ -29,13 +29,13 @@
         <OpeningHoursInput [hours]="openingHours" [day]="selectedDay"/>
         <div class="mt-4 flex w-full">
             <div class="w-full flex justify-center">
-                <MainButton [OnClick]="Save.bind(this)" 
+                <MainButton (Click)="Save()" 
                     [disabled]="input !== undefined ? (!input.touched() || input.sectionsPerDayCount > input.maxTimeSectionsPerDay) : true">
                     Save
                 </MainButton>
             </div>
             <div class="w-full flex justify-center">
-                <SecondaryButton [OnClick]="ClearHoursInput.bind(this)">
+                <SecondaryButton (Click)="ClearHoursInput()">
                     Clear
                 </SecondaryButton>
             </div>

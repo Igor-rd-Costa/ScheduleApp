@@ -13,7 +13,7 @@
                 <MainButton [disabled]="!editCategoryForm.valid || editCategoryForm.controls.Name.value === categoryName">
                     Edit
                 </MainButton>
-                <SecondaryButton [OnClick]="LeaveEditMode.bind(this)">
+                <SecondaryButton (Click)="LeaveEditMode()">
                     Cancel
                 </SecondaryButton>
             </div>

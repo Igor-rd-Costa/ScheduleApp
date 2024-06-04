@@ -43,16 +43,16 @@
                 <label for="category-field">Category:</label>
                 <select class="w-full h-[1.5rem] rounded text-black ml-1 pl-2 bg-white" formControlName="Category">
                     <option></option>
-                    <!-- @for (category of servicesService.GetAllCategories(); track category.id) {
+                    @for (category of categories; track category.id) {
                         <option [value]="category.id">{{category.name}}</option>
-                    } -->
+                    }
                 </select>
             </div>
             <div class="grid pt-2 grid-cols-[auto_auto] gap-x-4 items-center w-fit">
                 <MainButton [disabled]="!editServiceForm.valid || editServiceForm.controls.Name.value === serviceName">
                     Edit
                 </MainButton>
-                <SecondaryButton [OnClick]="LeaveEditMode.bind(this)">
+                <SecondaryButton (Click)="LeaveEditMode()">
                     Cancel
                 </SecondaryButton>
             </div>

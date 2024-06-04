@@ -11,7 +11,7 @@
             {{servicePrice !== null ? "R$"+servicePrice.toFixed(2).replace('.', ',') : "0,00"}}
         </div>
         @if (showButton) {
-            <MainButton class="mt-1" [OnClick]="OnClick.bind(this)" [disabled]="!canSchedule">Schedule</MainButton>
+            <MainButton class="mt-1" (Click)="OnClick()" [disabled]="!canSchedule">Schedule</MainButton>
         }
     </div>
 </CardBase>
