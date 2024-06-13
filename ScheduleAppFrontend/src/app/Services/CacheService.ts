@@ -5,6 +5,7 @@ import { BusinessCategory, BusinessService } from "./ServicesService";
 import { User } from "./AuthService";
 import { CacheTable } from "../Utils/CacheTable";
 import { BusinessHours } from "./BusinessHoursService";
+import { City, Country, State } from "./LocationService";
 
 /* TODO: 
     Add indexes to tables
@@ -23,6 +24,12 @@ export default class CacheService {
     private categories : CacheTable<BusinessCategory> | null = null;
     private businessHours : CacheTable<BusinessHours> | null = null;
     private services : CacheTable<BusinessService> | null = null;
+
+    private locationCountries : CacheTable<Country> | null = null;
+    private locationStates : CacheTable<State> | null = null;
+    private locationCities : CacheTable<City> | null = null;
+    //private locationTimeZones : CacheTable<> | null = null;
+
     private loggedUser :DataCache<User> = new DataCache<User>("LoggedUser");
     private loggedBusiness : DataCache<Business> = new DataCache<Business>('LoggedBusiness');
 
@@ -41,6 +48,9 @@ export default class CacheService {
             this.services = new CacheTable<BusinessService>("BusinessesServices");
             this.categories = new CacheTable<BusinessCategory>("BusinessesCategories");
             this.businessHours = new CacheTable<BusinessHours>("BusinessesHours");
+            this.locationCountries = new CacheTable<Country>("LocationCountries");
+            this.locationStates = new CacheTable<State>("LocationStates");
+            this.locationCities = new CacheTable<City>("LocationCities");
         }
     }
 
@@ -163,7 +173,6 @@ export default class CacheService {
         return await this.services?.Clear() ?? false;
     }
 
-
     public async BusinessesHours() {
         return await this.businessHours?.All() ?? [];
     }
@@ -193,6 +202,45 @@ export default class CacheService {
     public async ClearBusinessesHours() {
         return await this.businessHours?.Clear() ?? false;
     }
+
+
+    public async AddLocationCountries(countries : Country[]) {
+        return await this.locationCountries?.AddRange(countries) ?? false;
+    }
+
+    public async GetLocationCountries() {
+        return await this.locationCountries?.All() ?? [];
+    }
+
+    public async AddLocationStates(states : State[]) {
+        return await this.locationStates?.AddRange(states) ?? false;
+    }
+
+    public async GetLocationStates(country : string) {
+        return await this.locationStates?.Where(s => s.countryCode === country) ?? [];
+    }
+
+    public async GetLocationState(country : string, state : string) {
+        const s = await this.locationStates?.Where(s => s.countryCode === country && s.code === state) ?? [];
+        if (s.length === 0)
+            return null;
+        return s[0];
+    }
+
+    public async AddLocationCities(cities : City[]) {
+        return await this.locationCities?.AddRange(cities) ?? false;
+    }
+
+    public async GetLocationCities(country : string, state : string) {
+        return await this.locationCities?.Where(c => c.country === country && c.state === state) ?? [];
+    }
+
+    public async GetLocationCity(cityId : number) {
+        return await this.locationCities?.Get(cityId) ?? null;
+    }
+
+
+
 
     public GetLoggedUser() : User | null {
         return this.loggedUser.Get();
@@ -228,5 +276,8 @@ export default class CacheService {
         db.createObjectStore("BusinessesServices", {keyPath: 'id'});
         db.createObjectStore("BusinessesCategories", {keyPath: 'id'});
         db.createObjectStore("BusinessesHours", {keyPath: 'id'});
+        db.createObjectStore("LocationCountries", {keyPath: 'isoCode'});
+        db.createObjectStore("LocationStates", {keyPath: 'code'});
+        db.createObjectStore("LocationCities", {keyPath: 'id'});
     }
 }

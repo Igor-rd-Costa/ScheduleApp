@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild, signal } from '@angu
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { App } from 'src/app/App.component';
 import { CardBase } from 'src/app/Components/CardBase/CardBase.component';
+import { FormInput } from 'src/app/Components/FormInput/FormInput.component';
 import { Icon, IconType } from 'src/app/Components/Icon/Icon.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import { MessageType } from 'src/app/Components/PopUpMessageBox/PopUpMessageBox.component';
@@ -11,7 +12,7 @@ import { BusinessCategory, BusinessService, ServicesService } from 'src/app/Serv
 @Component({
   selector: 'EditableServiceCard',
   standalone: true,
-  imports: [CardBase, Icon, MainButton, SecondaryButton, ReactiveFormsModule],
+  imports: [CardBase, Icon, MainButton, SecondaryButton, ReactiveFormsModule, FormInput],
   templateUrl: './EditableServiceCard.component.html',
 })
 export class EditableServiceCard {
@@ -60,9 +61,15 @@ export class EditableServiceCard {
     event.preventDefault();
     const name = this.editServiceForm.controls.Name.value!;
     const description = this.editServiceForm.controls.Description.value ?? "";
-    const price = this.editServiceForm.controls.Price.value;
+    let price = this.editServiceForm.controls.Price.value;
     const duration = this.editServiceForm.controls.Duration.value!;
-    const category = this.editServiceForm.controls.Category.value;
+    let category = this.editServiceForm.controls.Category.value;
+    if (typeof(category) === 'string') {
+      category = parseInt(category as string);
+    }
+    if (typeof(price) === 'string') {
+      price = parseFloat((price as string).replace(',', '.'));
+    }
 
     this.servicesService.UpdateService(this.serviceId, name, description, price, duration, category).then(success => {
       this.LeaveEditMode()
@@ -83,7 +90,20 @@ export class EditableServiceCard {
     })
   }
 
+  HasChanges() {
+    const newName = this.editServiceForm.controls.Name.value;
+    const newDescription = this.editServiceForm.controls.Description.value;
+    const newPrice = this.editServiceForm.controls.Price.value;
+    const newDuration = this.editServiceForm.controls.Duration.value;
+    const newCategory = this.editServiceForm.controls.Category.value;
+    const same = !(newName === this.serviceName && newDescription === this.serviceDescription
+      && newPrice === this.servicePrice && newDuration === this.serviceDuration && newCategory === this.serviceCategory);
+    return same;
+  }
+
   EnterEditMode() {
+    if (this.isInEditMode)
+      return;
     this.isInEditMode = true;
     this.editServiceForm.controls.Name.setValue(this.serviceName);
     this.editServiceForm.controls.Description.setValue(this.serviceDescription);

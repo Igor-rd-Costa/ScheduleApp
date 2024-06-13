@@ -82,27 +82,27 @@ export class OpeningHoursInput implements AfterViewInit, OnChanges {
       const s = this.sections.get(i);
       if (s === section) {
         let timeSections : BusinessHourUpdateInfo[] = [];
-    let isInsideSelection = false;
-    let currentSelection : BusinessHourUpdateInfo | null = null; 
-    for (let i = 0; i < this.sections.length; i++) {
-      const s = this.sections.get(i)!;
-      if (s.selected && !isInsideSelection) {
-        currentSelection = {id: -1, day: this.day, intervalStart: Time.HourFromString(s.time), intervalEnd: -1 };
-        isInsideSelection = true;
-      }
-      if (!s.selected && isInsideSelection) {
-        if (currentSelection) {
-          currentSelection.intervalEnd = Time.HourFromString(s.time);
-          timeSections.push(currentSelection);
+        let isInsideSelection = false;
+        let currentSelection : BusinessHourUpdateInfo | null = null; 
+        for (let i = 0; i < this.sections.length; i++) {
+          const s = this.sections.get(i)!;
+          if (s.selected && !isInsideSelection) {
+            currentSelection = {id: -1, day: this.day, intervalStart: Time.HourFromString(s.time), intervalEnd: -1 };
+            isInsideSelection = true;
+          }
+        if (!s.selected && isInsideSelection) {
+          if (currentSelection) {
+            currentSelection.intervalEnd = Time.HourFromString(s.time);
+            timeSections.push(currentSelection);
+          }
+          isInsideSelection = false;
         }
-        isInsideSelection = false;
       }
-    }
-    if (isInsideSelection && currentSelection) {
-      currentSelection.intervalEnd = Time.HourFromString(this.sections.first.time);
-      timeSections.push(currentSelection);
-    }
-    const newSections : BusinessHourUpdateInfo[] = [];
+      if (isInsideSelection && currentSelection) {
+        currentSelection.intervalEnd = Time.HourFromString(this.sections.first.time);
+        timeSections.push(currentSelection);
+      }
+      const newSections : BusinessHourUpdateInfo[] = [];
       for (let i = 0; i < timeSections.length; i++) {
         const timeSection = timeSections[i];
         let found = false;
@@ -112,30 +112,17 @@ export class OpeningHoursInput implements AfterViewInit, OnChanges {
             timeSection.id = dayHour.id;
             if (timeSection.intervalEnd === dayHour.intervalEnd) {
               break;
-            }
-            if (timeSection.id !== -1) {
-              found = true;
-              newSections.push(timeSection);
-              break;
-            }
-          }
-          if (dayHour.intervalEnd === timeSection.intervalEnd) {
-            let overwritten = false;
-            timeSection.id = dayHour.id;
-            for (let k = 0; k < newSections.length; k++) {
-              if (timeSection.id === newSections[k].id) {
-                timeSection.id = -1;
-                if (section.selected) {
-                  overwritten = true;
-                }
-                break;
               }
-            }
+              if (timeSection.id !== -1) {
+                found = true;
+                newSections.push(timeSection);
+                break;
+                }
+                }
+          if (dayHour.intervalEnd === timeSection.intervalEnd) {
+            timeSection.id = dayHour.id;
+            newSections.push(timeSection);
             found = true;
-            if (!overwritten) {
-              newSections.push(timeSection);
-        
-            }
           } 
         }
         if (!found) {
@@ -145,7 +132,6 @@ export class OpeningHoursInput implements AfterViewInit, OnChanges {
       }
       this.dayHours = newSections;
       this.sectionsPerDayCount = this.dayHours.length;
-
       this.touched.update(() => this.HasChanges());
       break;
       }

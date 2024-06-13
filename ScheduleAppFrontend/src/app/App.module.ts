@@ -15,6 +15,7 @@ import CacheService from './Services/CacheService';
 import { BusinessHoursService } from './Services/BusinessHoursService';
 import { ScheduleService } from './Services/ScheduleService';
 import { PopDownMessageBox } from './Components/PopDownMessageBox/PopDownMessageBox.component';
+import { LocationService } from './Services/LocationService';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { PopDownMessageBox } from './Components/PopDownMessageBox/PopDownMessage
     HttpClientModule
   ],
   providers: [
+    LocationService,
     AuthService,
     RouteService,
     ScheduleService,

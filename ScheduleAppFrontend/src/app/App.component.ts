@@ -16,7 +16,9 @@ export class App implements AfterViewInit {
   public static PopDownMessageBox : PopDownMessageBox;
   private static title = 'ScheduleAppFrontend';
   
-  constructor(protected authService : AuthService) {}
+  constructor(protected authService : AuthService) {
+    
+  }
 
   public static Blur() {
     const wrapper = document.getElementById('app-wrapper');

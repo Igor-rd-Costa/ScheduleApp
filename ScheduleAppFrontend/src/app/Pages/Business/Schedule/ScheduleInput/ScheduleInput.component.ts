@@ -167,7 +167,12 @@ export class ScheduleInput implements AfterViewInit {
     const time = Time.HourToHourInfo(this.selectedHour.time);
 
     const date = new Date(day.getFullYear(), day.getMonth(), day.getDate(), time.hours, time.minutes);
-    let status = await this.scheduleService.Schedule(this.service.id, this.business.id, this.selectedEmployee.id, date);
+    const dateInt : number = this.selectedHour.time;
+
+    const dateTime = Time.MakeDateTime(day.getDate(), day.getMonth()+1, day.getFullYear(), time.hours, time.minutes);
+    console.log("DateTime", dateTime);
+    console.log("ToString:", Time.DateTimeToString(dateTime));
+    let status =  await this.scheduleService.Schedule(this.service.id, this.business.id, this.selectedEmployee.id, dateTime);
     if (status) {
       App.PopDownMessageBox.Show(MessageType.SUCCESS, "Your appointment was registered successfully!", 3);
       this.router.navigate(['business', this.business.businessUrl]);

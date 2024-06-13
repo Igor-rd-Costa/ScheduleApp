@@ -55,9 +55,16 @@ namespace ScheduleAppBackend.Controllers
             User? user = await m_UserManager.GetUserAsync(User);
             if (user == null)
                 return Unauthorized();
-            Business? business = m_Context.Businesses.Where(b => b.OwnerId == user.Id).FirstOrDefault();
+
+            Business? business = m_Context.Businesses.Where(b => b.Id == businessId).FirstOrDefault();
             if (business == null)
-                return NotFound();
+                return BadRequest();
+            LocationCity? city = m_Context.LocationCities.Where(c => c.Id == business.CityCode).FirstOrDefault();
+            if (city == null)
+                return BadRequest();
+            LocationTimeZone? tz = m_Context.LocationTimeZones.Where(t => t.Name == city.TimeZone).FirstOrDefault();
+            if (tz == null)
+                return BadRequest();
             BusinessService? service = m_Context.BusinessesServices.Where(bs => bs.Id == id && bs.BusinessId == businessId).FirstOrDefault();
             if (service == null)
                 return NotFound();
@@ -78,11 +85,18 @@ namespace ScheduleAppBackend.Controllers
                 bh => bh.BusinessId == businessId && bh.Day == weekDay
             ).ToList();
             hours.Sort((a, b) => a.IntervalStart - b.IntervalStart);
-            List<Appointment> appointments = m_Context.Appointments.Where(
-                a => a.BusinessId == businessId && a.Time.Day == date.Day 
-                && a.Time.Month == date.Month && a.Time.Year == date.Year
+            List<Appointment> businessAppointments = m_Context.Appointments.Where(
+                a => a.BusinessId == businessId
             ).ToList();
-            DateTime today = DateTime.Now;
+            List<Appointment> appointments = [];
+            foreach (Appointment appointment in businessAppointments)
+            {
+                SADateTime dateTime = new(appointment.Time);
+                if (dateTime.Day == date.Day && dateTime.Month == date.Month && dateTime.Year == date.Year)
+                    appointments.Add(appointment);
+            }
+
+            DateTimeOffset today = new DateTimeOffset(DateTime.UtcNow).ToOffset(new TimeSpan(tz.Offset, 0, 0));
             ushort nowHour = HelperFunctions.MakeHour(today.Hour, today.Minute);
             foreach (BusinessHours hour in hours)
             {
@@ -104,10 +118,8 @@ namespace ScheduleAppBackend.Controllers
 
                     foreach (Appointment a in appointments)
                     {
-                        ushort aStart = HelperFunctions.MakeHour(a.Time.Hour, a.Time.Minute);
-                        string aS = HelperFunctions.HourToString(aStart);
-                        string s = HelperFunctions.HourToString(start);
-                        string e = HelperFunctions.HourToString(end);
+                        SADateTime aDate = new SADateTime(a.Time);
+                        ushort aStart = HelperFunctions.MakeHour(aDate.Hour, aDate.Minute);
                         if (aStart >= start && aStart < end)
                         {
                             isBusy = true;

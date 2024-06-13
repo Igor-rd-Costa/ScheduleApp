@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { App } from "../App.component";
 import { WeekDay } from "@angular/common";
 import CacheService, { CachedDataInfo } from "./CacheService";
+import { Time } from "../Utils/Time";
 
 type BusinessHourCreateInfo = {
     day : WeekDay,
@@ -121,10 +122,9 @@ export class BusinessHoursService {
           }
         }
       }
-      console.log("After Cache:", updateInfo);
       this.http.patch<BusinessHours[]>(this.controllerAddress, {CreateInfo: updateInfo.createInfo, UpdateInfo: updateInfo.updateInfo, DeleteInfo: updateInfo.deleteInfo}, {withCredentials: true}).subscribe({
         next: async result => {
-          console.log("Result:", result);
+          console.log(result);
           this.cacheService.DeleteBusinessHours(updateInfo.deleteInfo);
           const toUpdate = await this.cacheService.BusinessHoursWhere(bh => {
             for (let i = 0; i < updateInfo.updateInfo.length; i++) {
@@ -133,6 +133,7 @@ export class BusinessHoursService {
             }
             return false;
           });
+          console.log(toUpdate);
           for (let i = 0; i < updateInfo.updateInfo.length; i++) {
             for (let j = 0; j < toUpdate.length; j++) {
               if (updateInfo.updateInfo[i].id === toUpdate[j].id)

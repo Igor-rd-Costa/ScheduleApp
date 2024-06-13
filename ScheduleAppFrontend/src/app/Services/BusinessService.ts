@@ -8,9 +8,24 @@ import { User } from "./AuthService";
 export type Business = {
     id: string,
     name: string,
-    description : string
-    businessUrl : string
+    description : string,
+    businessUrl : string,
+    address : string,
+    addressNumber : number,
+    countryCode : string,
+    stateCode : string,
+    cityCode : number,
     lastEditDate: Date
+}
+
+export type BusinessCreateInfo = {
+    name : string,
+    description : string,
+    address : string,
+    addressNumber : number,
+    country : string,
+    state : string,
+    city : number
 }
 
 export type BusinessInfo = {
@@ -157,9 +172,11 @@ export default class BusinessService {
         });
     }
 
-    async CreateBusiness(name : string, description : string) : Promise<Business | null> {
+
+
+    async CreateBusiness(info : BusinessCreateInfo) : Promise<Business | null> {
         return new Promise<Business | null>(resolve => {
-            this.http.post<Business>(this.businessControllerAddress, {name, description}, {withCredentials: true}).subscribe({
+            this.http.post<Business>(this.businessControllerAddress, info, {withCredentials: true}).subscribe({
                 next: result => {
                     this.cache.SetLoggedBusiness(result);
                     this.cache.AddBusiness(result);

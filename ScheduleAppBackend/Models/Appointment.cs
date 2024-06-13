@@ -15,7 +15,7 @@ namespace ScheduleAppBackend.Models
         public Guid BusinessId { get; set; }
         public Guid EmployeeId { get; set; }
         public int ServiceId { get; set; }
-        public DateTime Time {  get; set; }
+        public int Time {  get; set; }
 
 
         [JsonIgnore]

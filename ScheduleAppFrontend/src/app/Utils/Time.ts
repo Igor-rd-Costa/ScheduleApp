@@ -2,6 +2,7 @@ import { WeekDay } from "@angular/common";
 
 
 export type Hour = number;
+export type DateTime = number;
 
 export type HourInfo = {
   hours: number,
@@ -49,5 +50,24 @@ export class Time {
 
   public static HourToHourInfo(hour : Hour) : HourInfo {
     return {hours: hour >> 8, minutes: hour & 0b11111111};
+  }
+
+
+  public static MakeDateTime(day : number, month: number, year : number, hour : number, minutes : number) {
+    let dateTime : DateTime = minutes;
+    dateTime |= (hour << 6);
+    dateTime |= (year << 11);
+    dateTime |= (month << 23);
+    dateTime |= (day << 27);
+    return dateTime;
+  }
+
+  public static DateTimeToString(dateTime : DateTime) {
+    const minute = dateTime & 0b111111;
+    const hour = (dateTime >> 6) & 0b11111;
+    const year = (dateTime >> 11) & 0b111111111111;
+    const month = (dateTime >> 23) & 0b1111;
+    const day = (dateTime >> 27) & 0b11111;
+    return `${hour < 10 ? '0' : ''}${hour}:${minute < 10 ? '0' : ''}${minute} ${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${year}`;
   }
 }

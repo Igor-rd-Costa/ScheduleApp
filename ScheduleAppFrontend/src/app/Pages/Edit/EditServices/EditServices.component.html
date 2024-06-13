@@ -13,14 +13,13 @@
         <div class="pt-6 grid gap-y-4" #wrapper>
             <CardBase cardIcon="add" heading="Add Category">
                 <form [formGroup]="addCategoryForm" class="pl-2 pb-2 grid gap-y-1 max-w-[70%]" method="post" (submit)="AddCategory($event)">
-                    <label for="name-field">
-                        
+                    <label>
                         Name:
                         @if (addCategoryForm.controls.Name.hasError('required') && addCategoryForm.dirty) {
                             <span class="text-[0.8rem] text-red-600">Field is required</span>
                         }
                     </label>
-                    <input class="rounded text-black pl-2" name="name-field" formControlName="Name">
+                    <FormInput formControlName="Name"/>
                     <MainButton class="pt-2" [disabled]="!addCategoryForm.valid">
                         Add
                     </MainButton>
@@ -36,19 +35,19 @@
         <CardBase [cardIcons]="['add']" heading="Add Service">
             <form [formGroup]="addServiceForm" class="pl-2 pb-2 grid gap-y-1 max-w-[70%]" method="post" (submit)="AddService($event)">
                 <div>
-                    <label for="name-field">
+                    <label>
                         Name:
                         @if (addServiceForm.controls.Name.hasError('required') && addServiceForm.dirty) {
                             <span class="text-[0.8rem] text-red-600">Field is required</span>
                         }
                     </label>
-                    <input class="mt-1 rounded text-black" name="name-field" formControlName="Name">
+                    <FormInput formControlName="Name"/>
                 </div>
                 <div class="grid">
-                    <label for="description-field">
+                    <label>
                         Description:
                     </label>
-                    <textarea class="rounded text-black pl-2 h-[5rem]" name="description-field" formControlName="Description"></textarea>
+                    <FormInput type="textarea" formControlName="Description"/>
                 </div>
                 <div class="flex items-center">
                     <div>Icon:</div>
@@ -56,26 +55,30 @@
                         <Icon type="visibility"/>
                     </div>
                 </div>
-                <div>
-                    <label for="price-field">
+                <div class="flex gap-x-1 items-center">
+                    <label>
                         Price:
                     </label>
-                    <input type="number" class="rounded text-black pl-2 w-[4rem]" name="name-field" formControlName="Price">
+                    <div class="w-[4rem]">
+                        <FormInput type="price" formControlName="Price"/>
+                    </div>
                 </div>
-                <div>
-                    <label for="duration-field">
+                <div class="flex gap-x-1 items-center">
+                    <label>
                         Duration:
                     </label>
-                    <input type="number" class="rounded text-black pl-2 w-[3.5rem]" name="name-field" formControlName="Duration"> minutes
+                    <div class="w-[3.5rem]">
+                        <FormInput type="number" [numberAllowDecimal]="false" formControlName="Duration"/>
+                    </div>
+                    minutes
                 </div>
                 <div class="flex items-center">
-                    <label for="category-field">Category:</label>
-                    <select class="w-full h-[1.5rem] rounded text-black ml-1 pl-2 bg-white" formControlName="Category">
-                        <option></option>
+                    <label class="pr-1">Category:</label>
+                    <FormInput type="select" formControlName="Category">
                         @for(category of categories; track category.id) {
                             <option [value]="category.id">{{category.name}}</option>
                         }
-                    </select>
+                    </FormInput>
                 </div>
                 <MainButton class="pt-2" [disabled]="!addServiceForm.valid">
                     Add

@@ -1,13 +1,13 @@
 <CardBase minHeight="3rem" [cardIcons]="['edit', 'delete']" [heading]="isInEditMode ? 'Edit ' + categoryName : categoryName">
     @if (isInEditMode) {
         <form [formGroup]="editCategoryForm" class="pl-2 pb-2 grid gap-y-1 max-w-[70%]" method="post" (submit)="Edit($event)" cardForm>
-            <label for="name-field">
+            <label>
                 Name:
                 @if (editCategoryForm.controls.Name.hasError('required') && editCategoryForm.dirty) {
                     <span class="text-[0.8rem] text-red-600">Field is required</span>
                 }
             </label>
-            <input class="rounded text-black pl-2" name="name-field" formControlName="Name">
+            <FormInput formControlName="Name"/>
 
             <div class="grid pt-2 grid-cols-[auto_auto] gap-x-4 items-center w-fit">
                 <MainButton [disabled]="!editCategoryForm.valid || editCategoryForm.controls.Name.value === categoryName">
@@ -19,5 +19,4 @@
             </div>
         </form>
     }
-  
 </CardBase>

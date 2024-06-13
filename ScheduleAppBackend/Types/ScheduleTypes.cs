@@ -5,7 +5,7 @@
         public int ServiceId { get; set; }
         public Guid BusinessId { get; set; }
         public Guid EmployeeId { get; set; }
-        public DateTime Time { get; set; } 
+        public int Time { get; set; } 
     }
 
     public class AppointmentInfo
@@ -17,6 +17,6 @@
         public string ServiceName { get; set; }
         public decimal Price { get; set; }
         public ushort Duration { get; set; }
-        public DateTime Time { get; set; }
+        public int Time { get; set; }
     }
 }

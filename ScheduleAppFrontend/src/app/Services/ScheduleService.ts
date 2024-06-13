@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { App } from "../App.component";
 import { BusinessService } from "./ServicesService";
-import { Hour } from "../Utils/Time";
+import { DateTime, Hour, Time } from "../Utils/Time";
 
 export type Appointment = {
     id: number,
@@ -10,7 +10,7 @@ export type Appointment = {
     clientId : string,
     employeeId : string,
     serviceId : number,
-    time : Date
+    time : number
 }
 
 @Injectable()
@@ -62,10 +62,11 @@ export class ScheduleService {
         })
     }
 
-    async Schedule(serviceId : number, businessId : string, employeeId : string, time : Date) {
+    async Schedule(serviceId : number, businessId : string, employeeId : string, time : DateTime) {
         return new Promise<boolean>(resolve => {
-           this.http.post(this.controllerAddress, {serviceId, businessId, employeeId, time}, {withCredentials: true}).subscribe({
+           this.http.post<Appointment>(this.controllerAddress, {serviceId, businessId, employeeId, time}, {withCredentials: true}).subscribe({
             next: appointment => {
+                console.log("Set to time", Time.DateTimeToString(appointment.time));
                 resolve(true);
             },
             error: err => {

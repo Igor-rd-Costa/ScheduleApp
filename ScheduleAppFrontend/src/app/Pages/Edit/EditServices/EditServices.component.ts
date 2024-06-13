@@ -12,11 +12,13 @@ import { BusinessCategory, BusinessService, CategoryDeleteInfo, ServicesService 
 import BusinessServiceService from 'src/app/Services/BusinessService';
 import CacheService from 'src/app/Services/CacheService';
 import { Router } from '@angular/router';
+import { FormInput } from 'src/app/Components/FormInput/FormInput.component';
 
 @Component({
   selector: 'EditServices',
   standalone: true,
-  imports: [Heading, MinimizableCard, CardBase, Icon, MainButton, EditableCategoryCard, EditableServiceCard, ReactiveFormsModule, SecondaryButton],
+  imports: [Heading, MinimizableCard, CardBase, Icon, MainButton, FormInput, 
+    EditableCategoryCard, EditableServiceCard, ReactiveFormsModule, SecondaryButton],
   templateUrl: './EditServices.component.html',
 })
 export class EditServices implements AfterViewInit {
@@ -47,7 +49,6 @@ export class EditServices implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.wrappers.forEach(w => {
-
       const wrapper = w.nativeElement;
       let width = parseFloat(getComputedStyle(wrapper).width);
       let count = 0;
@@ -65,11 +66,14 @@ export class EditServices implements AfterViewInit {
     event.preventDefault();
     const name = this.addServiceForm.controls.Name.value!;
     const description = this.addServiceForm.controls.Description.value ?? "";
-    const price = this.addServiceForm.controls.Price.value;
+    let price = this.addServiceForm.controls.Price.value;
     const duration = this.addServiceForm.controls.Duration.value!;
     let category = this.addServiceForm.controls.Category.value;
     if (typeof(category) === 'string') {
       category = parseInt(category as string);
+    }
+    if (typeof(price) === 'string') {
+      price = parseFloat((price as string).replace(',', '.'));
     }
     this.servicesService.AddService(name, description, price, duration, category).then(result =>{
       if (result.id !== -1) {

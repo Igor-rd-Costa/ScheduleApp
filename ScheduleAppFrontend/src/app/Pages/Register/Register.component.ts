@@ -2,11 +2,14 @@ import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractControl, AsyncValidatorFn, FormControl, FormControlStatus, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import AuthService from 'src/app/Services/AuthService';
+import { FormInput } from 'src/app/Components/FormInput/FormInput.component';
+import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
+import { SecondaryButton } from 'src/app/Components/SecondaryButton/SecondaryButton.component';
 
 @Component({
   selector: 'Register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormInput, MainButton, SecondaryButton],
   templateUrl: './Register.component.html',
 })
 export class Register {

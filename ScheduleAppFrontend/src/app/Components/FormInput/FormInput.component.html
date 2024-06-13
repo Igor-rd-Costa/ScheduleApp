@@ -1,0 +1,24 @@
+@if (type === 'text' || type === 'password') {
+    <input [style]="disabled ? {backgroundColor: '#CCCCCCFF'} : {}" [type]="type" class="text-black h-[1.7rem] pl-2 w-full rounded border-r-2 border-b-2 
+        border-transparent outline-none shadow-[2px_2px_4px_0px_#111111] 
+        focus:shadow-golden" [value]="value" (input)="OnInput($event)" [disabled]="disabled">
+} @else if (type === 'textarea') {
+    <textarea [style]="disabled ? {backgroundColor: '#CCCCCCFF'} : {}" class="text-black h-[5rem] pl-2 w-full rounded border-r-2 border-b-2 
+        border-transparent outline-none shadow-[2px_2px_4px_0px_#111111] focus:shadow-golden" 
+        [value]="value" (input)="OnInput($event)" (input)="OnInput($event)" [disabled]="disabled">
+    </textarea>
+} @else if (type === 'select') {
+    <select [style]="disabled ? {backgroundColor: '#CCCCCCFF'} : {}" [value]="value" (input)="OnInput($event)" class="text-black w-full h-[1.7rem] pl-2 w-full 
+        bg-white rounded shadow-[2px_2px_4px_0px_#111111] focus:shadow-golden outline-none" [disabled]="disabled">
+        <option></option>
+        <ng-content></ng-content>
+    </select>
+} @else if (type === 'number') {
+    <input [style]="disabled ? {backgroundColor: '#CCCCCCFF'} : {}" type="text" class="text-black h-[1.7rem] w-full pl-2 rounded border-r-2 
+        border-b-2 border-transparent outline-none shadow-[2px_2px_4px_0px_#111111] 
+        focus:shadow-golden" [value]="value" (input)="OnInput($event)" (keydown)="OnNumberkeyDown($event)" [disabled]="disabled" #input>
+} @else if (type === 'price') {
+    <input [style]="disabled ? {backgroundColor: '#CCCCCCFF'} : {}" type="text" class="text-black h-[1.7rem] w-full pl-2 rounded border-r-2 
+        border-b-2 border-transparent outline-none shadow-[2px_2px_4px_0px_#111111] 
+        focus:shadow-golden" [value]="value" (input)="OnPriceInput($event)" (keydown)="OnPricekeyDown($event)" [disabled]="disabled" #input>
+}

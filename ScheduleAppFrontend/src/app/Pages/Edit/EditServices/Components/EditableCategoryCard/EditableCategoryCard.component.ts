@@ -2,6 +2,7 @@ import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { App } from 'src/app/App.component';
 import { CardBase } from 'src/app/Components/CardBase/CardBase.component';
+import { FormInput } from 'src/app/Components/FormInput/FormInput.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import { MessageType } from 'src/app/Components/PopUpMessageBox/PopUpMessageBox.component';
 import { SecondaryButton } from 'src/app/Components/SecondaryButton/SecondaryButton.component';
@@ -11,7 +12,7 @@ import { CategoryDeleteInfo, ServicesService } from 'src/app/Services/ServicesSe
 @Component({
   selector: 'EditableCategoryCard',
   standalone: true,
-  imports: [CardBase, MainButton, SecondaryButton, ReactiveFormsModule],
+  imports: [CardBase, MainButton, SecondaryButton, ReactiveFormsModule, FormInput],
   templateUrl: './EditableCategoryCard.component.html',
 })
 export class EditableCategoryCard implements AfterViewInit {
@@ -64,6 +65,8 @@ export class EditableCategoryCard implements AfterViewInit {
   }
 
   EnterEditMode() {
+    if (this.isInEditMode)
+      return;
     this.isInEditMode = true;
     this.editCategoryForm.controls.Name.setValue(this.categoryName);
   }

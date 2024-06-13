@@ -2,9 +2,70 @@
 using System.Globalization;
 using System.Text;
 using System.Text.Json.Nodes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ScheduleAppBackend.Helpers
 {
+    public class SADateTime
+    {
+        public SADateTime(int value) 
+        {
+            m_Value = value;
+        }
+
+        public SADateTime(int day, int month, int year,  int hour, int minute)
+        {
+            m_Value = minute;
+            m_Value |= (hour << 6);
+            m_Value |= (year << 11);
+            m_Value |= (month << 23);
+            m_Value |= (day << 27);
+        }
+
+        private int m_Value = 0;
+
+        public int Day { get { return (m_Value >> 27) & 0b11111; } }
+        public int Month { get { return (m_Value >> 23) & 0b1111; } }
+        public int Year { get { return (m_Value >> 11) & 0b111111111111; } }
+        public int Hour { get { return (m_Value >> 6) & 0b11111; } }
+        public int Minute { get { return m_Value & 0b111111; } }
+
+        public override string ToString()
+        {
+            int minute =  m_Value & 0b111111;
+            int hour = (m_Value >> 6) & 0b11111;
+            int year = (m_Value >> 11) & 0b111111111111;
+            int month = (m_Value >> 23) & 0b1111;
+            int day = (m_Value >> 27) & 0b11111;
+            return $"{(hour < 10 ? "0" : "")}{hour}:{(minute < 10 ? "0" : "")}{minute} " +
+                $"{(day < 10 ? "0" : "")}{day}/{(month < 10 ? "0" : "")}{month}/{year}";
+        }
+
+        public static int GetDay(int dateTime)
+        {
+            return (dateTime >> 27) & 0b11111;
+        }
+
+        public static int GetMonth(int dateTime)
+        {
+            return (dateTime >> 23) & 0b1111;
+        }
+
+        public static int GetYear(int dateTime)
+        {
+            return (dateTime >> 11) & 0b111111111111;
+        }
+
+        public static int GetHour(int dateTime)
+        {
+            return (dateTime >> 6) & 0b11111;
+        }
+        public static int GetMinute(int dateTime)
+        {
+            return dateTime & 0b111111;
+        }
+    }
+          
     public class Cache<T> where T : notnull
     {
         public List<T> CachedIds { get; set; } = [];

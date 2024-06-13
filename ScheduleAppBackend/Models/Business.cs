@@ -20,10 +20,25 @@ namespace ScheduleAppBackend.Models
         public string Description { get; set; } = "";
         [MaxLength(60)]
         public string BusinessUrl { get; set; } = "";
+        public string Address { get; set; } = "";
+        public int AddressNumber { get; set; }
+        [MaxLength(2)]
+        public string CountryCode { get; set; } = "";
+        public string StateCode { get; set; } = "";
+        public int CityCode { get; set; }
         public DateTime LastEditDate { get; set; }
 
         [JsonIgnore]
         [ForeignKey("OwnerId")]
         public User User { get; set; }
+        [JsonIgnore]
+        [ForeignKey("CountryCode")]
+        public LocationCountry Country { get; set; }
+        [JsonIgnore]
+        [ForeignKey("StateCode, CountryCode")]
+        public LocationState State { get; set; }
+        [JsonIgnore]
+        [ForeignKey("CityCode")]
+        public LocationCity City { get; set; }
     }
 }

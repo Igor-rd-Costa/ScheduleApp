@@ -1,28 +1,58 @@
 @if (businessInfo.business === null) {
     <div class="pt-6 flex flex-col items-center">
         <h2 class="text-goldenDark text-[2rem] mb-[2rem]">Business Setup</h2>
-        <form [formGroup]="businessSetupForm" class="grid w-[17rem] grid-cols-1 grid-rows-[auto_auto_auto_auto_1rem_3rem]" method="post" (submit)="SetupBusiness($event)">
-            <label class="text-white mb-2 col-start-1" for="name-field">
+        <form [formGroup]="businessSetupForm" class="grid w-[17rem] grid-cols-1" method="post" (submit)="SetupBusiness($event)">
+            <label class="text-white mb-2">
                 Name:
                 @if (this.businessSetupForm.controls.Name.hasError('required') && this.businessSetupForm.dirty) {
                     <span class="pl-2 text-red-600 text-[0.9rem]">Field is required</span>
                 }
             </label>
-            <input class="h-[1.7rem] mb-4 col-start-1 col-span-2 p-1 rounded" type="text" name="name-field" formControlName="Name">
-            
-            <label class="text-white mb-2 col-start-1 row-start-3" for="description-field">Description:</label>
-            <textarea class="h-[6rem] p-1 col-start-1 row-start-4 col-span-2 rounded" name="description-field" formControlName="Description"></textarea>
-
-            <MainButton class="row-start-6 justify-self-center" [disabled]="!businessSetupForm.valid">
-                <div class="h-[2rem] pl-2 pr-2 flex items-center">
-                    Submit
+            <FormInput formControlName="Name"/>
+            <label class="text-white mb-2">Description:</label>
+            <FormInput type="textarea" formControlName="Description"/>
+            <label class="text-white mb-2">Address</label>
+            <FormInput formControlName="Address"/>
+            <div class="grid grid-cols-[1fr_1fr] w-full grid-rows-2 gap-x-4 pb-4">
+                <div class="row-start-1 col-start-1 w-full">
+                    <label class="text-white mb-2">Number</label>
+                    <FormInput type="number" [numberAllowDecimal]="false" formControlName="Number"/>
                 </div>
-            </MainButton>
+                <div class="row-start-1 col-start-2 w-full">
+                    <label class="text-white mb-2">Country</label>
+                    <FormInput type="select" formControlName="Country">
+                        @for (country of countries; track country.isoCode) {
+                            <option [value]="country.isoCode">{{country.name}}</option>
+                        }
+                    </FormInput>
+                </div>
+                <div class="row-start-2 col-start-1 w-full">
+                    <label class="text-white mb-2">State</label>
+                    <FormInput type="select" formControlName="State">
+                        @for (state of states; track state.code) {
+                            <option [value]="state.code">{{state.name}}</option>
+                        }
+                    </FormInput>
+                </div>
+                <div class="row-start-2 col-start-2 w-full">
+                    <label class="text-white mb-2">City</label>
+                    <FormInput type="select" formControlName="City">
+                        @for (city of cities; track city.id) {
+                            <option [value]="city.id">{{city.name}}</option>
+                        }
+                    </FormInput>
+                </div>
+            </div>
+            <div class="justify-self-center">
+                <MainButton [disabled]="!businessSetupForm.valid">
+                    Setup
+                </MainButton>
+            </div>
         </form>
     </div>
 } @else if (businessInfo.business !== undefined) {
     <div class="pt-6 pb-6">
-        <div class="pl-4 pr-4 pb-10 grid grid-cols-[auto_1fr] grid-rows-1">
+        <div class="pl-4 pr-4 pb-10 grid grid-cols-[auto_1fr] grid-rows-[1fr_auto]">
             <div class="border-4 border-goldenDark text-goldenDark w-fit p-1 rounded-[50%]">
                 <Icon size="4.5rem" type="store"/>
             </div>
@@ -30,9 +60,13 @@
                 <div class="text-goldenDark text-[1.4rem]">
                     {{businessInfo.business.name}}
                 </div>
-                <div class="text-gray-200 text-[0.9rem]">
+                <div class="text-gray-200 text-[0.8rem]">
                     {{businessInfo.business.description}}
                 </div>
+            </div>
+            <div class="pl-2 mt-2 text-gray-200 text-[0.7rem] flex items-center gap-x-1 col-span-2">
+                <Icon type="location_on"/>
+                {{businessInfo.business.address}}, {{businessInfo.business.addressNumber}} - {{cityName()}}, {{stateName()}}-{{businessInfo.business.countryCode}}
             </div>
         </div>
         <h2 class="grid grid-rows-1 items-center grid-cols-[auto_1fr_auto] text-goldenDark ml-4 text-[1.3rem] mb-[0.5rem] mr-4">
@@ -59,7 +93,7 @@
                     <div class="pb-6 pt-6 grid gap-4 w-screen overflow-y-scroll" #card>
                         @for (service of GetServicesInCategory(null); track service.id) {
                             <BusinessServiceCard (Click)="OnServiceClick($event)" [serviceName]="service.name" [serviceDescription]="service.description"
-                            [servicePrice]="service.price" [serviceDuration]="service.duration", [serviceId]="service.id" [canSchedule]="!allowEdit"/>
+                            [servicePrice]="service.price" [serviceDuration]="service.duration" [serviceId]="service.id" [canSchedule]="!allowEdit"/>
                         }
                     </div>
                 </MinimizableCard>

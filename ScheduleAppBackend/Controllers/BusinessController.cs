@@ -119,6 +119,11 @@ namespace ScheduleAppBackend.Controllers
                 Name = info.Name,
                 Description = info.Description,
                 BusinessUrl = MakeCustomUrl(info.Name),
+                Address = info.Address,
+                AddressNumber = info.AddressNumber,
+                CountryCode = info.Country,
+                StateCode = info.State,
+                CityCode = info.City, 
                 LastEditDate = DateTime.UtcNow
             };
 

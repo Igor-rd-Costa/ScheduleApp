@@ -24,6 +24,9 @@ export class EditHours implements AfterViewInit {
   openingHours : BusinessHours[] = [];
 
   constructor(private router : Router, private businessHoursService : BusinessHoursService, private cacheService : CacheService) {
+    const now = new Date(Date.now());
+    const hour = new Date(2001, 0, 1, 13, 30, 0, 0);
+
     this.businessHoursService.GetBusinessHours(null).then(hours => {
       this.openingHours = hours;
     });
@@ -47,14 +50,18 @@ export class EditHours implements AfterViewInit {
 
   async Save() {
     const value = this.input.value;
+
     App.PopUpMessageBox.BusinessHoursSave(value).then(result => {
       if (result) {
         this.businessHoursService.UpdateBusinessHours(value).then(async success => {
+          console.log("HereHere", success);
           if (success) {
+            console.log("Good!");
             const business = this.cacheService.GetLoggedBusiness();
             if (business) {
               this.openingHours = await this.cacheService.BusinessHoursWhere(bh => bh.businessId === business.id);
             }
+            console.log("Got Here!");
             this.GoBack();
           }
         });

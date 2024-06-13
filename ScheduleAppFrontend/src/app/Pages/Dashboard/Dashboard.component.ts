@@ -1,11 +1,8 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { App } from 'src/app/App.component';
 import { AppointmentCard } from 'src/app/Components/AppointmentCard/AppointmentCard.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import { MinimizableCard } from 'src/app/Components/MinimizableCard/MinimizableCard.component';
-import { MessageType } from 'src/app/Components/PopUpMessageBox/PopUpMessageBox.component';
-import AuthService from 'src/app/Services/AuthService';
 import BusinessService from 'src/app/Services/BusinessService';
 import { Appointment, ScheduleService } from 'src/app/Services/ScheduleService';
 import { ServicesService } from 'src/app/Services/ServicesService';
@@ -17,7 +14,7 @@ export type AppointmentInfo = {
   serviceName : string,
   price : number | null,
   duration : number,
-  time : Date
+  time : number
 }
 
 
@@ -39,10 +36,6 @@ export class Dashboard implements AfterViewInit {
         this.appointments = info;
       });
     });
-  }
-
-  Test() {
-    App.PopDownMessageBox.Show(MessageType.SUCCESS, "This is good.", 1);
   }
 
   ngAfterViewInit(): void {
