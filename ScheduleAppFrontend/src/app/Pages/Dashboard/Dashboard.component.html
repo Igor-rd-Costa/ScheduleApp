@@ -1,9 +1,0 @@
-<MinimizableCard header="My Appointments">
-    <div class="mt-4 mb-4 grid gap-4" #card>
-        @for (appointment of appointments; track appointment.id) {
-            <AppointmentCard [serviceIcon]="'cut'" [serviceName]="appointment.serviceName" [businessName]="appointment.businessName"
-                [appointmentTime]="appointment.time" [employeeName]="appointment.employeeName" [servicePrice]="appointment.price" 
-                [serviceDuration]="appointment.duration"/>
-        }
-    </div>
-</MinimizableCard>

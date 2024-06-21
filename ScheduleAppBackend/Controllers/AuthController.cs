@@ -7,6 +7,13 @@ using System.Security.Claims;
 
 namespace ScheduleAppBackend.Controllers
 {
+    public class SessionData
+    {
+        public bool IsLogged { get; set; }
+        public User? User { get; set; }
+        public Business? Business { get; set; }
+    }
+
     public class UserInfo
     {
         public UserInfo(string firstName, string lastName, string email) 
@@ -92,14 +99,28 @@ namespace ScheduleAppBackend.Controllers
             return Ok(false);
         }
 
-        [HttpGet("is-logged")]
-        public IActionResult IsLogged()
+        [HttpGet("session")]
+        public async Task<IActionResult> GetSessionData([FromQuery] DateTime? uData, [FromQuery] DateTime? bData)
         {
-            int a = new Random().Next();
-            bool isLogged = m_SignInManager.IsSignedIn(User);
-             if (isLogged)
-                return Ok(true);
-            return Ok(false);
+            SessionData sData = new()
+            {
+                IsLogged = false,
+                User = null,
+                Business = null
+            };
+            User? user = await m_UserManager.GetUserAsync(User);
+            if (user == null)
+                return Ok(sData);
+            sData.IsLogged = true;
+            if (uData.HasValue && uData.Value < user.LastEditDate)
+                sData.User = user;
+
+            Business? business = m_Context.Businesses.Where(b => b.OwnerId == user.Id).FirstOrDefault();
+            if (business == null)
+                return Ok(sData);
+            if (bData.HasValue && bData.Value < business.LastEditDate)
+                sData.Business = business;
+            return Ok(sData);
         }
 
         [HttpGet("is-email-available")]

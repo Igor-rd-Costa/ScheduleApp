@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using ScheduleAppBackend.Context;
 using ScheduleAppBackend.Helpers;
 using ScheduleAppBackend.Models;
+using ScheduleAppBackend.Services.Interfaces;
 using ScheduleAppBackend.Types;
+using System.Linq;
 
 namespace ScheduleAppBackend.Controllers
 {
@@ -14,11 +16,13 @@ namespace ScheduleAppBackend.Controllers
     {
         private readonly ScheduleAppContext m_Context;
         private readonly UserManager<User> m_UserManager;
+        private readonly INotificationService m_NotificationService;
 
-        public ScheduleController(ScheduleAppContext context, UserManager<User> userManager)
+        public ScheduleController(ScheduleAppContext context, UserManager<User> userManager, INotificationService notificationService)
         {
             m_Context = context;
             m_UserManager = userManager;
+            m_NotificationService = notificationService;
         }
 
         //TODO Add cache
@@ -30,8 +34,36 @@ namespace ScheduleAppBackend.Controllers
                 return Unauthorized();
 
             List<Appointment> appointments = m_Context.Appointments.Where(a => a.ClientId == user.Id).ToList();
+            List<Appointment> futureAppointments = [];
+            Guid businessId = Guid.Empty;
+            DateTimeOffset today = new DateTimeOffset(DateTime.UtcNow);
+            appointments.Sort((Appointment a, Appointment b) =>
+            {
+                if (a.BusinessId < b.BusinessId)
+                    return -1;
+                if (a.BusinessId > b.BusinessId)
+                    return 1;
+                return 0;
+            });
+            foreach (Appointment appointment in appointments)
+            {
+                if (businessId != appointment.BusinessId)
+                {
+                    businessId = appointment.BusinessId;
+                    int cityCode = m_Context.Businesses.Where(b => b.Id == appointment.BusinessId).Select(b => b.CityCode).First();
+                    string timezone = m_Context.LocationCities.Where(c => c.Id == cityCode).Select(c => c.TimeZone).First();
+                    int tzOffset = m_Context.LocationTimeZones.Where(tz => tz.Name == timezone).Select(tz => tz.Offset).First();
+                    today = new DateTimeOffset(DateTime.UtcNow).ToOffset(new TimeSpan(tzOffset, 0, 0));
+                }
 
-            return Ok(appointments);
+                SADateTime time = new(appointment.Time);
+                DateTime t = new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, 0);
+                if (t.Ticks > today.Ticks)
+                {
+                    futureAppointments.Add(appointment);
+                }
+            }
+            return Ok(futureAppointments);
         }
 
         //TODO add cache
@@ -166,6 +198,25 @@ namespace ScheduleAppBackend.Controllers
             };
             var state = m_Context.Appointments.Add(appointment).State;
             if (state != EntityState.Added)
+                return BadRequest();
+
+            UAppointmentConfirmedNotificationInfo nInfo = new()
+            {
+                User = user,
+                BusinessName = business.Name,
+                AppointmentTime = appointment.Time
+            };
+            if (!m_NotificationService.CreateUserAppointmentConfirmedNotification(nInfo))
+                return BadRequest();
+
+            BNewAppointmentNotificationInfo bInfo = new()
+            {
+                User = user,
+                Business = business,
+                Service = service,
+                AppointmentTime = appointment.Time,
+            };
+            if (!m_NotificationService.CreateBusinessNewAppointmentNotification(bInfo))
                 return BadRequest();
             m_Context.SaveChanges();
             return Ok(appointment);

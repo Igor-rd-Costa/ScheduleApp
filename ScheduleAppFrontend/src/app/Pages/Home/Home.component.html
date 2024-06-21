@@ -1,0 +1,11 @@
+<h2 class="grid grid-rows-1 gap-x-2 items-center grid-cols-[auto_1fr_auto] text-goldenDark ml-4 text-[1.3rem] mb-[0.5rem] mr-4 mt-4">
+    <Icon type="schedule"/>
+    <div class="justify-start w-fit">My Appointments</div>
+</h2>
+<div class="mt-4 mb-4 grid gap-4" #card>
+    @for (appointment of appointments; track appointment.id) {
+        <AppointmentCard [serviceIcon]="'cut'" [serviceName]="appointment.serviceName" [businessName]="appointment.businessName"
+            [appointmentTime]="appointment.time" [employeeName]="appointment.employeeName" [servicePrice]="appointment.price" 
+            [serviceDuration]="appointment.duration"/>
+    }
+</div>

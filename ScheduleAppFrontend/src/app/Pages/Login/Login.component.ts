@@ -31,7 +31,7 @@ export class Login {
       this.loginForm.controls.Password.value ?? ""
     );
     if (result) {
-      this.router.navigate(["dashboard"]);
+      this.router.navigate(["home"]);
     } else {
       //TODO show login error
     }

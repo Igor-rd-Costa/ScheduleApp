@@ -3,6 +3,8 @@ using ScheduleAppBackend.Context;
 using Microsoft.AspNetCore.Identity;
 using ScheduleAppBackend.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using ScheduleAppBackend.Services.Interfaces;
+using ScheduleAppBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,7 @@ builder.Services.AddDbContext<ScheduleAppContext>(options =>
         builder.Configuration.GetConnectionString("Database") ?? throw new InvalidOperationException("Connection string 'Database' not found.")
     );
 });
+builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddIdentityCore<User>(options =>
 {
     options.User.RequireUniqueEmail = true;

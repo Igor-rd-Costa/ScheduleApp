@@ -1,9 +1,9 @@
-import { NgModule, inject } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainPage } from './Pages/MainPage/MainPage.component';
 import { Register } from './Pages/Register/Register.component';
 import { Login } from './Pages/Login/Login.component';
-import { Dashboard } from './Pages/Dashboard/Dashboard.component';
+import { Home } from './Pages/Home/Home.component';
 import { Profile } from './Pages/Profile/Profile.component';
 import { AuthGuard } from './Services/AuthGuard';
 import { Businesses } from './Pages/Businesses/Businesses.component';
@@ -29,8 +29,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: "dashboard",
-    component: Dashboard,
+    path: "home",
+    component: Home,
     canActivate: [AuthGuard],
   },
   {
@@ -51,10 +51,12 @@ const routes: Routes = [
   {
     path: 'business/:businessUrl',
     component: Business,
+    canActivate: [AuthGuard],
   },
   {
     path: 'business/:businessUrl/schedule/:serviceId',
     component: Schedule,
+    canActivate: [AuthGuard],
   },
   {
     path: 'edit/services',

@@ -27,6 +27,7 @@ namespace ScheduleAppBackend.Models
         public string StateCode { get; set; } = "";
         public int CityCode { get; set; }
         public DateTime LastEditDate { get; set; }
+        public bool HasUnseenNotifications { get; set; }
 
         [JsonIgnore]
         [ForeignKey("OwnerId")]

@@ -14,7 +14,7 @@
 
     <div class="min-h-[50px] pl-2 pr-2 pt-6 grid grid-cols-[auto_1fr] items-center gap-4">
         <Icon type="partly_cloudy_day"/>
-        <div class="flex flex-wrap pt-2 gap-2 items-center text-[#DDDDDD]">
+        <div class="flex flex-wrap gap-2 items-center text-[#DDDDDD]">
             @if (availableTimes.morning.length !== 0) {
                 
                 @for (time of availableTimes.morning; track time) {
@@ -27,7 +27,7 @@
     </div>
     <div class="min-h-[50px] pl-2 pr-2 pt-2 grid grid-cols-[auto_1fr] items-center gap-4">
         <Icon type="sunny"/>
-        <div class="flex flex-wrap pt-2 gap-2 items-center text-[#DDDDDD]">
+        <div class="flex flex-wrap gap-2 items-center text-[#DDDDDD]">
             @if (availableTimes.afternoon.length !== 0) {
                 @for (time of availableTimes.afternoon; track time) {
                     <ScheduleHourInput (Selected)="OnHourSelect($event)" [time]="time"/>
@@ -39,7 +39,7 @@
     </div>
     <div class="min-h-[50px] pl-2 pr-2 pt-2 grid grid-cols-[auto_1fr] items-center gap-4">
         <Icon type="partly_cloudy_night"/>
-        <div class="flex flex-wrap pt-2 gap-2 items-center text-[#DDDDDD]">
+        <div class="flex flex-wrap gap-2 items-center text-[#DDDDDD]">
             @if (availableTimes.night.length !== 0) {
                 
                 @for (time of availableTimes.night; track time) {
@@ -52,7 +52,7 @@
     </div>
     <div class="min-h-[50px] pl-2 pr-2 pt-2 grid grid-cols-[auto_1fr] items-center gap-4">
         <Icon type="bedtime"/>
-        <div class="flex flex-wrap pt-2 gap-2 items-center text-[#DDDDDD]">
+        <div class="flex flex-wrap gap-2 items-center text-[#DDDDDD]">
             @if (availableTimes.dawn.length !== 0) {
                 @for (time of availableTimes.dawn; track time) {
                     <ScheduleHourInput (Selected)="OnHourSelect($event)" [time]="time"/>

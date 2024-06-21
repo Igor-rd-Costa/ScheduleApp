@@ -2,10 +2,13 @@
     <button class="justify-self-center text-white" (click)="GoToBusinesses()">
         <Icon type="work"/>
     </button>
-    <button class="justify-self-center text-white" (click)="GoToDashboard()">
+    <button class="justify-self-center text-white" (click)="GoToHome()">
         <Icon type="home"/>
     </button>
-    <button class="justify-self-center text-white" (click)="GoToProfile()">
+    <button class="justify-self-center text-white relative" (click)="GoToProfile()">
         <Icon type="person"/>
+        @if (authService.GetLoggedUser()?.hasUnseenNotifications || authService.GetLoggedBusiness()?.hasUnseenNotifications) {
+            <div class="w-2 h-2 bg-goldenLight rounded absolute bottom-0 right-0"></div>
+        }
     </button>
 </header>

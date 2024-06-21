@@ -30,8 +30,8 @@ export default class CacheService {
     private locationCities : CacheTable<City> | null = null;
     //private locationTimeZones : CacheTable<> | null = null;
 
-    private loggedUser :DataCache<User> = new DataCache<User>("LoggedUser");
-    private loggedBusiness : DataCache<Business> = new DataCache<Business>('LoggedBusiness');
+    private loggedUser :DataCache<User|null> = new DataCache<User>("LoggedUser");
+    private loggedBusiness : DataCache<Business|null> = new DataCache<Business>('LoggedBusiness');
 
     public constructor() {
         let request = window.indexedDB.open("ScheduleAppDB", 1);
@@ -246,25 +246,16 @@ export default class CacheService {
         return this.loggedUser.Get();
     }
 
-    public SetLoggedUser(value : User) {
+    public SetLoggedUser(value : User | null) {
         this.loggedUser.Set(value);
     }
-
-    public DeleteLoggedUser() {
-        this.loggedUser.Delete();
-    }
-
 
     public GetLoggedBusiness() : Business | null {
         return this.loggedBusiness.Get();
     }
 
-    public SetLoggedBusiness(value : Business) {
+    public SetLoggedBusiness(value : Business | null) {
         this.loggedBusiness.Set(value);
-    }
-
-    public DeleteLoggedBusiness() {
-        this.loggedBusiness.Delete();
     }
 
     private SetupTables() {

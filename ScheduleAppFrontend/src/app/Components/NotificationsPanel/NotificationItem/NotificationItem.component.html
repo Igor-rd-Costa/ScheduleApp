@@ -1,0 +1,24 @@
+<div class="overflow-hidden" #notificationWrapper>
+    <div class="relative grid gap-x-2 pt-4 pb-4 grid-cols-[auto_1fr] hover:text-goldenLight cursor-pointer" 
+    (mouseenter)="OnMouseEnter()" (mouseleave)="OnMouseLeave()" (click)="OnClick($event)" #notification>
+        <div class="grid grid-rows-[auto_1fr]">
+            <button id="notification-close-button" class="opacity-0 row-start-1 col-start-1 text-[1rem] w-fit h-fit 
+            text-goldenDark hover:text-goldenLight font-bold" (click)="CloseNotification()" #closeButton>   x</button>
+            <Icon class="self-center col-start-1 row-start-1 row-span-2" size="2.5rem" type="notifications"/>
+        </div>
+        <div class="grid grid-cols-[auto_1fr_auto] gap-y-1">
+            <h3 class="text-[1.2rem] row-start-1 col-start-1 col-span-2">{{heading}}</h3>
+            @if (!visualized) {
+                <div id="notification-unseen-icon" class="w-2 h-2 rounded bg-goldenDark row-start-1 col-start-3 justify-self-end self-center" #unseenIcon></div>
+            }
+            <div class="row-start-2">
+                <ng-content/>
+            </div>
+            <div class="row-start-3">
+                <ng-content select=".bottom-content"/>
+            </div>
+            <p class="text-[#DDDDDDFF] text-[0.8rem] row-start-3 col-start-2 col-span-2 justify-self-end"> 20m ago</p>
+        </div>
+    </div>
+    <div class="border-b col-span-2 border-[#444444]" #bottomBorder></div>
+</div>

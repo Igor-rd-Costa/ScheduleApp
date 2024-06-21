@@ -16,6 +16,7 @@ import { BusinessHoursService } from './Services/BusinessHoursService';
 import { ScheduleService } from './Services/ScheduleService';
 import { PopDownMessageBox } from './Components/PopDownMessageBox/PopDownMessageBox.component';
 import { LocationService } from './Services/LocationService';
+import { NotificationsService } from './Services/NotificationsService';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { LocationService } from './Services/LocationService';
   ],
   providers: [
     LocationService,
+    NotificationsService,
     AuthService,
     RouteService,
     ScheduleService,

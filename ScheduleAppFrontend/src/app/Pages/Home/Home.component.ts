@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppointmentCard } from 'src/app/Components/AppointmentCard/AppointmentCard.component';
+import { Icon } from 'src/app/Components/Icon/Icon.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import { MinimizableCard } from 'src/app/Components/MinimizableCard/MinimizableCard.component';
 import BusinessService from 'src/app/Services/BusinessService';
@@ -19,12 +20,12 @@ export type AppointmentInfo = {
 
 
 @Component({
-  selector: 'Dashboard',
+  selector: 'Home',
   standalone: true,
-  imports: [MinimizableCard, AppointmentCard, MainButton],
-  templateUrl: './Dashboard.component.html',
+  imports: [MinimizableCard, Icon, AppointmentCard, MainButton],
+  templateUrl: './Home.component.html',
 })
-export class Dashboard implements AfterViewInit {
+export class Home implements AfterViewInit {
   @ViewChild('card') wrapper! : ElementRef<HTMLElement>;
 
   protected appointments : AppointmentInfo[] = [];

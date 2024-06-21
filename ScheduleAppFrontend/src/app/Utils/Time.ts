@@ -62,12 +62,18 @@ export class Time {
     return dateTime;
   }
 
-  public static DateTimeToString(dateTime : DateTime) {
+  public static DateTimeToString(dateTime : DateTime, hourFirst : boolean = true) {
     const minute = dateTime & 0b111111;
     const hour = (dateTime >> 6) & 0b11111;
     const year = (dateTime >> 11) & 0b111111111111;
     const month = (dateTime >> 23) & 0b1111;
     const day = (dateTime >> 27) & 0b11111;
-    return `${hour < 10 ? '0' : ''}${hour}:${minute < 10 ? '0' : ''}${minute} ${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${year}`;
+
+    const h = `${hour < 10 ? '0' : ''}${hour}:${minute < 10 ? '0' : ''}${minute}`;
+    const d = `${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${year}`;
+    if (hourFirst)
+      return `${h} ${d}`
+    else
+      return `${d} ${h}`
   }
 }

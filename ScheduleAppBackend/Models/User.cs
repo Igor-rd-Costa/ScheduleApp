@@ -22,5 +22,6 @@ namespace ScheduleAppBackend.Models
         [JsonIgnore]
         public string Password { get; set; } = "";
         public DateTime LastEditDate { get; set; }
+        public bool HasUnseenNotifications { get; set; }
     }
 }

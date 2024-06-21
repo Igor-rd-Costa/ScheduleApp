@@ -19,11 +19,15 @@ namespace ScheduleAppBackend.Context
         public DbSet<BusinessHours> BusinessesHours { get; set;} = default!;
         public DbSet<Appointment> Appointments { get; set; } = default!;
         public DbSet<BusinessEmployee> BusinessEmployees { get; set; } = default!;
-        public DbSet<BusinessEmployeeHours> BusinessEmployeesHours { get; set;} = default!;
+        public DbSet<BusinessEmployeeHours> BusinessEmployeesHours { get; set; } = default!;
+
+        public DbSet<BusinessNotification> BusinessNotifications { get; set; }
+        public DbSet<UserNotification> UserNotifications { get; set; }
 
         public DbSet<LocationCountry> LocationCountries { get; set; } = default!;
         public DbSet<LocationState> LocationStates { get; set; } = default!;
         public DbSet<LocationCity> LocationCities { get; set; } = default!;
         public DbSet<LocationTimeZone> LocationTimeZones { get; set; } = default!;
+
     }
 }

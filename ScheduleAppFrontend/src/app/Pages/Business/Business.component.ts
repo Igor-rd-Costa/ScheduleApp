@@ -1,4 +1,4 @@
-import { CommonModule, WeekDay } from '@angular/common';
+import { WeekDay } from '@angular/common';
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,22 +9,26 @@ import { FormInput } from 'src/app/Components/FormInput/FormInput.component';
 import { Icon } from 'src/app/Components/Icon/Icon.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import { MinimizableCard } from 'src/app/Components/MinimizableCard/MinimizableCard.component';
+import { NotificationType, NotificationsPanel } from 'src/app/Components/NotificationsPanel/NotificationsPanel.component';
 import { OpeningHoursDisplay } from 'src/app/Components/OpeningHoursDisplay/OpeningHoursDisplay.component';
+import AuthService from 'src/app/Services/AuthService';
 import { BusinessHourUpdateInfo, BusinessHoursService } from 'src/app/Services/BusinessHoursService';
-import BusinessService, { BusinessInfo } from 'src/app/Services/BusinessService';
+import BusinessService, { Business as BusinessInfo } from 'src/app/Services/BusinessService';
 import CacheService from 'src/app/Services/CacheService';
 import { City, Country, LocationService, State } from 'src/app/Services/LocationService';
-import { ServicesService, BusinessService as BusinessServiceInfo } from 'src/app/Services/ServicesService';
+import { ServicesService, BusinessService as BusinessServiceInfo, BusinessCategory } from 'src/app/Services/ServicesService';
 
 @Component({
   selector: 'Business',
   standalone: true,
   imports: [MainButton, ReactiveFormsModule, Icon, CardBase, EditCard, MinimizableCard, 
-    BusinessServiceCard, OpeningHoursDisplay, FormInput],
+    BusinessServiceCard, OpeningHoursDisplay, FormInput, NotificationsPanel],
   templateUrl: './Business.component.html',
 })
 export class Business implements AfterViewChecked, AfterViewInit {
+  NotificationType = NotificationType;
   @ViewChildren('card') wrappers! : QueryList<ElementRef<HTMLElement>>;
+  @ViewChild(NotificationsPanel) notificationsPanel! : NotificationsPanel;
   allowEdit = true; 
   businessSetupForm = new FormGroup({
     Name: new FormControl("", {validators: [Validators.required]}),
@@ -35,11 +39,10 @@ export class Business implements AfterViewChecked, AfterViewInit {
     State: new FormControl("", {validators: Validators.required}),
     City: new FormControl<number|''>('', {validators: Validators.required})
   });
-  businessInfo : BusinessInfo = {
-    business: undefined,
-    services: null,
-    categories: null,
-  };
+  business = signal<undefined|null|BusinessInfo>(undefined);
+  services = signal<BusinessServiceInfo[]>([]);
+  categories = signal<BusinessCategory[]>([]);
+
   cityName = signal("");
   stateName = signal("");
 
@@ -48,7 +51,7 @@ export class Business implements AfterViewChecked, AfterViewInit {
   cities : City[] = [];
   openingHours = new Map<WeekDay, BusinessHourUpdateInfo[]>();
   
-  public constructor(protected locationService : LocationService, protected businessService : BusinessService,
+  public constructor(protected locationService : LocationService, protected businessService : BusinessService, protected authService : AuthService,
     private businessHoursService : BusinessHoursService, private cacheService : CacheService, protected servicesService : ServicesService, private router : Router) {
     this.businessSetupForm.controls.State.disable();
     this.businessSetupForm.controls.City.disable();
@@ -90,27 +93,30 @@ export class Business implements AfterViewChecked, AfterViewInit {
       let route = this.router.url.substring('/business'.length);
       let businessRoute : string | null = route === "" ? null : (route.startsWith('/') ? route.substring(1) : route);
       this.businessService.GetBusiness(businessRoute).then(business => {
-        this.businessInfo.business = business;
-        if (businessRoute !== null)
+        if (businessRoute !== null) {
           this.allowEdit = false;
-        if (this.businessInfo.business) {
-          if (this.cacheService.GetLoggedBusiness()?.id === this.businessInfo.business.id) {
+          this.business.set(business);
+        } else {
+          this.business.set(this.authService.GetLoggedBusiness());
+        }
+        if (this.business()) {
+          if (this.cacheService.GetLoggedBusiness()?.id === this.business()!.id) {
             this.allowEdit = true;
           }
-          this.servicesService.GetCategories(this.businessInfo.business.id).then(categories => {
-            this.businessInfo.categories = categories;
+          this.servicesService.GetCategories(this.business()!.id).then(categories => {
+            this.categories.set(categories);
           });
-          this.servicesService.GetServices(this.businessInfo.business.id).then(services => {
-            this.businessInfo.services = services;
+          this.servicesService.GetServices(this.business()!.id).then(services => {
+            this.services.set(services);
           });
-          this.businessHoursService.GetBusinessHours(this.businessInfo.business.id).then(hours => {
+          this.businessHoursService.GetBusinessHours(this.business()!.id).then(hours => {
             for (let day = WeekDay.Sunday; day <= WeekDay.Saturday; day++)
               this.openingHours.set(day, hours.filter(h => h.day === day).sort((a, b) => a.intervalStart - b.intervalStart));
           });
-          this.locationService.GetCity(this.businessInfo.business.cityCode).then(city => {
+          this.locationService.GetCity(this.business()!.cityCode).then(city => {
             this.cityName.set(city?.name ?? "");
           });
-          this.locationService.GetState(this.businessInfo.business.countryCode, this.businessInfo.business.stateCode).then(state => {
+          this.locationService.GetState(this.business()!.countryCode, this.business()!.stateCode).then(state => {
             this.stateName.set(state?.name ?? "");
           });
         } else {
@@ -147,22 +153,22 @@ export class Business implements AfterViewChecked, AfterViewInit {
 
   GetServicesInCategory(id : number | null) : BusinessServiceInfo[] {
     let servicesInCategory : BusinessServiceInfo[] = [];
-    if (!this.businessInfo)
+    if (!this.business())
       return servicesInCategory;
 
-    this.businessInfo.services?.forEach(service => {
+    this.services().forEach(service => {
       if (service.categoryId === id)
         servicesInCategory.push(service);
-    })
+    });
     return servicesInCategory;
   }
 
   HasServiceWithNoCategory() : boolean {
-    if (!this.businessInfo.services)
+    if (!this.services())
       return false;
 
-    for (let i = 0; i < this.businessInfo.services.length; i++) {
-      if (this.businessInfo.services[i].categoryId === null)
+    for (let i = 0; i < this.services().length; i++) {
+      if (this.services()[i].categoryId === null)
         return true;
     }
     return false;
@@ -183,13 +189,22 @@ export class Business implements AfterViewChecked, AfterViewInit {
       city: this.businessSetupForm.controls.City.value ?? 0
     }).then(result => {
       if (result != null) {
-        this.businessInfo = {
-          business: result,
-          categories: [],
-          services: []
-        };
+        this.business.set(this.authService.GetLoggedBusiness());
+        this.categories.set([]);
+        this.services.set([]);
       }
     });
+  }
+
+  ToggleNotificationsDisplay() {
+    this.notificationsPanel.ToggleVisibility();
+    if (this.notificationsPanel.IsVisible()) {
+      this.business.update(b => {
+        if (b)
+          b.hasUnseenNotifications = false;
+        return b;
+      });
+    }
   }
 
   GoToEditServices() {
@@ -198,16 +213,5 @@ export class Business implements AfterViewChecked, AfterViewInit {
 
   GoToEditHours() {
     this.router.navigate(['edit/hours']);
-  }
-
-  private SortNames(a : string, b: string, i : number) : number {
-    if (i === 3)
-      return 0;
-    if (a[i] < b[i])
-      return -1;
-    else if (a[i] > b[i])
-      return 1;
-    else
-      return this.SortNames(a, b, i+1);
   }
 }

@@ -42,7 +42,7 @@ export class Register {
       this.registerForm.controls.Password.value ?? ""
     );
     if (result)
-      this.router.navigate(["dashboard"]);
+      this.router.navigate(["home"]);
   }
 
   EmailValidator() : AsyncValidatorFn {

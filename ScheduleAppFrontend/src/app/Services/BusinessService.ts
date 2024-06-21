@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, WritableSignal } from "@angular/core";
 import { App } from "../App.component";
 import { BusinessCategory, BusinessService as BusinessServiceInfo } from "./ServicesService";
 import CacheService, { CachedDataInfo } from "./CacheService";
@@ -15,7 +15,8 @@ export type Business = {
     countryCode : string,
     stateCode : string,
     cityCode : number,
-    lastEditDate: Date
+    hasUnseenNotifications: boolean,
+    lastEditDate: Date,
 }
 
 export type BusinessCreateInfo = {
@@ -29,7 +30,7 @@ export type BusinessCreateInfo = {
 }
 
 export type BusinessInfo = {
-    business : Business | null | undefined,
+    business : WritableSignal<Business | null | undefined>,
     categories : BusinessCategory[] | null,
     services : BusinessServiceInfo[] | null
 }

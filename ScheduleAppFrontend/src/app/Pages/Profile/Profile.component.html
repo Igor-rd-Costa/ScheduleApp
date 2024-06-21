@@ -1,24 +1,46 @@
-<div class="pl-6 pt-10 grid grid-cols-[auto_1fr] grid-rows-1">
+<div class="pl-4 pr-4 pt-10 grid grid-cols-[auto_1fr] grid-rows-1">
     <div class="border-4 border-goldenDark text-goldenDark w-fit p-1 rounded-[50%]">
         <Icon size="5rem" type="person"/>
     </div>
-    <div class="font-arial pl-4 pt-2">
+    <div class="relative font-arial pl-4 pt-2">
         <div class="text-goldenDark text-[1.8rem]">
-            {{user().firstName + " " + user().lastName}}
+            {{user()!.firstName + " " + user()!.lastName}}
         </div>
         <div class="text-gray-200">
-            {{user().email}}
+            {{user()!.email}}
         </div>
+        <div id="notification-button" class="absolute select-none top-6 right-0 text-goldenDark hover:text-goldenLight cursor-pointer" (click)="ToggleNotificationsDisplay()">
+            <Icon size="2rem" type="notifications"/>
+            @if (user()!.hasUnseenNotifications) {
+                <div class="w-2 h-2 bg-goldenLight rounded absolute right-1 bottom-1"></div>
+            }
+        </div>
+        <NotificationsPanel [type]="NotificationType.USER_NOTIFICATION"/>
     </div>
 </div>
-<div class="mt-4 grid grid-rows-1 grid-cols-2 items-end">
-    <MainButton class="ml-[2.3rem]" (Click)="Logout()">
-        Logout
-    </MainButton>
-    <MainButton (Click)="GoToBusiness()">
-        <div class="flex h-8 items-center">
-            <Icon type="work"/>
-            <span class="pl-2">My Business</span>
-        </div>
-    </MainButton>
+<div class="mt-4 text-goldenDark 
+        *:border-b *:border-[#333333] *:pb-4 *:pt-4 *:pl-2 *:ml-4 *:mr-4 *:cursor-pointer">
+    <div class="border-t hover:text-goldenLight" (click)="GoToBusiness()">
+        <h3 class="text-[1.6rem] h-[2.6rem] flex items-center gap-x-2">
+            @if (business() === undefined) {
+            } @else if (business() !== null) {
+                <div class="relative">
+                    <Icon size="2rem" type="store"/>
+                    @if (authService.BusinessHasUnseenNotifications()) {
+                        <div class="w-2 h-2 bg-goldenLight rounded absolute right-0 bottom-0"></div>
+                    }
+                </div>
+                My Business
+            } @else {
+                <Icon size="2rem" type="store"/>
+                Setup Business
+            }
+        </h3>
+    </div>
+    <div class="hover:text-goldenLight" (click)="Logout()">
+        <h3 class="text-[1.6rem] h-[2.6rem] flex items-center gap-x-2">
+            <Icon size="2rem" type="logout"/>
+            Logout
+        </h3>
+    </div>
 </div>
