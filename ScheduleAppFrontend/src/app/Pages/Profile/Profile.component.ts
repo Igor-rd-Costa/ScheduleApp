@@ -29,6 +29,10 @@ export class Profile {
     });
   }
 
+  GoToHistory() {
+    this.router.navigate(['history']);
+  }
+
   GoToBusiness() {
     this.router.navigate(['business']);
   }

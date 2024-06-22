@@ -20,12 +20,6 @@ export class AppointmentCard {
   @Input() appointmentTime : number = 0;
 
   FormatTime() {
-    const t = new Date();
-    const day = t.getDate();
-    const month = t.getMonth() + 1;
-    const hour = t.getHours();
-    const minute = t.getMinutes();
     return Time.DateTimeToString(this.appointmentTime);
-    return `${hour < 10 ? '0' : ''}${hour}:${minute < 10 ? '0' : ''}${minute} ${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${t.getFullYear()}`;    
   }
 }

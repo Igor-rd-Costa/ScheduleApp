@@ -58,12 +58,52 @@ namespace ScheduleAppBackend.Controllers
 
                 SADateTime time = new(appointment.Time);
                 DateTime t = new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, 0);
-                if (t.Ticks > today.Ticks)
+                if (t.Ticks >= today.Ticks)
                 {
                     futureAppointments.Add(appointment);
                 }
             }
             return Ok(futureAppointments);
+        }
+
+        [HttpGet("past-appointments")]
+        public async Task<IActionResult> GetPastAppointments([FromQuery(Name = "cache")] string cacheString)
+        {
+            User? user = await m_UserManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            List<Appointment> appointments = m_Context.Appointments.Where(a => a.ClientId == user.Id).ToList();
+            List<Appointment> pastAppointments = [];
+            Guid businessId = Guid.Empty;
+            DateTimeOffset today = new DateTimeOffset(DateTime.UtcNow);
+            appointments.Sort((Appointment a, Appointment b) =>
+            {
+                if (a.BusinessId < b.BusinessId)
+                    return -1;
+                if (a.BusinessId > b.BusinessId)
+                    return 1;
+                return 0;
+            });
+            foreach (Appointment appointment in appointments)
+            {
+                if (businessId != appointment.BusinessId)
+                {
+                    businessId = appointment.BusinessId;
+                    int cityCode = m_Context.Businesses.Where(b => b.Id == appointment.BusinessId).Select(b => b.CityCode).First();
+                    string timezone = m_Context.LocationCities.Where(c => c.Id == cityCode).Select(c => c.TimeZone).First();
+                    int tzOffset = m_Context.LocationTimeZones.Where(tz => tz.Name == timezone).Select(tz => tz.Offset).First();
+                    today = new DateTimeOffset(DateTime.UtcNow).ToOffset(new TimeSpan(tzOffset, 0, 0));
+                }
+
+                SADateTime time = new(appointment.Time);
+                DateTime t = new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, 0);
+                if (t.Ticks < today.Ticks)
+                {
+                    pastAppointments.Add(appointment);
+                }
+            }
+            return Ok(pastAppointments);
         }
 
         //TODO add cache

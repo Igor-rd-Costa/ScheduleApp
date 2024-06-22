@@ -11,6 +11,7 @@ import { Business } from './Pages/Business/Business.component';
 import { EditServices } from './Pages/Edit/EditServices/EditServices.component';
 import { EditHours } from './Pages/Edit/EditHours/EditHours.component';
 import { Schedule } from './Pages/Business/Schedule/Schedule.component';
+import { History } from './Pages/History/history.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,11 @@ const routes: Routes = [
     path: "profile",
     component: Profile,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'history',
+    component: History,
+    canActivate: [AuthGuard]
   },
   {
     path: 'businesses',

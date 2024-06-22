@@ -1,0 +1,25 @@
+<div class="grid grid-cols-[3rem_1fr] pt-4 text-[#DDDDDD] items-center">
+    <button class="col-start-1 row-start-1 justify-self-end hover:text-white" (click)="GoToProfile()">
+        <Icon size="2.5rem" type="keyboard_arrow_left" #backIcon/>
+    </button>
+    <Heading class="col-start-1 row-start-1 col-span-2 justify-self-center">
+        History
+    </Heading>
+</div>
+<!--TODO Add date filter-->
+<!-- <div class="flex pl-4 pt-4 gap-x-4">
+    <div class="bg-goldenDark text-center p-1 pl-2 pr-2 rounded gap-x-1 flex">
+        01/05/2024
+        <Icon type="calendar_month"/>
+    </div>
+    <div class="bg-goldenDark text-center p-1 pl-2 pr-2 rounded gap-x-1 flex">
+        21/06/2024
+        <Icon type="calendar_month"/>
+    </div>
+</div> -->
+<div class="pt-6" #card>
+    @for (appointment of pastAppointments(); track appointment.id) {
+        <AppointmentCard [serviceName]="appointment.serviceName" [businessName]="appointment.businessName" [servicePrice]="appointment.price"
+        [appointmentTime]="appointment.time" [employeeName]="appointment.employeeName" [serviceDuration]="appointment.duration"/>
+    }
+</div>

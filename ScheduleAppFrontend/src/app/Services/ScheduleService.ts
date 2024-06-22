@@ -1,8 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { App } from "../App.component";
-import { BusinessService } from "./ServicesService";
 import { DateTime, Hour, Time } from "../Utils/Time";
+import BusinessService from "./BusinessService";
+import { BusinessService as BusinessServiceData } from "./ServicesService";
+import { ServicesService } from "./ServicesService";
 
 export type Appointment = {
     id: number,
@@ -13,11 +15,21 @@ export type Appointment = {
     time : number
 }
 
+export type AppointmentInfo = {
+    id: number,
+    businessName : string,
+    employeeName : string, 
+    serviceName : string,
+    price : number | null,
+    duration : number,
+    time : number
+  }
+
 @Injectable()
 export class ScheduleService {
     private controllerAddress = App.backendAddress+"schedule/";
 
-    public constructor(private http : HttpClient) {}
+    public constructor(private http : HttpClient, private businessService : BusinessService, private serviceService: ServicesService) {}
 
     async GetAppointments() {
         return new Promise<Appointment[]>(resolve => {
@@ -34,9 +46,53 @@ export class ScheduleService {
         });
     }
 
+    async GetPastAppointments() {
+        return new Promise<Appointment[]>(resolve => {
+            this.http.get<Appointment[]>(this.controllerAddress+`past-appointments?cache=[]`, {withCredentials: true}).subscribe({
+                next: appointments => {
+                    resolve(appointments);
+                },
+                error: err => {
+                    console.error(err);
+                    resolve([]);
+                }
+            })
+        })
+    }
+
+    async GetAppointmentInfo(appointments : Appointment[]) : Promise<AppointmentInfo[]> {
+        if (appointments.length === 0)
+          return [];
+    
+        let info : AppointmentInfo[] = [];
+        for (let i = 0; i < appointments.length; i++) {
+          const a = appointments[i];
+    
+          const business = await this.businessService.GetBusinessById(a.businessId);
+          if (!business)
+            continue;
+          const service = await this.serviceService.GetService(a.serviceId, business.id);
+          const employee = await this.businessService.GetBusinessEmployee(business.id, a.employeeId);
+          if (!service || !employee)
+            continue;
+    
+          info.push({
+            id: a.id,
+            businessName: business.name,
+            employeeName: employee.firstName,
+            serviceName: service.name,
+            price: service.price,
+            duration: service.duration,
+            time: a.time
+          });
+        }
+        
+        return info;
+      }
+
     async GetScheduleInfo(id : number, businessId : string) {
-        return new Promise<BusinessService|null>(resolve => {
-            this.http.get<BusinessService>(this.controllerAddress+`info?id=${id}&businessId=${businessId}&cache=[]`, {withCredentials: true}).subscribe({
+        return new Promise<BusinessServiceData|null>(resolve => {
+            this.http.get<BusinessServiceData>(this.controllerAddress+`info?id=${id}&businessId=${businessId}&cache=[]`, {withCredentials: true}).subscribe({
                 next: info => {
                     resolve(info);
                 },
