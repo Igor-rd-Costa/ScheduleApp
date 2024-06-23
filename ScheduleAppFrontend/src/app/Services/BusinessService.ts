@@ -4,6 +4,7 @@ import { App } from "../App.component";
 import { BusinessCategory, BusinessService as BusinessServiceInfo } from "./ServicesService";
 import CacheService, { CachedDataInfo } from "./CacheService";
 import { User } from "./AuthService";
+import { Appointment } from "./ScheduleService";
 
 export type Business = {
     id: string,
@@ -161,7 +162,7 @@ export default class BusinessService {
 
     async GetBusinessEmployees(businessId : string | null) : Promise<User[]> {
         return new Promise<User[]>(resolve => {
-            this.http.get<User[]>(this.businessControllerAddress+"employees"+`?businessId=${businessId !== null ? businessId : ''}&cache=[]`).subscribe({
+            this.http.get<User[]>(this.businessControllerAddress+"employees"+`?businessId=${businessId !== null ? businessId : ''}&cache=[]`, {withCredentials: true}).subscribe({
                 next: employees => {
                     resolve(employees);
                 },
@@ -173,7 +174,19 @@ export default class BusinessService {
         });
     }
 
-
+    async GetAppointments(): Promise<Appointment[]> {
+        return new Promise<Appointment[]>(resolve => {
+            this.http.get<Appointment[]>(this.businessControllerAddress+"appointments?cache=[]", {withCredentials: true}).subscribe({
+                next: appointments => {
+                    resolve(appointments);
+                },
+                error: err => {
+                    console.error(err);
+                    resolve([]);
+                }
+            })
+        })
+    }
 
     async CreateBusiness(info : BusinessCreateInfo) : Promise<Business | null> {
         return new Promise<Business | null>(resolve => {

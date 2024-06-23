@@ -214,4 +214,8 @@ export class Business implements AfterViewChecked, AfterViewInit {
   GoToEditHours() {
     this.router.navigate(['edit/hours']);
   }
+
+  GoToDashboard() {
+    this.router.navigate(['dashboard']);
+  }
 }

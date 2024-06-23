@@ -1,0 +1,25 @@
+<div class="flex justify-center">
+    <Heading>
+        <span class="text-[1.7rem]">
+            Appointments
+        </span>
+    </Heading>
+</div>
+<!--TODO Add date filter-->
+<!-- <div class="flex pl-4 pt-4 gap-x-4">
+    <div class="bg-goldenDark text-center p-1 pl-2 pr-2 rounded gap-x-1 flex">
+        01/05/2024
+        <Icon type="calendar_month"/>
+    </div>
+    <div class="bg-goldenDark text-center p-1 pl-2 pr-2 rounded gap-x-1 flex">
+        21/06/2024
+        <Icon type="calendar_month"/>
+    </div>
+</div> -->
+<div class="mt-4 mb-4 grid gap-4" #card>
+    @for(appointment of appointments(); track appointment.id) {
+        <AppointmentCard [serviceName]="appointment.serviceName" [appointmentTime]="appointment.time"
+        [businessName]="appointment.businessName" [employeeName]="appointment.employeeName"
+        [serviceDuration]="appointment.duration" [servicePrice]="appointment.price"/>
+    }
+</div>

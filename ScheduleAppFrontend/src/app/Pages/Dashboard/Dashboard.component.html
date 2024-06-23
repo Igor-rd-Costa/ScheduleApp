@@ -1,0 +1,26 @@
+<div class="grid justify-items-center gap-y-4 pt-4 w-screen overflow-hidden">
+    <div class="flex flex-col items-center justify-center w-fit pb-4">
+        <div class="flex rounded shadow-[1px_1px_2px_0px_#111111]">
+            <DashboardMenuItem iconType="event_available" (Selected)="OnSelectionChange($event)"/>
+            <div class="border-r border-[#111111]"></div>
+            <DashboardMenuItem iconType="schedule" (Selected)="OnSelectionChange($event)"/>
+            <div class="border-r border-[#111111]"></div>
+            <DashboardMenuItem iconType="person" (Selected)="OnSelectionChange($event)"/>
+        </div>
+    </div>
+</div>
+@switch (selectedIndex()) {
+    @case (0) {
+        <BusinessAppointments/>
+    }
+    @case (1) {
+        <DashboardHours/>
+    }
+    @case (2) {
+        <DashboardEmployees/>
+    }
+    @default {
+        <BusinessAppointments/>
+    }
+}
+

@@ -52,7 +52,7 @@
     </div>
 } @else if (business() !== undefined) {
     <div class="pt-6 pb-6">
-        <div class="pl-4 pr-4 pb-10 grid grid-cols-[auto_1fr] grid-rows-[1fr_auto]">
+        <div class="pl-4 pr-4 pb-4 grid grid-cols-[auto_1fr] grid-rows-[1fr_auto]">
             <div class="border-4 border-goldenDark text-goldenDark w-fit p-1 rounded-[50%]">
                 <Icon size="4.5rem" type="store"/>
             </div>
@@ -77,6 +77,9 @@
                 <Icon type="location_on"/>
                 {{business()!.address}}, {{business()!.addressNumber}} - {{cityName()}}, {{stateName()}}-{{business()!.countryCode}}
             </div>
+        </div>
+        <div class="pl-4 pb-4">
+            <MainButton (Click)="GoToDashboard()">Dashboard</MainButton>
         </div>
         <h2 class="grid grid-rows-1 items-center grid-cols-[auto_1fr_auto] text-goldenDark ml-4 text-[1.3rem] mb-[0.5rem] mr-4">
             <div class="justify-start w-fit">All Services</div>

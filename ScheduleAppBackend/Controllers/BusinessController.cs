@@ -102,6 +102,22 @@ namespace ScheduleAppBackend.Controllers
             return Ok(users);
         }
 
+        [HttpGet("appointments")]
+        async public Task<IActionResult> GetAppointments([FromQuery(Name = "cache")] string cacheString)
+        {
+            User? user = await m_UserManager.GetUserAsync(User);
+            if (user == null) 
+                return Unauthorized();
+
+            Guid? businessId = m_Context.Businesses.Where(b => b.OwnerId == user.Id).Select(b => b.Id).FirstOrDefault();
+            
+            if (businessId == null) 
+                return BadRequest();
+
+            List<Appointment> appointments = m_Context.Appointments.Where(a => a.BusinessId == businessId).ToList();
+            return Ok(appointments);
+        }
+
         [HttpPost]
         async public Task<IActionResult> Create([FromBody] CreateBusinessInfo info)
         {

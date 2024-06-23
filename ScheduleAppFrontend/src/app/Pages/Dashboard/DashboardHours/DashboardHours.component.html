@@ -1,0 +1,14 @@
+<div class="flex justify-center">
+    <Heading>
+        <span class="text-[1.7rem]">
+            Opening Hours
+        </span>
+    </Heading>
+</div>
+<div class="pt-2" #card>
+    <CardBase [cardIcons]="['schedule']">
+        <div class="pl-3 pt-2 w-[87%] h-full pb-2 text-[14px]">
+            <OpeningHoursDisplay [hours]="openingHours"/>   
+        </div>
+    </CardBase>
+</div>
