@@ -10,6 +10,7 @@ import { Icon, IconType } from 'src/app/Components/Icon/Icon.component';
 export class DashboardMenuItem {
   @ViewChild('element') element!: ElementRef<HTMLElement>
   @Input() iconType: IconType = 'event_available';
+  @Input() itemId: string = "";
   @Output() Selected = new EventEmitter<DashboardMenuItem>()
   protected selected = signal(false);
 

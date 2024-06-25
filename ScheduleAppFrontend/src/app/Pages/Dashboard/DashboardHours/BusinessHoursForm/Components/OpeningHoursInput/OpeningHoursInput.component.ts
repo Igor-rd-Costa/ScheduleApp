@@ -12,6 +12,7 @@ import { Time } from 'src/app/Utils/Time';
   templateUrl: './OpeningHoursInput.component.html',
 })
 export class OpeningHoursInput implements AfterViewInit, OnChanges {
+  Time = Time;
   @ViewChildren(OpeningHoursInputSection) sections! : QueryList<OpeningHoursInputSection>;
   @Input() hours : BusinessHours[] = [];
   @Input() day : WeekDay = WeekDay.Sunday;

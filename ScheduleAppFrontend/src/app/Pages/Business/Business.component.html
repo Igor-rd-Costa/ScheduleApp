@@ -78,9 +78,11 @@
                 {{business()!.address}}, {{business()!.addressNumber}} - {{cityName()}}, {{stateName()}}-{{business()!.countryCode}}
             </div>
         </div>
-        <div class="pl-4 pb-4">
-            <MainButton (Click)="GoToDashboard()">Dashboard</MainButton>
-        </div>
+        @if (allowEdit) {
+            <div class="pl-4 pb-4">
+                <MainButton (Click)="GoToDashboard()">Dashboard</MainButton>
+            </div>
+        }
         <h2 class="grid grid-rows-1 items-center grid-cols-[auto_1fr_auto] text-goldenDark ml-4 text-[1.3rem] mb-[0.5rem] mr-4">
             <div class="justify-start w-fit">All Services</div>
             @if (allowEdit) {

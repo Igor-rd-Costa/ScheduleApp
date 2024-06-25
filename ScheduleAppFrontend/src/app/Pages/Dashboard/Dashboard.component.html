@@ -1,26 +1,33 @@
 <div class="grid justify-items-center gap-y-4 pt-4 w-screen overflow-hidden">
-    <div class="flex flex-col items-center justify-center w-fit pb-4">
+    <div class="row-start-1 col-start-1 justify-self-start w-[3.5rem] h-[3.5rem] flex 
+    justify-center items-center text-[#DDDDDD] hover:text-white cursor-pointer" (click)="GoToBusiness()">
+        <Icon size="2rem" type="store"/>
+    </div>
+    <div class="flex flex-col row-start-1 col-start-1 col-span-2 items-center justify-center w-fit pb-4">
         <div class="flex rounded shadow-[1px_1px_2px_0px_#111111]">
-            <DashboardMenuItem iconType="event_available" (Selected)="OnSelectionChange($event)"/>
+            <DashboardMenuItem itemId="appointments" iconType="event_available" (Selected)="OnSelectionChange($event)"/>
             <div class="border-r border-[#111111]"></div>
-            <DashboardMenuItem iconType="schedule" (Selected)="OnSelectionChange($event)"/>
+            <DashboardMenuItem itemId="services" iconType="payments" (Selected)="OnSelectionChange($event)"/>
             <div class="border-r border-[#111111]"></div>
-            <DashboardMenuItem iconType="person" (Selected)="OnSelectionChange($event)"/>
+            <DashboardMenuItem itemId="hours" iconType="schedule" (Selected)="OnSelectionChange($event)"/>
+            <div class="border-r border-[#111111]"></div>
+            <DashboardMenuItem itemId="employees" iconType="person" (Selected)="OnSelectionChange($event)"/>
         </div>
     </div>
 </div>
-@switch (selectedIndex()) {
-    @case (0) {
-        <BusinessAppointments/>
+@switch (menuItem()) {
+    @case ("appointments") {
+        <DashboardAppointments/>
     }
-    @case (1) {
+    @case ("services") {
+        <DashboardServices/>
+    }
+    @case ("hours") {
         <DashboardHours/>
     }
-    @case (2) {
+    @case ("employees") {
         <DashboardEmployees/>
     }
-    @default {
-        <BusinessAppointments/>
-    }
+    @default {}
 }
 

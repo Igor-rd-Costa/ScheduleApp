@@ -7,12 +7,12 @@ import BusinessService from 'src/app/Services/BusinessService';
 import { AppointmentInfo, ScheduleService } from 'src/app/Services/ScheduleService';
 
 @Component({
-  selector: 'BusinessAppointments',
+  selector: 'DashboardAppointments',
   standalone: true,
   imports: [Heading, AppointmentCard],
-  templateUrl: './BusinessAppointments.component.html',
+  templateUrl: './DashboardAppointments.component.html',
 })
-export class BusinessAppointments implements AfterViewInit {
+export class DashboardAppointments implements AfterViewInit {
   @ViewChild('card') wrapper!: ElementRef<HTMLElement>
   appointments = signal<AppointmentInfo[]>([]);
 

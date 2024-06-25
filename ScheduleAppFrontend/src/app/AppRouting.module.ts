@@ -8,11 +8,9 @@ import { Profile } from './Pages/Profile/Profile.component';
 import { AuthGuard } from './Services/AuthGuard';
 import { Businesses } from './Pages/Businesses/Businesses.component';
 import { Business } from './Pages/Business/Business.component';
-import { EditServices } from './Pages/Edit/EditServices/EditServices.component';
-import { EditHours } from './Pages/Edit/EditHours/EditHours.component';
 import { Schedule } from './Pages/Business/Schedule/Schedule.component';
-import { History } from './Pages/History/history.component';
-import { Dashboard } from './Pages/Dashboard/dashboard.component';
+import { History } from './Pages/History/History.component';
+import { Dashboard } from './Pages/Dashboard/Dashboard.component';
 
 const routes: Routes = [
   {
@@ -69,17 +67,7 @@ const routes: Routes = [
     path: 'business/:businessUrl/schedule/:serviceId',
     component: Schedule,
     canActivate: [AuthGuard],
-  },
-  {
-    path: 'edit/services',
-    component: EditServices,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'edit/hours',
-    component: EditHours,
-    canActivate: [AuthGuard]
-  },
+  }
 ];
 
 @NgModule({

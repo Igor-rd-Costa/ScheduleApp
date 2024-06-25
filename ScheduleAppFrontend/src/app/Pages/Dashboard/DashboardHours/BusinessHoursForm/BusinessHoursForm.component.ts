@@ -1,8 +1,6 @@
-import { AfterViewInit, Component, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Heading } from 'src/app/Components/Heading/Heading.component';
-import { DaysMenuItem } from './Components/DaysMenuItem/DaysMenuItem.component';
 import { WeekDay } from '@angular/common';
-import { OpeningHoursInput } from './Components/OpeningHoursInput/OpeningHoursInput.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import { SecondaryButton } from 'src/app/Components/SecondaryButton/SecondaryButton.component';
 import { Router } from '@angular/router';
@@ -10,14 +8,16 @@ import { BusinessHours, BusinessHoursService } from 'src/app/Services/BusinessHo
 import { App } from 'src/app/App.component';
 import CacheService from 'src/app/Services/CacheService';
 import { Icon } from 'src/app/Components/Icon/Icon.component';
+import { DaysMenuItem } from './Components/DaysMenuItem/DaysMenuItem.component';
+import { OpeningHoursInput } from './Components/OpeningHoursInput/OpeningHoursInput.component';
 
 @Component({
-  selector: 'EditHours',
+  selector: 'BusinessHoursForm',
   standalone: true,
-  imports: [Heading, DaysMenuItem, OpeningHoursInput, SecondaryButton, MainButton, Icon],
-  templateUrl: './EditHours.component.html',
+  imports: [Heading, DaysMenuItem, SecondaryButton, MainButton, Icon, OpeningHoursInput],
+  templateUrl: './BusinessHoursForm.component.html',
 })
-export class EditHours implements AfterViewInit {
+export class BusinessHoursForm implements AfterViewInit {
   @ViewChildren(DaysMenuItem) daysMenuItems! : QueryList<DaysMenuItem>;
   @ViewChild(OpeningHoursInput) input! : OpeningHoursInput;
   selectedDay : WeekDay = WeekDay.Sunday;

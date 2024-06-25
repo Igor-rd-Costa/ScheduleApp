@@ -1,3 +1,16 @@
+<div class="mt-2 pl-8 text-[#DDDDDD] flex flex-wrap gap-2">
+    Current hours:
+    @for(hour of dayHours; track 0) {
+        <span class="text-[14px] text-goldenDark bg-[#2A2A2A] p-1 pl-2 pr-2 rounded shadow-[2px_2px_4px_-1px_#111111]">
+            @if (hour.intervalStart === hour.intervalEnd) {
+                Open 24 hours
+            } @else {
+                {{Time.HourToString(hour.intervalStart)}} - {{Time.HourToString(hour.intervalEnd)}}
+            }
+        </span>
+    }
+    
+</div>
 <div class="flex mt-2 pl-8 text-goldenDark">
     <Icon size="26px" type="transition_slide"/> 
     <div class="pl-1 flex gap-x-1">

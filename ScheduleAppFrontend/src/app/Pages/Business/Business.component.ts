@@ -90,60 +90,59 @@ export class Business implements AfterViewChecked, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-      let route = this.router.url.substring('/business'.length);
-      let businessRoute : string | null = route === "" ? null : (route.startsWith('/') ? route.substring(1) : route);
-      this.businessService.GetBusiness(businessRoute).then(business => {
-        if (businessRoute !== null) {
-          this.allowEdit = false;
-          this.business.set(business);
-        } else {
-          this.business.set(this.authService.GetLoggedBusiness());
+    let route = this.router.url.substring('/business'.length);
+    let businessRoute : string | null = route === "" ? null : (route.startsWith('/') ? route.substring(1) : route);
+    this.businessService.GetBusiness(businessRoute).then(business => {
+      if (businessRoute !== null) {
+        this.allowEdit = false;
+        this.business.set(business);
+      } else {
+        this.business.set(this.authService.GetLoggedBusiness());
+      }
+      if (this.business()) {
+        if (this.cacheService.GetLoggedBusiness()?.id === this.business()!.id) {
+          this.allowEdit = true;
         }
-        if (this.business()) {
-          if (this.cacheService.GetLoggedBusiness()?.id === this.business()!.id) {
-            this.allowEdit = true;
-          }
-          this.servicesService.GetCategories(this.business()!.id).then(categories => {
-            this.categories.set(categories);
-          });
-          this.servicesService.GetServices(this.business()!.id).then(services => {
-            this.services.set(services);
-          });
-          this.businessHoursService.GetBusinessHours(this.business()!.id).then(hours => {
-            for (let day = WeekDay.Sunday; day <= WeekDay.Saturday; day++)
-              this.openingHours.set(day, hours.filter(h => h.day === day).sort((a, b) => a.intervalStart - b.intervalStart));
-          });
-          this.locationService.GetCity(this.business()!.cityCode).then(city => {
-            this.cityName.set(city?.name ?? "");
-          });
-          this.locationService.GetState(this.business()!.countryCode, this.business()!.stateCode).then(state => {
-            this.stateName.set(state?.name ?? "");
-          });
-        } else {
-          this.locationService.GetCountries().then(countries => {
-            this.countries = countries;
-          })
-        }
-      });
+        this.servicesService.GetCategories(this.business()!.id).then(categories => {
+          this.categories.set(categories);
+        });
+        this.servicesService.GetServices(this.business()!.id).then(services => {
+          this.services.set(services);
+        });
+        this.businessHoursService.GetBusinessHours(this.business()!.id).then(hours => {
+          for (let day = WeekDay.Sunday; day <= WeekDay.Saturday; day++)
+            this.openingHours.set(day, hours.filter(h => h.day === day).sort((a, b) => a.intervalStart - b.intervalStart));
+        });
+        this.locationService.GetCity(this.business()!.cityCode).then(city => {
+          this.cityName.set(city?.name ?? "");
+        });
+        this.locationService.GetState(this.business()!.countryCode, this.business()!.stateCode).then(state => {
+          this.stateName.set(state?.name ?? "");
+        });
+      } else {
+        this.locationService.GetCountries().then(countries => {
+          this.countries = countries;
+        })
+      }
+    });
   }
 
   ngAfterViewChecked(): void {
     if (this.wrappers === undefined) {
       return;
     }
-
-      for (let i = 0; i < this.wrappers.length; i++) {
-        const wrapper = this.wrappers.get(i)!.nativeElement;
-        let width = parseFloat(getComputedStyle(wrapper).width);
-        let count = 0;
-        while(width > (5 * 16)) {
-          width -= (5 * 16);
-          count++;
-        }
-        wrapper.style.paddingLeft = width / count + "px";
-        wrapper.style.paddingRight = width / count + "px";
-        wrapper.style.columnGap = width / count + '';
+    for (let i = 0; i < this.wrappers.length; i++) {
+      const wrapper = this.wrappers.get(i)!.nativeElement;
+      let width = parseFloat(getComputedStyle(wrapper).width);
+      let count = 0;
+      while(width > (5 * 16)) {
+        width -= (5 * 16);
+        count++;
       }
+      wrapper.style.paddingLeft = width / count + "px";
+      wrapper.style.paddingRight = width / count + "px";
+      wrapper.style.columnGap = width / count + '';
+    }
   }
 
   OnServiceClick(serviceId : number) {
@@ -208,14 +207,14 @@ export class Business implements AfterViewChecked, AfterViewInit {
   }
 
   GoToEditServices() {
-    this.router.navigate(['edit/services']);
+    this.router.navigate(['dashboard'], {queryParams: {menuItem: 'services'}});
   }
 
   GoToEditHours() {
-    this.router.navigate(['edit/hours']);
+    this.router.navigate(['dashboard'], {queryParams: {menuItem: 'hours'}});
   }
 
   GoToDashboard() {
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['dashboard'], {queryParams: {menuItem: 'appointments'}});
   }
 }

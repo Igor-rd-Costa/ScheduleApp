@@ -1,28 +1,24 @@
-import { AfterViewInit, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CardBase } from 'src/app/Components/CardBase/CardBase.component';
+import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { Heading } from 'src/app/Components/Heading/Heading.component';
-import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
-import { MinimizableCard } from 'src/app/Components/MinimizableCard/MinimizableCard.component';
-import { SecondaryButton } from 'src/app/Components/SecondaryButton/SecondaryButton.component';
 import { EditableCategoryCard } from './Components/EditableCategoryCard/EditableCategoryCard.component';
 import { EditableServiceCard } from './Components/EditableServiceCard/EditableServiceCard.component';
-import { Icon } from 'src/app/Components/Icon/Icon.component';
+import { CardBase } from 'src/app/Components/CardBase/CardBase.component';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BusinessCategory, BusinessService, CategoryDeleteInfo, ServicesService } from 'src/app/Services/ServicesService';
-import BusinessServiceService from 'src/app/Services/BusinessService';
 import CacheService from 'src/app/Services/CacheService';
 import { Router } from '@angular/router';
+import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
+import { Icon } from 'src/app/Components/Icon/Icon.component';
 import { FormInput } from 'src/app/Components/FormInput/FormInput.component';
 
 @Component({
-  selector: 'EditServices',
+  selector: 'DashboardServices',
   standalone: true,
-  imports: [Heading, MinimizableCard, CardBase, Icon, MainButton, FormInput, 
-    EditableCategoryCard, EditableServiceCard, ReactiveFormsModule, SecondaryButton],
-  templateUrl: './EditServices.component.html',
+  imports: [Heading, MainButton, Icon, FormInput, EditableCategoryCard, EditableServiceCard, CardBase, ReactiveFormsModule],
+  templateUrl: './DashboardServices.component.html',
 })
-export class EditServices implements AfterViewInit {
-  @ViewChildren('wrapper') wrappers! : QueryList<ElementRef<HTMLElement>>;
+export class DashboardServices {
+  @ViewChildren('card') wrappers! : QueryList<ElementRef<HTMLElement>>;
   addCategoryForm = new FormGroup({
     Name: new FormControl('', {validators: [Validators.required, ]})
   });
