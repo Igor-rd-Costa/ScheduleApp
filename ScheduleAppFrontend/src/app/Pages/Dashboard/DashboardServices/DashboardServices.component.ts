@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import { Icon } from 'src/app/Components/Icon/Icon.component';
 import { FormInput } from 'src/app/Components/FormInput/FormInput.component';
+import { CenterCardWrapper } from 'src/app/Utils/CenterCardWrapper';
 
 @Component({
   selector: 'DashboardServices',
@@ -40,22 +41,17 @@ export class DashboardServices {
       this.services = services;
     });
 
-    
+    window.addEventListener('resize', () => {
+      this.wrappers.forEach(wrapper => {
+        CenterCardWrapper(wrapper.nativeElement);
+      })
+    })
   }
 
   ngAfterViewInit(): void {
-    this.wrappers.forEach(w => {
-      const wrapper = w.nativeElement;
-      let width = parseFloat(getComputedStyle(wrapper).width);
-      let count = 0;
-      while(width > (5 * 16)) {
-        width -= (5 * 16);
-        count++;
-      }
-      wrapper.style.paddingLeft = width / count + "px";
-      wrapper.style.paddingRight = width / count + "px";
-      wrapper.style.columnGap = width / count + '';  
-    });
+    this.wrappers.forEach(wrapper => {
+      CenterCardWrapper(wrapper.nativeElement);
+    })
   }
 
   AddService(event : SubmitEvent) {

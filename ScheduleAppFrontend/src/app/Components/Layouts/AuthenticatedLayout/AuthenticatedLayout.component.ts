@@ -5,11 +5,12 @@ import { AppLogo } from '../../AppLogo/AppLogo.component';
 import { UserMenu } from '../../UserMenu/UserMenu.component';
 import { Icon } from '../../Icon/Icon.component';
 import CacheService from 'src/app/Services/CacheService';
+import { ProfileMenu } from './ProfileMenu/ProfileMenu.component';
 
 @Component({
   selector: 'AuthenticatedLayout',
   standalone: true,
-  imports: [AppLogo, UserMenu, Icon],
+  imports: [AppLogo, UserMenu, Icon, ProfileMenu],
   templateUrl: './AuthenticatedLayout.component.html',
 })
 export class AuthenticatedLayout implements AfterViewInit {
@@ -35,5 +36,33 @@ export class AuthenticatedLayout implements AfterViewInit {
 
   GoToProfile() {
     this.router.navigate(['profile']);
+  }
+
+  GoToBusiness() {
+    this.router.navigate(['business']);
+  }
+
+  OnMouseEnter(event: MouseEvent) {
+    const target = event.target as HTMLElement | null;
+    if (target === null)
+      return;
+
+    const decorator = target.getElementsByClassName('menu-item-decorator')[0];
+    if (decorator === null)
+      return;
+
+    decorator.animate([{width: getComputedStyle(decorator).width}, {width: '100%'}], {duration: 100, fill: 'forwards'});
+  }
+
+  OnMouseLeave(event: MouseEvent) {
+    const target = event.target as HTMLElement | null;
+    if (target === null)
+      return;
+
+    const decorator = target.getElementsByClassName('menu-item-decorator')[0];
+    if (decorator === null)
+      return;
+
+    decorator.animate([{width: getComputedStyle(decorator).width}, {width: 0}], {duration: 100, fill: 'forwards'});
   }
 }

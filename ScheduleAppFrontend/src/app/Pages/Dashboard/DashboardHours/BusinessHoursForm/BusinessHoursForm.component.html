@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center justify-center w-fit pb-4">
+<div class="flex flex-col items-center justify-center w-fit">
     <div class="flex rounded shadow-[1px_1px_2px_0px_#111111]">
         <DaysMenuItem (Selected)="OnDaySelect($event)" [day]="0"/>
         <div class="border-r border-[#111111]"></div>
@@ -14,10 +14,11 @@
         <div class="border-r border-[#111111]"></div>
         <DaysMenuItem (Selected)="OnDaySelect($event)" [day]="6"/>
     </div>
-    <OpeningHoursInput [hours]="openingHours" [day]="selectedDay"/>
-    <div class="mt-4 flex w-full">
-        <div class="w-full flex justify-center">
-            <MainButton (Click)="Save()" 
+    <div class="flex justify-center flex-col items-center">
+        <OpeningHoursInput [hours]="openingHours" [day]="selectedDay"/>
+        <div class="mt-4 flex w-full">
+            <div class="w-full flex justify-center">
+                <MainButton (Click)="Save()" 
                 [disabled]="input !== undefined ? (!input.touched() || input.sectionsPerDayCount > input.maxTimeSectionsPerDay) : true">
                 Save
             </MainButton>
@@ -28,4 +29,5 @@
             </SecondaryButton>
         </div>
     </div>
+</div>
 </div>

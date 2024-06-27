@@ -16,7 +16,7 @@
         <Icon type="calendar_month"/>
     </div>
 </div> -->
-<div class="mt-4 mb-4 grid gap-4" #card>
+<div class="mt-4 mb-4 grid gap-4 sm:justify-center" #card>
     @for(appointment of appointments(); track appointment.id) {
         <AppointmentCard [serviceName]="appointment.serviceName" [appointmentTime]="appointment.time"
         [businessName]="appointment.businessName" [employeeName]="appointment.employeeName"

@@ -1,14 +1,17 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessCard } from 'src/app/Components/BusinessCard/BusinessCard.component';
+import { FormInput } from 'src/app/Components/FormInput/FormInput.component';
 import { Icon } from 'src/app/Components/Icon/Icon.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import BusinessService, { Business } from 'src/app/Services/BusinessService';
+import { CenterCardWrapper } from 'src/app/Utils/CenterCardWrapper';
 
 @Component({
   selector: 'Businesses',
   standalone: true,
-  imports: [Icon, MainButton, ReactiveFormsModule, BusinessCard],
+  imports: [Icon, MainButton, ReactiveFormsModule, BusinessCard, FormInput],
   templateUrl: './Businesses.component.html',
 })
 export class Businesses implements AfterViewInit {
@@ -17,27 +20,25 @@ export class Businesses implements AfterViewInit {
     Search: new FormControl('', {validators: [Validators.required, Validators.maxLength(100)]})
   });
   searchResult : Business[] = [];
-  JSON = JSON;
-  public constructor(protected businessService : BusinessService) {}
+  public constructor(protected businessService : BusinessService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      if ((params as any).search) {
+        this.businessService.SearchBusinesses((params as any).search).then(businesses => {
+           this.searchResult = businesses;
+        });
+      }
+    });
+    window.addEventListener('resize', () => {
+      CenterCardWrapper(this.wrapper.nativeElement)
+    })
+  }
 
   ngAfterViewInit(): void {
-    const wrapper = this.wrapper.nativeElement;
-    let width = parseFloat(getComputedStyle(wrapper).width);
-        let count = 0;
-        while(width > (5 * 16)) {
-          width -= (5 * 16);
-          count++;
-        }
-        wrapper.style.paddingLeft = width / count + "px";
-        wrapper.style.paddingRight = width / count + "px";
-        wrapper.style.columnGap = width / count + '';
+    CenterCardWrapper(this.wrapper.nativeElement)
   }
 
   Search(event : SubmitEvent) {
     event.preventDefault();
-    const search = this.searchForm.controls.Search.value!;
-    this.businessService.SearchBusinesses(search).then(businesses => {
-      this.searchResult = businesses;
-    });
+    this.router.navigate(['businesses'], {queryParams: {search: this.searchForm.controls.Search.value!}});
   }
 }

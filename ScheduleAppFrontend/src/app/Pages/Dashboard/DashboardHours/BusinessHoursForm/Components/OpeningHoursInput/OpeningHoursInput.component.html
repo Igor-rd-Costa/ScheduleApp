@@ -1,4 +1,4 @@
-<div class="mt-2 pl-8 text-[#DDDDDD] flex flex-wrap gap-2">
+<div class="mt-2 pl-8 text-[#DDDDDD] flex flex-wrap gap-2 w-fit">
     Current hours:
     @for(hour of dayHours; track 0) {
         <span class="text-[14px] text-goldenDark bg-[#2A2A2A] p-1 pl-2 pr-2 rounded shadow-[2px_2px_4px_-1px_#111111]">
@@ -9,7 +9,6 @@
             }
         </span>
     }
-    
 </div>
 <div class="flex mt-2 pl-8 text-goldenDark">
     <Icon size="26px" type="transition_slide"/> 
@@ -20,7 +19,7 @@
         <span>{{maxTimeSectionsPerDay}}</span>
     </div>
 </div>
-<div class="w-[95vw] text-goldenDark flex items-center gap-x-2 select-none">
+<div class="w-fit max-w-[95vw] text-goldenDark flex items-center gap-x-2 select-none">
     <Icon type="bedtime"/>
     <div class="bg-[#333333] rounded h-fit mt-4 shadow-[1px_1px_2px_0px_#111111] overflow-x-hidden *:overflow-x-hidden">
         <div class="w-full h-[7rem] rounded select-none">
@@ -41,7 +40,7 @@
         </div>
     </div>
 </div>
-<div class="w-[95vw] text-goldenDark flex items-center gap-x-2 select-none">
+<div class="w-fit max-w-[95vw] text-goldenDark flex items-center gap-x-2 select-none">
     <Icon type="partly_cloudy_day"/>
     <div class="bg-[#333333] rounded h-fit mt-4 shadow-[1px_1px_2px_0px_#111111] overflow-x-hidden *:overflow-x-hidden">
         <div class="w-full h-[7rem] rounded select-none">
@@ -62,7 +61,7 @@
         </div>
     </div>
 </div>
-<div class="w-[95vw] text-goldenDark flex items-center gap-x-2 select-none">
+<div class="w-fit max-w-[95vw] text-goldenDark flex items-center gap-x-2 select-none">
     <Icon type="sunny"/>
     <div class="bg-[#333333] rounded h-fit mt-4 shadow-[1px_1px_2px_0px_#111111] overflow-x-hidden *:overflow-x-hidden">
         <div class="w-full h-[7rem] rounded select-none">
@@ -83,7 +82,7 @@
         </div>
     </div>
 </div>
-<div class="w-[95vw] text-goldenDark flex items-center gap-x-2 select-none">
+<div class="w-fit max-w-[95vw] text-goldenDark flex items-center gap-x-2 select-none">
     <Icon type="partly_cloudy_night"/>
     <div class="bg-[#333333] rounded h-fit mt-4 shadow-[1px_1px_2px_0px_#111111] overflow-x-hidden *:overflow-x-hidden">
         <div class="w-full h-[7rem] rounded select-none">

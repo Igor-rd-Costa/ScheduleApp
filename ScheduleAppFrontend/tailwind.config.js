@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'xsm': '400px'
+      },
       textColor: {
         'golden': '#C59854',
         'goldenLight': '#CDA05C',

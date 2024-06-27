@@ -5,6 +5,7 @@ import { Heading } from 'src/app/Components/Heading/Heading.component';
 import AuthService from 'src/app/Services/AuthService';
 import BusinessService from 'src/app/Services/BusinessService';
 import { AppointmentInfo, ScheduleService } from 'src/app/Services/ScheduleService';
+import {CenterCardWrapper} from 'src/app/Utils/CenterCardWrapper';
 
 @Component({
   selector: 'DashboardAppointments',
@@ -19,6 +20,9 @@ export class DashboardAppointments implements AfterViewInit {
   constructor(private authService: AuthService, private businessService: BusinessService, private scheduleService: ScheduleService, private router: Router) {
     if (this.authService.GetLoggedBusiness() === null)
       this.router.navigate(['profile']);
+    window.addEventListener('resize', () => {
+      CenterCardWrapper(this.wrapper.nativeElement);
+    })
   }
 
   ngAfterViewInit(): void {
@@ -28,15 +32,6 @@ export class DashboardAppointments implements AfterViewInit {
         })
       })
 
-      const wrapper = this.wrapper.nativeElement;
-      let width = parseFloat(getComputedStyle(wrapper).width);
-      let count = 0;
-      while(width > (5 * 16)) {
-        width -= (5 * 16);
-        count++;
-      }
-      wrapper.style.paddingLeft = width / count + "px";
-      wrapper.style.paddingRight = width / count + "px";
-      wrapper.style.columnGap = width / count + '';
+      CenterCardWrapper(this.wrapper.nativeElement);
   }
 }

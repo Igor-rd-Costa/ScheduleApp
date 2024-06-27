@@ -1,7 +1,7 @@
 <div class="grid justify-items-center gap-y-4 pt-4 w-screen overflow-hidden">
-    <div class="row-start-1 col-start-1 justify-self-start w-[3.5rem] h-[3.5rem] flex 
+    <div class="row-start-1 col-start-1 justify-self-start w-[3.5rem] h-[3.5rem] flex sm:pl-8
     justify-center items-center text-[#DDDDDD] hover:text-white cursor-pointer" (click)="GoToBusiness()">
-        <Icon size="2rem" type="store"/>
+        <Icon size="2rem" type="keyboard_arrow_left"/>
     </div>
     <div class="flex flex-col row-start-1 col-start-1 col-span-2 items-center justify-center w-fit pb-4">
         <div class="flex rounded shadow-[1px_1px_2px_0px_#111111]">
@@ -15,19 +15,20 @@
         </div>
     </div>
 </div>
-@switch (menuItem()) {
-    @case ("appointments") {
-        <DashboardAppointments/>
+    @switch (menuItem()) {
+        @case ("appointments") {
+            <DashboardAppointments/>
+        }
+        @case ("services") {
+            <DashboardServices/>
+        }
+        @case ("hours") {
+            <DashboardHours/>
+        }
+        @case ("employees") {
+            <DashboardEmployees/>
+        }
+        @default {}
     }
-    @case ("services") {
-        <DashboardServices/>
-    }
-    @case ("hours") {
-        <DashboardHours/>
-    }
-    @case ("employees") {
-        <DashboardEmployees/>
-    }
-    @default {}
-}
-
+    
+    

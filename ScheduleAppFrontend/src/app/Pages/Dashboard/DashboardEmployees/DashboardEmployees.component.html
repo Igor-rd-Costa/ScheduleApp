@@ -5,24 +5,22 @@
         </span>
     </Heading>
 </div>
-<div class="mt-4 mb-4 grid gap-4" #card>
+<div class="mt-4 mb-4 grid gap-4 sm:justify-center" #card>
     @for(employee of employees(); track employee.id) {
         <div class="cursor-pointer relative rounded text-[#DDDDDD] font-arial grid shadow-[2px_2px_4px_0px_#111111]
-        grid-rows-[2rem_3rem_0.5rem_auto_0.5rem] grid-cols-[5rem_1fr] bg-[#333333] overflow-hidden">
-            <div class="col-start-1 row-start-1 row-span-2 z-[1] w-[5rem] h-[5rem] bottom-0 relative bg-[#333333] 
-            border-b border-r border-[#DDB06C] rounded-br-[5rem] shadow-[1px_1px_2px_1px] shadow-golden"></div>
-            <div class="col-start-1 row-start-1 row-span-2 z-[1] w-[4rem] h-[4rem] bottom-0 relative bg-[#333333]
-             border-b border-r border-[#DDB06C] 
+        grid-rows-[2rem_3rem_0.5rem_auto_0.5rem] grid-cols-[5rem_1fr] bg-[#333333] overflow-hidden sm:min-w-[22rem]">
+            <div class="col-start-1 row-start-1 row-span-2 z-[1] w-[4.5rem] h-[4.5rem] bottom-0 relative bg-[#333333]
+            border-b border-r border-[#DDB06C] 
             rounded-br-[5rem] shadow-[1px_1px_2px_1px] shadow-golden">
-                <Icon size="3rem" class="text-goldenDark" type="person"/>
+            <Icon size="3rem" class="text-goldenDark" type="person"/>
             </div>
             <div class="row-start-1 max-w-[72%] p-2 relative text-black pl-0 rounded-br-[5rem] rounded-tl 
             col-start-1 col-span-2 pl-[5rem] bg-golden shadow-[1px_1px_2px_1px] shadow-golden flex items-center w-fit max-w-[95%] min-w-[60%]">
             <span class="pl-2 pr-2 truncate">{{employee.firstName}}</span>
             </div>
-            <div class="z-[2] absolute bottom-0 right-0 w-[3rem] h-[3rem] border-t border-l border-[#DDB06C] 
+            <div class="z-[2] absolute bottom-0 right-0 w-[4.5rem] h-[4.5rem] border-t border-l border-[#DDB06C] 
             rounded-tl-[5rem] shadow-[-1px_-1px_2px_1px] shadow-golden"></div>
-            <div class="z-0 absolute bottom-0 right-0 w-[2rem] h-[2rem] border-t border-l border-[#DDB06C] 
+            <div class="z-0 absolute bottom-0 right-0 w-[3rem] h-[3rem] border-t border-l border-[#DDB06C] 
             rounded-tl-[5rem] shadow-[-1px_-1px_2px_1px] shadow-golden"></div>
         </div>
     }

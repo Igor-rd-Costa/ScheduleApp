@@ -1,7 +1,7 @@
 <PopUpMessageBox/>
 <PopDownMessageBox/>
-<div id="app-wrapper" class="h-[100dvh] overflow-hidden">
-    <main class="h-[calc(100dvh-3.5rem)] pb-4 overflow-y-scroll overflow-x-hidden">
+<div id="app-wrapper" class="h-[100dvh] overflow-hidden grid">
+    <main class="row-start-1 sm:row-start-2 h-[calc(100dvh-3.5rem)] overflow-y-scroll overflow-x-hidden">
         <router-outlet></router-outlet>  
     </main>
     @if(authService.IsLogged()) {

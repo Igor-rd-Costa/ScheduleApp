@@ -17,6 +17,7 @@ import BusinessService, { Business as BusinessInfo } from 'src/app/Services/Busi
 import CacheService from 'src/app/Services/CacheService';
 import { City, Country, LocationService, State } from 'src/app/Services/LocationService';
 import { ServicesService, BusinessService as BusinessServiceInfo, BusinessCategory } from 'src/app/Services/ServicesService';
+import { CenterCardWrapper } from 'src/app/Utils/CenterCardWrapper';
 
 @Component({
   selector: 'Business',
@@ -125,24 +126,17 @@ export class Business implements AfterViewChecked, AfterViewInit {
         })
       }
     });
+    window.addEventListener('resize', () => {
+      this.wrappers.forEach(wrapper => {
+        CenterCardWrapper(wrapper.nativeElement);
+      });
+    })
   }
 
   ngAfterViewChecked(): void {
-    if (this.wrappers === undefined) {
-      return;
-    }
-    for (let i = 0; i < this.wrappers.length; i++) {
-      const wrapper = this.wrappers.get(i)!.nativeElement;
-      let width = parseFloat(getComputedStyle(wrapper).width);
-      let count = 0;
-      while(width > (5 * 16)) {
-        width -= (5 * 16);
-        count++;
-      }
-      wrapper.style.paddingLeft = width / count + "px";
-      wrapper.style.paddingRight = width / count + "px";
-      wrapper.style.columnGap = width / count + '';
-    }
+    this.wrappers.forEach(wrapper => {
+      CenterCardWrapper(wrapper.nativeElement);
+    });
   }
 
   OnServiceClick(serviceId : number) {

@@ -1,4 +1,6 @@
-<div [style]="{minHeight}" class="relative h-fit rounded text-[#DDDDDD] font-arial grid grid-rows-[2rem_0.5rem_1fr] bg-[#333333] shadow-[2px_2px_5px_1px_#11111155] overflow-x-hidden">
+<div [style]="{minHeight}" class="relative h-fit rounded text-[#DDDDDD] font-arial grid 
+grid-rows-[2rem_0.5rem_1fr] bg-[#333333] shadow-[2px_2px_5px_1px_#11111155] overflow-x-hidden
+sm:min-w-[22rem]">
     <div class="row-start-1 h-[2rem] max-w-[72%] p-2 rounded-br-[5rem] rounded-tl text-black col-start-1 bg-goldenDark shadow-[1px_1px_2px_1px] shadow-golden flex items-center w-fit max-w-[90%]">
         @for (icon of cardIcons; track icon) {
             <Icon [type]="icon"/>

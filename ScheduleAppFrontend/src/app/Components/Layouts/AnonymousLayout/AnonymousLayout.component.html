@@ -1,4 +1,4 @@
-<header class="h-[3.5rem] font-arial bg-[#151515] shadow-[0px_-1px_2px_0px_#050505] relative z-[20] grid items-center grid-cols-3">
+<header class="sm:hidden grid h-[3.5rem] font-arial bg-[#151515] shadow-[0px_-1px_2px_0px_#050505] relative z-[20] items-center grid-cols-3">
     <button class="justify-self-center text-white" (click)="GoToBusinesses()">
         <Icon type="work"/>
     </button>
@@ -8,5 +8,37 @@
     </button>
     <button class="justify-self-center text-white" (click)="GoToLoginPage()">
         <Icon type="person"/>
+    </button>
+</header>
+<header class="hidden sm:grid h-[3.5rem] font-arial bg-[#151515] shadow-[0px_-1px_2px_0px_#050505] relative z-[20] 
+items-center grid-cols-[auto_1fr_auto] text-goldenDark *:cursor-pointer">
+    <div class="flex text-[1.5rem] h-full pl-6 pr-4">
+        <button class="flex gap-x-1 items-center hover:text-goldenLight" (click)="GoToHome()">
+            <Icon size="1.8rem" type="store"/>
+            Scheduly
+        </button>
+    </div>
+    <div class="justify-self-center text-[14px] font-medium flex h-full gap-x-4
+    *:hover:text-goldenLight *:transition-all *:ease-linear *:duration-100">
+        <button class="uppercase hover:text-[16px] w-[3.5rem] flex items-center justify-center" (click)="GoToHome()" (mouseenter)="OnMouseEnter($event)" (mouseleave)="OnMouseLeave($event)">
+            <div class="w-fit">
+                Home
+                <div style="width: 0;" class="menu-item-decorator h-[3px] bg-goldenLight"></div>
+            </div>
+        </button>
+        <button class="uppercase hover:text-[16px] w-[6.5rem] flex items-center justify-center" (click)="GoToBusinesses()" (mouseenter)="OnMouseEnter($event)" (mouseleave)="OnMouseLeave($event)">
+            <div class="w-fit">
+                Businesses
+                <div style="width: 0;" class="menu-item-decorator h-[3px] bg-goldenLight"></div>
+            </div>
+        </button>
+    </div>
+    <button class="justify-self-end hover:text-goldenLight text-[14px] uppercase flex
+    items-center gap-x-1 pr-6 pl-4 h-full" (click)="GoToLoginPage()" (mouseenter)="OnMouseEnter($event)" (mouseleave)="OnMouseLeave($event)">
+        <div class="col-start-1 row-start-1">
+            Login
+            <div style="width: 0;" class="menu-item-decorator h-[3px] bg-goldenLight"></div>
+        </div>
+        <Icon class="col-start-2 row-start-1 row-span-2" size="30px" type="person"/>
     </button>
 </header>

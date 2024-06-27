@@ -51,12 +51,12 @@
         </form>
     </div>
 } @else if (business() !== undefined) {
-    <div class="pt-6 pb-6">
-        <div class="pl-4 pr-4 pb-4 grid grid-cols-[auto_1fr] grid-rows-[1fr_auto]">
-            <div class="border-4 border-goldenDark text-goldenDark w-fit p-1 rounded-[50%]">
+    <div class="pt-6 pb-6 sm:flex sm:flex-col sm:items-center">
+        <div class="pl-4 sm:pl-0 pr-4 pb-4 grid grid-cols-[auto_1fr] grid-rows-[1fr_auto] w-screen sm:max-w-[30rem]">
+            <div class="border-4 border-goldenDark text-goldenDark w-[6rem] h-[6rem] flex items-center justify-center rounded-[50%]">
                 <Icon size="4.5rem" type="store"/>
             </div>
-            <div class="relative font-arial pl-4 pt-2">
+            <div class="relative font-arial pt-2">
                 <div class="text-goldenDark text-[1.4rem]">
                     {{business()!.name}}
                 </div>
@@ -77,56 +77,58 @@
                 <Icon type="location_on"/>
                 {{business()!.address}}, {{business()!.addressNumber}} - {{cityName()}}, {{stateName()}}-{{business()!.countryCode}}
             </div>
-        </div>
-        @if (allowEdit) {
-            <div class="pl-4 pb-4">
-                <MainButton (Click)="GoToDashboard()">Dashboard</MainButton>
-            </div>
-        }
-        <h2 class="grid grid-rows-1 items-center grid-cols-[auto_1fr_auto] text-goldenDark ml-4 text-[1.3rem] mb-[0.5rem] mr-4">
-            <div class="justify-start w-fit">All Services</div>
             @if (allowEdit) {
-                <button class="col-start-3" (click)="GoToEditServices()">
-                    <Icon type="edit"/>
-                </button>
-            }
-        </h2>
-        <div class="grid gap-y-4">
-            @for (category of categories(); track category.id) {
-                <MinimizableCard [header]="category.name">
-                    <div class="pb-6 pt-6 grid gap-4 w-screen overflow-y-scroll" #card>
-                        @for (service of GetServicesInCategory(category.id); track service.id) {
-                            <BusinessServiceCard (Click)="OnServiceClick($event)" [serviceName]="service.name" [serviceDescription]="service.description"
-                            [servicePrice]="service.price" [serviceDuration]="service.duration" [serviceId]="service.id" [canSchedule]="!allowEdit"/>
-                        }
-                    </div>
-                </MinimizableCard>
-            }
-            @if (HasServiceWithNoCategory()) {
-                <MinimizableCard header="Others">
-                    <div class="pb-6 pt-6 grid gap-4 w-screen overflow-y-scroll" #card>
-                        @for (service of GetServicesInCategory(null); track service.id) {
-                            <BusinessServiceCard (Click)="OnServiceClick($event)" [serviceName]="service.name" [serviceDescription]="service.description"
-                            [servicePrice]="service.price" [serviceDuration]="service.duration" [serviceId]="service.id" [canSchedule]="!allowEdit"/>
-                        }
-                    </div>
-                </MinimizableCard>
-            }
-        </div>
-        <h2 class="grid grid-rows-1 items-center grid-cols-[auto_1fr_auto] text-goldenDark ml-4 text-[1.3rem] mb-[0.5rem] mr-4 mt-4">
-            <div class="justify-start w-fit">Opening Hours</div>
-            @if (allowEdit) {
-                <button class="col-start-3" (click)="GoToEditHours()">
-                    <Icon type="edit"/>
-                </button>
-            }
-        </h2>
-        <div class="pt-2" #card>
-            <CardBase [cardIcons]="['schedule']">
-                <div class="pl-3 pt-2 w-[87%] h-full pb-2 text-[14px]">
-                    <OpeningHoursDisplay [hours]="openingHours"/>   
+                <div class="pl-4 pt-4 pb-4">
+                    <MainButton (Click)="GoToDashboard()">Dashboard</MainButton>
                 </div>
-            </CardBase>
+            }
+        </div>
+        <div class="sm:max-w-[30rem]">
+            <h2 class="grid grid-rows-1 items-center grid-cols-[auto_1fr_auto] text-goldenDark ml-4 text-[1.3rem] mb-[0.5rem] mr-4">
+                <div class="justify-start w-fit">All Services</div>
+                @if (allowEdit) {
+                    <button class="col-start-3" (click)="GoToEditServices()">
+                        <Icon type="edit"/>
+                    </button>
+                }
+            </h2>
+            <div class="grid gap-y-4">
+                @for (category of categories(); track category.id) {
+                    <MinimizableCard [header]="category.name">
+                        <div class="pb-6 pt-6 grid gap-4 overflow-y-scroll" #card>
+                            @for (service of GetServicesInCategory(category.id); track service.id) {
+                                <BusinessServiceCard (Click)="OnServiceClick($event)" [serviceName]="service.name" [serviceDescription]="service.description"
+                                [servicePrice]="service.price" [serviceDuration]="service.duration" [serviceId]="service.id" [canSchedule]="!allowEdit"/>
+                            }
+                        </div>
+                    </MinimizableCard>
+                }
+                @if (HasServiceWithNoCategory()) {
+                    <MinimizableCard header="Others">
+                        <div class="pb-6 pt-6 grid gap-4 w-screen overflow-y-scroll" #card>
+                            @for (service of GetServicesInCategory(null); track service.id) {
+                                <BusinessServiceCard (Click)="OnServiceClick($event)" [serviceName]="service.name" [serviceDescription]="service.description"
+                                [servicePrice]="service.price" [serviceDuration]="service.duration" [serviceId]="service.id" [canSchedule]="!allowEdit"/>
+                            }
+                        </div>
+                    </MinimizableCard>
+                }
+            </div>
+            <h2 class="grid grid-rows-1 items-center grid-cols-[auto_1fr_auto] text-goldenDark ml-4 text-[1.3rem] mb-[0.5rem] mr-4 mt-4">
+                <div class="justify-start w-fit">Opening Hours</div>
+                @if (allowEdit) {
+                    <button class="col-start-3" (click)="GoToEditHours()">
+                        <Icon type="edit"/>
+                    </button>
+                }
+            </h2>
+            <div class="pt-2" #card>
+                <CardBase [cardIcons]="['schedule']">
+                    <div class="pl-3 pt-2 w-[87%] h-full pb-2 text-[14px]">
+                        <OpeningHoursDisplay [hours]="openingHours"/>   
+                    </div>
+                </CardBase>
+            </div>
         </div>
     </div>
-}
+    }

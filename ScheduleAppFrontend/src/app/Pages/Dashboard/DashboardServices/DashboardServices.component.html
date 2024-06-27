@@ -5,7 +5,7 @@
         </span>
     </Heading>
 </div>
-<div class="grid pt-4 pb-4 gap-y-4" #card>
+<div class="grid pt-4 pb-4 gap-y-4 sm:justify-center" #card>
     <CardBase cardIcon="add" heading="Add Category">
         <form [formGroup]="addCategoryForm" class="pl-2 pb-2 grid gap-y-1 max-w-[70%]" method="post" (submit)="AddCategory($event)">
             <label>
@@ -31,7 +31,7 @@
         </span>
     </Heading>
 </div>
-<div class="grid pt-4 pb-4 gap-y-4" #card>
+<div class="grid pt-4 pb-4 gap-y-4 sm:justify-center" #card>
     <CardBase [cardIcons]="['add']" heading="Add Service">
         <form [formGroup]="addServiceForm" class="pl-2 pb-2 grid gap-y-1 max-w-[70%]" method="post" (submit)="AddService($event)">
             <div>

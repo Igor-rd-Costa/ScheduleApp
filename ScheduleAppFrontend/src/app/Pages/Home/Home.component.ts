@@ -4,6 +4,7 @@ import { Icon } from 'src/app/Components/Icon/Icon.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import { MinimizableCard } from 'src/app/Components/MinimizableCard/MinimizableCard.component';
 import { AppointmentInfo, ScheduleService } from 'src/app/Services/ScheduleService';
+import {CenterCardWrapper} from 'src/app/Utils/CenterCardWrapper';
 
 
 @Component({
@@ -23,18 +24,12 @@ export class Home implements AfterViewInit {
         this.appointments = info;
       });
     });
+    window.addEventListener('resize', () => {
+      CenterCardWrapper(this.wrapper.nativeElement);
+    })
   }
 
   ngAfterViewInit(): void {
-      const wrapper = this.wrapper.nativeElement;
-      let width = parseFloat(getComputedStyle(wrapper).width);
-      let count = 0;
-      while(width > (5 * 16)) {
-        width -= (5 * 16);
-        count++;
-      }
-      wrapper.style.paddingLeft = width / count + "px";
-      wrapper.style.paddingRight = width / count + "px";
-      wrapper.style.columnGap = width / count + '';
+      CenterCardWrapper(this.wrapper.nativeElement);
   }
 }
