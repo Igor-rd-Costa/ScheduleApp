@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, signal } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import AuthService from 'src/app/Services/AuthService';
 import { AppLogo } from '../../AppLogo/AppLogo.component';
@@ -10,10 +10,11 @@ import { ProfileMenu } from './ProfileMenu/ProfileMenu.component';
 @Component({
   selector: 'AuthenticatedLayout',
   standalone: true,
-  imports: [AppLogo, UserMenu, Icon, ProfileMenu],
+  imports: [AppLogo, UserMenu, Icon, ProfileMenu, ProfileMenu],
   templateUrl: './AuthenticatedLayout.component.html',
 })
 export class AuthenticatedLayout implements AfterViewInit {
+  @ViewChild(ProfileMenu) profileMenu! : ProfileMenu;
   hasNotifications = signal(false);
 
   public constructor(private router : Router, protected authService : AuthService) {}
@@ -40,6 +41,13 @@ export class AuthenticatedLayout implements AfterViewInit {
 
   GoToBusiness() {
     this.router.navigate(['business']);
+  }
+
+  OpenProfileMenu() {
+    if (!this.profileMenu.IsVisible())
+      this.profileMenu.Show();
+    else
+      this.profileMenu.Hide();
   }
 
   OnMouseEnter(event: MouseEvent) {

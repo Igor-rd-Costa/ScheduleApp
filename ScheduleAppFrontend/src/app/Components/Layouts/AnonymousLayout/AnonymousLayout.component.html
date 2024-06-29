@@ -12,7 +12,7 @@
 </header>
 <header class="hidden sm:grid h-[3.5rem] font-arial bg-[#151515] shadow-[0px_-1px_2px_0px_#050505] relative z-[20] 
 items-center grid-cols-[auto_1fr_auto] text-goldenDark *:cursor-pointer">
-    <div class="flex text-[1.5rem] h-full pl-6 pr-4">
+    <div class="flex text-[1.5rem] h-full pl-6 pr-4 w-[175px]">
         <button class="flex gap-x-1 items-center hover:text-goldenLight" (click)="GoToHome()">
             <Icon size="1.8rem" type="store"/>
             Scheduly
@@ -33,12 +33,14 @@ items-center grid-cols-[auto_1fr_auto] text-goldenDark *:cursor-pointer">
             </div>
         </button>
     </div>
-    <button class="justify-self-end hover:text-goldenLight text-[14px] uppercase flex
-    items-center gap-x-1 pr-6 pl-4 h-full" (click)="GoToLoginPage()" (mouseenter)="OnMouseEnter($event)" (mouseleave)="OnMouseLeave($event)">
-        <div class="col-start-1 row-start-1">
-            Login
-            <div style="width: 0;" class="menu-item-decorator h-[3px] bg-goldenLight"></div>
-        </div>
-        <Icon class="col-start-2 row-start-1 row-span-2" size="30px" type="person"/>
-    </button>
+    <div class="w-[175px] flex justify-end">
+        <button class="hover:text-goldenLight text-[14px] uppercase flex
+        items-center gap-x-1 pr-6 pl-4 h-full" (click)="GoToLoginPage()" (mouseenter)="OnMouseEnter($event)" (mouseleave)="OnMouseLeave($event)">
+            <div class="col-start-1 row-start-1">
+                Login
+                <div style="width: 0;" class="menu-item-decorator h-[3px] bg-goldenLight"></div>
+            </div>
+            <Icon class="col-start-2 row-start-1 row-span-2" size="30px" type="person"/>
+        </button>
+    </div>
 </header>

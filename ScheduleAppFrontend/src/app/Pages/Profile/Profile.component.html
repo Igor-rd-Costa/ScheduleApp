@@ -19,37 +19,31 @@
             <NotificationsPanel [type]="NotificationType.USER_NOTIFICATION"/>
         </div>
     </div>
-    <div class="mt-4 text-goldenDark sm:pl-8 sm:min-w-[30rem]
-    *:border-b *:border-[#333333] *:pb-4 *:pt-4 *:pl-2 *:ml-4 *:mr-4 *:cursor-pointer">
-    <div class="border-t hover:text-goldenLight" (click)="GoToBusiness()">
-        <h3 class="text-[1.6rem] h-[2.6rem] flex items-center gap-x-2">
-            @if (business() === undefined) {
-            } @else if (business() !== null) {
-                <div class="relative">
-                    <Icon size="2rem" type="store"/>
-                    @if (authService.BusinessHasUnseenNotifications()) {
-                        <div class="w-2 h-2 bg-goldenLight rounded absolute right-0 bottom-0"></div>
-                    }
-                </div>
-                My Business
-            } @else {
-                <Icon size="2rem" type="store"/>
-                Setup Business
-            }
-        </h3>
+    <div class="mt-10 flex gap-4 text-[1.2rem] uppercase text-goldenDark">
+        <div class="w-[8rem] h-[8rem] bg-[#333333] flex flex-col items-center justify-center rounded shadow-[2px_2px_5px_1px_#11111155]
+        cursor-pointer hover:bg-[#3A3A3A] hover:text-goldenLight text-center" (click)="GoToHistory()">
+            <Icon  size="28px" type="schedule"/>
+            <div >
+                History
+            </div>
+        </div>
+        <div class="w-[8rem] h-[8rem] bg-[#333333] flex flex-col items-center justify-center rounded shadow-[2px_2px_5px_1px_#11111155]
+        cursor-pointer hover:bg-[#3A3A3A] hover:text-goldenLight text-center" (click)="GoToBusiness()">
+            <Icon size="28px" type="store"/>
+            <div >
+                @if (authService.GetLoggedBusiness() === null) {
+                    Setup Business
+                } @else {
+                    My Business
+                }
+            </div>
+        </div>
+        <div class="w-[8rem] h-[8rem] bg-[#333333] flex flex-col items-center justify-center rounded shadow-[2px_2px_5px_1px_#11111155]
+        cursor-pointer hover:bg-[#3A3A3A] hover:text-goldenLight text-center" (click)="Logout()">
+            <Icon  size="28px" type="logout"/>
+            <div >
+                Logout
+            </div>
+        </div>
     </div>
-    <div class="hover:text-goldenLight" (click)="GoToHistory()">
-        <h3 class="text-[1.6rem] h-[2.6rem] flex items-center gap-x-2">
-            <Icon size="2rem" type="schedule"/>
-            History
-        </h3>
-    </div>
-    <div class="hover:text-goldenLight" (click)="Logout()">
-        <h3 class="text-[1.6rem] h-[2.6rem] flex items-center gap-x-2">
-            <Icon size="2rem" type="logout"/>
-            Logout
-        </h3>
-    </div>
-</div>
-
 </div>

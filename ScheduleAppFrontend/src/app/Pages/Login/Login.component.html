@@ -1,19 +1,19 @@
 <div class="flex flex-col items-center pt-[8%]">
-        <h2 class="text-goldenDark text-[2rem] mb-[2rem]">Login</h2>
-        <form [formGroup]="loginForm" class="grid grid-cols-1 w-[15rem]" method="post" (submit)="Login($event)">
-            <label class="text-white mb-1">Email:</label>
-            <FormInput formControlName="Email"/>
-            
-            <label class="text-white mt-2 mb-1" for="password-field">Password:</label>
-            <FormInput type="password" formControlName="Password"/>
-            
-            <div class="pt-4 flex">
-                <div class="w-full flex justify-center">
-                    <MainButton [disabled]="!loginForm.valid">Login</MainButton>
-                </div>
-                <div class="w-full flex justify-center">
-                    <SecondaryButton (Click)="GoToRegisterPage()">Register</SecondaryButton>
-                </div>
+    <Heading class="mb-[2rem]">Login</Heading>
+    <form [formGroup]="loginForm" class="grid grid-cols-1 w-[15rem]" method="post" (submit)="Login($event)">
+        <label class="text-white mb-1">Email:</label>
+        <FormInput formControlName="Email"/>
+        
+        <label class="text-white mt-2 mb-1" for="password-field">Password:</label>
+        <FormInput type="password" formControlName="Password"/>
+        
+        <div class="pt-4 flex">
+            <div class="w-full flex justify-center">
+                <MainButton [disabled]="!loginForm.valid">Login</MainButton>
             </div>
-        </form>
-    </div>
+            <div class="w-full flex justify-center">
+                <SecondaryButton (Click)="GoToRegisterPage()">Register</SecondaryButton>
+            </div>
+        </div>
+    </form>
+</div>

@@ -5,11 +5,12 @@ import AuthService from 'src/app/Services/AuthService';
 import { FormInput } from 'src/app/Components/FormInput/FormInput.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import { SecondaryButton } from 'src/app/Components/SecondaryButton/SecondaryButton.component';
+import { Heading } from 'src/app/Components/Heading/Heading.component';
 
 @Component({
   selector: 'Register',
   standalone: true,
-  imports: [ReactiveFormsModule, FormInput, MainButton, SecondaryButton],
+  imports: [ReactiveFormsModule, FormInput, MainButton, SecondaryButton, Heading],
   templateUrl: './Register.component.html',
 })
 export class Register {

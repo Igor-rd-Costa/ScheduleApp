@@ -6,6 +6,7 @@ import { BusinessServiceCard } from 'src/app/Components/BusinessServiceCard/Busi
 import { CardBase } from 'src/app/Components/CardBase/CardBase.component';
 import { EditCard } from 'src/app/Components/EditCard/EditCard.component';
 import { FormInput } from 'src/app/Components/FormInput/FormInput.component';
+import { Heading } from 'src/app/Components/Heading/Heading.component';
 import { Icon } from 'src/app/Components/Icon/Icon.component';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
 import { MinimizableCard } from 'src/app/Components/MinimizableCard/MinimizableCard.component';
@@ -22,8 +23,8 @@ import { CenterCardWrapper } from 'src/app/Utils/CenterCardWrapper';
 @Component({
   selector: 'Business',
   standalone: true,
-  imports: [MainButton, ReactiveFormsModule, Icon, CardBase, EditCard, MinimizableCard, 
-    BusinessServiceCard, OpeningHoursDisplay, FormInput, NotificationsPanel],
+  imports: [MainButton, ReactiveFormsModule, Icon, CardBase, EditCard, MinimizableCard,  
+    BusinessServiceCard, OpeningHoursDisplay, FormInput, NotificationsPanel, Heading],
   templateUrl: './Business.component.html',
 })
 export class Business implements AfterViewChecked, AfterViewInit {
@@ -187,6 +188,10 @@ export class Business implements AfterViewChecked, AfterViewInit {
         this.services.set([]);
       }
     });
+  }
+
+  GoToProfile() {
+    this.router.navigate(['profile']);
   }
 
   ToggleNotificationsDisplay() {

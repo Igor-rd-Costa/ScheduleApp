@@ -1,5 +1,5 @@
 <main class="flex flex-col items-center pt-[8%]">
-    <h2 class="text-main text-[2rem] mb-[2rem]">Register</h2>
+    <Heading class="mb-[2rem]">Register</Heading>
     <form [formGroup]="registerForm" class="grid w-[15rem] auto-rows-auto gap-[0.2rem]" (submit)="Register($event)">
         <label class="text-white mb-1" for="first-name-field">First Name:</label>
         <FormInput formControlName="FirstName"/>

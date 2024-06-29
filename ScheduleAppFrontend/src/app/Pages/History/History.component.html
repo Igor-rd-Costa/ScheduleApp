@@ -17,7 +17,7 @@
         <Icon type="calendar_month"/>
     </div>
 </div> -->
-<div class="pt-6" #card>
+<div class="pt-6 grid gap-y-4 sm:flex sm:gap-x-4 sm:flex-wrap sm:pl-8" #card>
     @for (appointment of pastAppointments(); track appointment.id) {
         <AppointmentCard [serviceName]="appointment.serviceName" [businessName]="appointment.businessName" [servicePrice]="appointment.price"
         [appointmentTime]="appointment.time" [employeeName]="appointment.employeeName" [serviceDuration]="appointment.duration"/>
