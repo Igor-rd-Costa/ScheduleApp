@@ -14,10 +14,6 @@
     <div class="mt-6 grid sm:justify-center gap-4" #card>
         @for (business of searchResult; track business.id) {
             <BusinessCard [businessName]="business.name" [businessDescription]="business.description" [customUrl]="business.businessUrl"/>
-            <BusinessCard [businessName]="business.name" [businessDescription]="business.description" [customUrl]="business.businessUrl"/>
-            <BusinessCard [businessName]="business.name" [businessDescription]="business.description" [customUrl]="business.businessUrl"/>
-            <BusinessCard [businessName]="business.name" [businessDescription]="business.description" [customUrl]="business.businessUrl"/>
-            <BusinessCard [businessName]="business.name" [businessDescription]="business.description" [customUrl]="business.businessUrl"/>
         }
     </div>
 </div>

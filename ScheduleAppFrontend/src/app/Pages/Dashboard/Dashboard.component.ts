@@ -7,11 +7,12 @@ import { DashboardHours } from './DashboardHours/DashboardHours.component';
 import { DashboardEmployees } from './DashboardEmployees/DashboardEmployees.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DashboardServices } from './DashboardServices/DashboardServices.component';
+import { DashboardHistory } from './DashboardHistory/DashboardHistory.component';
 
 @Component({
   selector: 'Dashboard',
   standalone: true,
-  imports: [Icon, Heading, DashboardAppointments, DashboardServices, DashboardHours, DashboardEmployees, DashboardMenuItem],
+  imports: [Icon, Heading, DashboardAppointments, DashboardServices, DashboardHours, DashboardEmployees, DashboardMenuItem, DashboardHistory],
   templateUrl: './Dashboard.component.html',
 })
 export class Dashboard implements AfterViewInit {
@@ -20,7 +21,7 @@ export class Dashboard implements AfterViewInit {
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.queryParams.subscribe(queryParams => {
       const param = (queryParams as {menuItem: string}).menuItem;
-      if (param !== "appointments" && param !== "services" && param !== "hours" && param !== "employees") {
+      if (param !== "appointments" && param !== "history" && param !== "services" && param !== "hours" && param !== "employees") {
         this.router.navigate(['dashboard'], {queryParams: {menuItem: "appointments"}});
         return;
       } else {

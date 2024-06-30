@@ -7,6 +7,8 @@
         <div class="flex rounded shadow-[1px_1px_2px_0px_#111111]">
             <DashboardMenuItem itemId="appointments" iconType="event_available" (Selected)="OnSelectionChange($event)"/>
             <div class="border-r border-[#111111]"></div>
+            <DashboardMenuItem itemId="history" iconType="calendar_clock" (Selected)="OnSelectionChange($event)"/>
+            <div class="border-r border-[#111111]"></div>
             <DashboardMenuItem itemId="services" iconType="payments" (Selected)="OnSelectionChange($event)"/>
             <div class="border-r border-[#111111]"></div>
             <DashboardMenuItem itemId="hours" iconType="schedule" (Selected)="OnSelectionChange($event)"/>
@@ -18,6 +20,9 @@
     @switch (menuItem()) {
         @case ("appointments") {
             <DashboardAppointments/>
+        }
+        @case ("history") {
+            <DashboardHistory/>
         }
         @case ("services") {
             <DashboardServices/>

@@ -5,7 +5,8 @@ export type IconType =  'visibility' | 'cut' | 'schedule' | 'person' | 'work' | 
                         'bedtime' | 'sunny' | 'partly_cloudy_day' | 'partly_cloudy_night' |
                         'save' | 'transition_slide' | 'keyboard_arrow_left' | 'keyboard_arrow_right' |
                         'keyboard_arrow_up' | 'keyboard_arrow_down' | 'location_on' | 'payments' |
-                        'logout' | 'notifications' | 'notifications_active' | 'calendar_month' | 'event_available';
+                        'logout' | 'notifications' | 'notifications_active' | 'calendar_month' | 'event_available' |
+                        'calendar_clock';
 
 @Component({
   selector: 'Icon',

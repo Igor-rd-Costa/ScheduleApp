@@ -188,6 +188,20 @@ export default class BusinessService {
         })
     }
 
+    async GetPastAppointments(): Promise<Appointment[]> {
+        return new Promise<Appointment[]>(resolve => {
+            this.http.get<Appointment[]>(this.businessControllerAddress+"past-appointments?cache=[]", {withCredentials: true}).subscribe({
+                next: pastAppointments => {
+                    resolve(pastAppointments);
+                },
+                error: err => {
+                    console.error(err);
+                    resolve([]);
+                }
+            });
+        });
+    }
+
     async CreateBusiness(info : BusinessCreateInfo) : Promise<Business | null> {
         return new Promise<Business | null>(resolve => {
             this.http.post<Business>(this.businessControllerAddress, info, {withCredentials: true}).subscribe({

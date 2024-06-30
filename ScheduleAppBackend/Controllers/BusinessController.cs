@@ -115,7 +115,57 @@ namespace ScheduleAppBackend.Controllers
                 return BadRequest();
 
             List<Appointment> appointments = m_Context.Appointments.Where(a => a.BusinessId == businessId).ToList();
-            return Ok(appointments);
+            List<Appointment> futureAppointments = [];
+
+            int cityCode = m_Context.Businesses.Where(b => b.Id == businessId).Select(b => b.CityCode).First();
+            string timezone = m_Context.LocationCities.Where(c => c.Id == cityCode).Select(c => c.TimeZone).First();
+            int tzOffset = m_Context.LocationTimeZones.Where(tz => tz.Name == timezone).Select(tz => tz.Offset).First();
+            DateTimeOffset today = new DateTimeOffset(DateTime.UtcNow).ToOffset(new TimeSpan(tzOffset, 0, 0));
+
+            foreach (Appointment appointment in appointments)
+            {
+                SADateTime time = new(appointment.Time);
+                DateTime t = new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, 0);
+                if (t.Ticks >= today.Ticks)
+                {
+                    futureAppointments.Add(appointment);
+                }
+            }
+
+            return Ok(futureAppointments);
+        }
+
+        [HttpGet("past-appointments")]
+        async public Task<IActionResult> GetPastAppointments([FromQuery(Name = "cache")] string cacheString)
+        {
+            User? user = await m_UserManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            Guid? businessId = m_Context.Businesses.Where(b => b.OwnerId == user.Id).Select(b => b.Id).FirstOrDefault();
+
+            if (businessId == null)
+                return BadRequest();
+
+            List<Appointment> appointments = m_Context.Appointments.Where(a => a.BusinessId == businessId).ToList();
+            List<Appointment> pastAppointments = [];
+
+            int cityCode = m_Context.Businesses.Where(b => b.Id == businessId).Select(b => b.CityCode).First();
+            string timezone = m_Context.LocationCities.Where(c => c.Id == cityCode).Select(c => c.TimeZone).First();
+            int tzOffset = m_Context.LocationTimeZones.Where(tz => tz.Name == timezone).Select(tz => tz.Offset).First();
+            DateTimeOffset today = new DateTimeOffset(DateTime.UtcNow).ToOffset(new TimeSpan(tzOffset, 0, 0));
+
+            foreach (Appointment appointment in appointments)
+            {
+                SADateTime time = new(appointment.Time);
+                DateTime t = new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, 0);
+                if (t.Ticks < today.Ticks)
+                {
+                    pastAppointments.Add(appointment);
+                }
+            }
+
+            return Ok(pastAppointments);
         }
 
         [HttpPost]
