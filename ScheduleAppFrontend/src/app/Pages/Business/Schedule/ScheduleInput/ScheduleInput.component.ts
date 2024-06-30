@@ -115,7 +115,7 @@ export class ScheduleInput implements AfterViewInit {
     if (this.confirmationCard === undefined)
       return;
     const wrapper = this.confirmationCard.nativeElement;
-    wrapper.style.display = 'block';
+    wrapper.style.display = 'flex';
     let width = parseFloat(getComputedStyle(wrapper).width);
     let count = 0;
     while(width > (5 * 16)) {
@@ -165,13 +165,7 @@ export class ScheduleInput implements AfterViewInit {
 
     const day = this.selectedDay.GetDate();
     const time = Time.HourToHourInfo(this.selectedHour.time);
-
-    const date = new Date(day.getFullYear(), day.getMonth(), day.getDate(), time.hours, time.minutes);
-    const dateInt : number = this.selectedHour.time;
-
     const dateTime = Time.MakeDateTime(day.getDate(), day.getMonth()+1, day.getFullYear(), time.hours, time.minutes);
-    console.log("DateTime", dateTime);
-    console.log("ToString:", Time.DateTimeToString(dateTime));
     let status =  await this.scheduleService.Schedule(this.service.id, this.business.id, this.selectedEmployee.id, dateTime);
     if (status) {
       App.PopDownMessageBox.Show(MessageType.SUCCESS, "Your appointment was registered successfully!", 3);
