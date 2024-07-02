@@ -2,13 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using ScheduleAppBackend.Context;
 using Microsoft.AspNetCore.Identity;
 using ScheduleAppBackend.Models;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using ScheduleAppBackend.Services.Interfaces;
 using ScheduleAppBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddDbContext<ScheduleAppContext>(options =>
 {
@@ -54,46 +51,20 @@ auth.AddCookie(IdentityConstants.ApplicationScheme, options =>
     };
 });
 
-//auth.AddCookie(IdentityConstants.ExternalScheme, options =>
-//{
-//    options.Cookie.SameSite = SameSiteMode.None;
-//    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-//    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
-//    options.Events.OnRedirectToLogin = (context) =>
-//    {
-//        context.Response.StatusCode = 401;
-//        return Task.CompletedTask;
-//    };
-//    options.Events.OnRedirectToAccessDenied = (context) =>
-//    {
-//        context.Response.StatusCode = 401;
-//        return Task.CompletedTask;
-//    };
-//});
-//auth.AddCookie(IdentityConstants.TwoFactorUserIdScheme, options =>
-//{
-//    options.Cookie.SameSite = SameSiteMode.None;
-//    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-//    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
-//    options.Events.OnRedirectToLogin = (context) =>
-//    {
-//        context.Response.StatusCode = 401;
-//        return Task.CompletedTask;
-//    };
-//    options.Events.OnRedirectToAccessDenied = (context) =>
-//    {
-//        context.Response.StatusCode = 401;
-//        return Task.CompletedTask;
-//    };
-//});
-
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("Development", policyOptions =>
+    options.AddPolicy("Dev", policyOptions =>
     {
-        policyOptions.WithOrigins("http://localhost:4200")
+        policyOptions.WithOrigins(builder.Configuration.GetConnectionString("DevFrontendAddress") ?? "http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+    });
+    options.AddPolicy("Prod", policyOptions =>
+    {
+        policyOptions.WithOrigins(builder.Configuration.GetConnectionString("ProdLoadBalancerAddress") ?? "")
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials();
@@ -102,10 +73,14 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
-app.UseCors("Development");
-
+if (builder.Environment.IsDevelopment())
+{
+    app.UseCors("Dev");
+} 
+else
+{
+    app.UseCors("Prod");
+}
 app.UseAuthorization();
 app.UseAuthentication();
 

@@ -1,16 +1,16 @@
 import { AfterViewInit, Component, ViewChild, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import AuthService from 'src/app/Services/AuthService';
-import { AppLogo } from '../../AppLogo/AppLogo.component';
 import { UserMenu } from '../../UserMenu/UserMenu.component';
 import { Icon } from '../../Icon/Icon.component';
 import CacheService from 'src/app/Services/CacheService';
 import { ProfileMenu } from './ProfileMenu/ProfileMenu.component';
+import { AppLogo } from '../AppLogo/AppLogo.component';
 
 @Component({
   selector: 'AuthenticatedLayout',
   standalone: true,
-  imports: [AppLogo, UserMenu, Icon, ProfileMenu, ProfileMenu],
+  imports: [AppLogo, UserMenu, Icon, ProfileMenu, ProfileMenu, AppLogo],
   templateUrl: './AuthenticatedLayout.component.html',
 })
 export class AuthenticatedLayout implements AfterViewInit {

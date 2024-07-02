@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppLogo } from '../../AppLogo/AppLogo.component';
 import { Icon } from '../../Icon/Icon.component';
+import { AppLogo } from '../AppLogo/AppLogo.component';
 
 @Component({
   selector: 'AnonymousLayout',
   standalone: true,
-  imports: [Icon],
+  imports: [Icon, AppLogo],
   templateUrl: './AnonymousLayout.component.html',
 })
 export class AnonymousLayout {

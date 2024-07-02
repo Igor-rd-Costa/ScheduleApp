@@ -1,6 +1,7 @@
 ScheduleAppFrontend/.angular
 ScheduleAppFrontend/.vscode
 ScheduleAppFrontend/node_modules
+ScheduleAppFrontend/dist
 
 ScheduleAppBackend/obj
 ScheduleAppBackend/bin
