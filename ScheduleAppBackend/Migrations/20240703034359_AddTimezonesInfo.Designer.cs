@@ -12,8 +12,8 @@ using ScheduleAppBackend.Context;
 namespace ScheduleAppBackend.Migrations
 {
     [DbContext(typeof(ScheduleAppContext))]
-    [Migration("20240608224103_AddLocationInfo")]
-    partial class AddLocationInfo
+    [Migration("20240703034359_AddTimezonesInfo")]
+    partial class AddTimezonesInfo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -86,6 +86,9 @@ namespace ScheduleAppBackend.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("HasUnseenNotifications")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("LastEditDate")
                         .HasColumnType("timestamp with time zone");
@@ -186,6 +189,33 @@ namespace ScheduleAppBackend.Migrations
                     b.HasIndex("BusinessId");
 
                     b.ToTable("BusinessesHours");
+                });
+
+            modelBuilder.Entity("ScheduleAppBackend.Models.BusinessNotification", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Heading")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("WasVisualized")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id", "OwnerId");
+
+                    b.ToTable("BusinessNotifications");
                 });
 
             modelBuilder.Entity("ScheduleAppBackend.Models.BusinessService", b =>
@@ -337,6 +367,9 @@ namespace ScheduleAppBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("HasUnseenNotifications")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsEmailConfirmed")
                         .HasColumnType("boolean");
 
@@ -358,6 +391,33 @@ namespace ScheduleAppBackend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ScheduleAppBackend.Models.UserNotification", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Heading")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("WasVisualized")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id", "OwnerId");
+
+                    b.ToTable("UserNotifications");
                 });
 
             modelBuilder.Entity("ScheduleAppBackend.Models.Appointment", b =>

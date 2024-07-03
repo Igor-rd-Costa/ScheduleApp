@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ScheduleAppBackend.Migrations
 {
     /// <inheritdoc />
-    public partial class AddNotificationTables : Migration
+    public partial class CreateNotificationsTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

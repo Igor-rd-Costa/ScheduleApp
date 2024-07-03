@@ -12,8 +12,8 @@ using ScheduleAppBackend.Context;
 namespace ScheduleAppBackend.Migrations
 {
     [DbContext(typeof(ScheduleAppContext))]
-    [Migration("20240616022912_AddNotificationTables")]
-    partial class AddNotificationTables
+    [Migration("20240703034355_AddCoutriesInfo")]
+    partial class AddCoutriesInfo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

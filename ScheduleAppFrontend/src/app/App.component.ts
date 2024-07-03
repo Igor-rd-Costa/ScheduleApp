@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, isDevMode } from '@angular/core';
 import AuthService from './Services/AuthService';
 import { PopUpMessageBox } from './Components/PopUpMessageBox/PopUpMessageBox.component';
 import { PopDownMessageBox } from './Components/PopDownMessageBox/PopDownMessageBox.component';
@@ -9,7 +9,7 @@ import { PopDownMessageBox } from './Components/PopDownMessageBox/PopDownMessage
   templateUrl: './App.component.html',
 })
 export class App implements AfterViewInit {
-  public static backendAddress = "http://localhost:5245/api/";
+  public static backendAddress = isDevMode() ? "http://localhost:5245/api/" : "https://api.igored.com/api/";
   @ViewChild(PopUpMessageBox) popUpMessageBox! : PopUpMessageBox;
   @ViewChild(PopDownMessageBox) popDownMessageBox! : PopDownMessageBox;
   public static PopUpMessageBox : PopUpMessageBox;
@@ -17,7 +17,6 @@ export class App implements AfterViewInit {
   private static title = 'ScheduleAppFrontend';
   
   constructor(protected authService : AuthService) {
-    
   }
 
   public static Blur() {
