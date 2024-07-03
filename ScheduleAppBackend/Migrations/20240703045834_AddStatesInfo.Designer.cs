@@ -12,7 +12,7 @@ using ScheduleAppBackend.Context;
 namespace ScheduleAppBackend.Migrations
 {
     [DbContext(typeof(ScheduleAppContext))]
-    [Migration("20240703034402_AddStatesInfo")]
+    [Migration("20240703045834_AddStatesInfo")]
     partial class AddStatesInfo
     {
         /// <inheritdoc />

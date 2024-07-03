@@ -276,7 +276,7 @@ namespace ScheduleAppBackend.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-			migrationBuilder.Sql("DELETE FROM LocationCountries");
+			migrationBuilder.Sql("DELETE FROM \"LocationCountries\"");
 
         }
     }

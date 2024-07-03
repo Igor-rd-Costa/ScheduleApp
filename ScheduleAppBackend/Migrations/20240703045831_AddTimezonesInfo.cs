@@ -444,7 +444,7 @@ namespace ScheduleAppBackend.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-			migrationBuilder.Sql("DELETE FROM LocationTimeZones");
+			migrationBuilder.Sql("DELETE FROM \"LocationTimeZones\"");
 
         }
     }

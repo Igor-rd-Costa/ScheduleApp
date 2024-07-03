@@ -417,6 +417,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Tigre", "America/Argentina/Buenos_Aires", "01", "AR" },
 					{ "Tandil", "America/Argentina/Buenos_Aires", "01", "AR" },
 					{ "San Vicente", "America/Argentina/Cordoba", "14", "AR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Santo Tomé", "America/Argentina/Cordoba", "06", "AR" },
 					{ "Santos Lugares", "America/Argentina/Buenos_Aires", "01", "AR" },
 					{ "Santo Pipó", "America/Argentina/Cordoba", "14", "AR" },
@@ -817,6 +827,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Cafayate", "America/Argentina/Salta", "17", "AR" },
 					{ "Brinkmann", "America/Argentina/Cordoba", "05", "AR" },
 					{ "Berrotarán", "America/Argentina/Cordoba", "05", "AR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Beltrán", "America/Argentina/Cordoba", "22", "AR" },
 					{ "Bell Ville", "America/Argentina/Cordoba", "05", "AR" },
 					{ "Bella Vista", "America/Argentina/Tucuman", "24", "AR" },
@@ -1217,6 +1237,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Thirroul", "Australia/Sydney", "02", "AU" },
 					{ "Tewantin", "Australia/Brisbane", "04", "AU" },
 					{ "Terrigal", "Australia/Sydney", "02", "AU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Templestowe Lower", "Australia/Melbourne", "07", "AU" },
 					{ "Templestowe", "Australia/Melbourne", "07", "AU" },
 					{ "Tarragindi", "Australia/Brisbane", "04", "AU" },
@@ -1617,6 +1647,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Clayton South", "Australia/Melbourne", "07", "AU" },
 					{ "Clayton", "Australia/Melbourne", "07", "AU" },
 					{ "Clarinda", "Australia/Melbourne", "07", "AU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Claremont", "Australia/Hobart", "06", "AU" },
 					{ "Wollongong", "Australia/Sydney", "02", "AU" },
 					{ "Chipping Norton", "Australia/Sydney", "02", "AU" },
@@ -2017,6 +2057,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Whalan", "Australia/Sydney", "02", "AU" },
 					{ "Edensor Park", "Australia/Sydney", "02", "AU" },
 					{ "Avondale Heights", "Australia/Melbourne", "07", "AU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Lynbrook", "Australia/Melbourne", "07", "AU" },
 					{ "Wentworth Point", "Australia/Sydney", "02", "AU" },
 					{ "Norman Gardens", "Australia/Brisbane", "04", "AU" },
@@ -2417,6 +2467,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Allambie Heights", "Australia/Sydney", "02", "AU" },
 					{ "Belfield", "Australia/Sydney", "02", "AU" },
 					{ "Berala", "Australia/Sydney", "02", "AU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Berowra Heights", "Australia/Sydney", "02", "AU" },
 					{ "Bondi Beach", "Australia/Sydney", "02", "AU" },
 					{ "Cabramatta West", "Australia/Sydney", "02", "AU" },
@@ -2817,6 +2877,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Nārāyanganj", "Asia/Dhaka", "81", "BD" },
 					{ "Nālchiti", "Asia/Dhaka", "85", "BD" },
 					{ "Nāgarpur", "Asia/Dhaka", "81", "BD" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Nageswari", "Asia/Dhaka", "87", "BD" },
 					{ "Mymensingh", "Asia/Dhaka", "H", "BD" },
 					{ "Muktāgācha", "Asia/Dhaka", "H", "BD" },
@@ -3217,6 +3287,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Machelen", "Europe/Brussels", "VLG", "BE" },
 					{ "Maasmechelen", "Europe/Brussels", "VLG", "BE" },
 					{ "Maaseik", "Europe/Brussels", "VLG", "BE" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Lummen", "Europe/Brussels", "VLG", "BE" },
 					{ "Lubbeek", "Europe/Brussels", "VLG", "BE" },
 					{ "Lovendegem", "Europe/Brussels", "VLG", "BE" },
@@ -3617,6 +3697,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Tita", "Africa/Ouagadougou", "06", "BF" },
 					{ "Tenkodogo", "Africa/Ouagadougou", "04", "BF" },
 					{ "Solenzo", "Africa/Ouagadougou", "01", "BF" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Sindou", "Africa/Ouagadougou", "02", "BF" },
 					{ "Sebba", "Africa/Ouagadougou", "12", "BF" },
 					{ "Sapouy", "Africa/Ouagadougou", "06", "BF" },
@@ -4017,6 +4107,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Ascensión", "America/La_Paz", "08", "BO" },
 					{ "Aiquile", "America/La_Paz", "02", "BO" },
 					{ "Achocalla", "America/La_Paz", "04", "BO" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Achacachi", "America/La_Paz", "04", "BO" },
 					{ "Ascención de Guarayos", "America/La_Paz", "08", "BO" },
 					{ "San Borja", "America/La_Paz", "03", "BO" },
@@ -4417,6 +4517,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Coroatá", "America/Fortaleza", "13", "BR" },
 					{ "Coremas", "America/Fortaleza", "17", "BR" },
 					{ "Coreaú", "America/Fortaleza", "06", "BR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Condado", "America/Recife", "30", "BR" },
 					{ "Conceição do Araguaia", "America/Belem", "16", "BR" },
 					{ "Colônia Leopoldina", "America/Recife", "30", "BR" },
@@ -4817,6 +4927,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Santa Teresa", "America/Sao_Paulo", "08", "BR" },
 					{ "Santa Rosa de Viterbo", "America/Sao_Paulo", "27", "BR" },
 					{ "Santa Rosa", "America/Sao_Paulo", "23", "BR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Santa Rita do Sapucaí", "America/Sao_Paulo", "15", "BR" },
 					{ "Santa Rita do Passa Quatro", "America/Sao_Paulo", "27", "BR" },
 					{ "Santana do Paraíso", "America/Sao_Paulo", "15", "BR" },
@@ -5217,6 +5337,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Liberdade", "America/Sao_Paulo", "27", "BR" },
 					{ "Leopoldina", "America/Sao_Paulo", "15", "BR" },
 					{ "Lençóis Paulista", "America/Sao_Paulo", "27", "BR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Leme", "America/Sao_Paulo", "27", "BR" },
 					{ "Lavras", "America/Sao_Paulo", "15", "BR" },
 					{ "Lauro Muller", "America/Sao_Paulo", "26", "BR" },
@@ -5617,6 +5747,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Carmo do Paranaíba", "America/Sao_Paulo", "15", "BR" },
 					{ "Carmo do Cajuru", "America/Sao_Paulo", "15", "BR" },
 					{ "Carmo", "America/Sao_Paulo", "21", "BR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Carlos Chagas", "America/Sao_Paulo", "15", "BR" },
 					{ "Carlos Barbosa", "America/Sao_Paulo", "23", "BR" },
 					{ "Carira", "America/Maceio", "28", "BR" },
@@ -6017,6 +6157,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Mooca", "America/Sao_Paulo", "27", "BR" },
 					{ "Vila Prudente", "America/Sao_Paulo", "27", "BR" },
 					{ "Morumbi", "America/Sao_Paulo", "27", "BR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Pedreira", "America/Sao_Paulo", "27", "BR" },
 					{ "Mandaqui", "America/Sao_Paulo", "27", "BR" },
 					{ "Cachoeirinha", "America/Sao_Paulo", "27", "BR" },
@@ -6417,6 +6567,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Duncan", "America/Vancouver", "02", "CA" },
 					{ "East Gwillimbury", "America/Toronto", "08", "CA" },
 					{ "Edmonton", "America/Edmonton", "01", "CA" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Edson", "America/Edmonton", "01", "CA" },
 					{ "Elliot Lake", "America/Toronto", "08", "CA" },
 					{ "Humbermede", "America/Toronto", "08", "CA" },
@@ -6817,6 +6977,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Roncesvalles", "America/Toronto", "08", "CA" },
 					{ "Dufferin Grove", "America/Toronto", "08", "CA" },
 					{ "Little Portugal", "America/Toronto", "08", "CA" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Niagara", "America/Toronto", "08", "CA" },
 					{ "Trinity-Bellwoods", "America/Toronto", "08", "CA" },
 					{ "Long Branch", "America/Toronto", "08", "CA" },
@@ -7217,6 +7387,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Schwyz", "Europe/Zurich", "SZ", "CH" },
 					{ "Schübelbach", "Europe/Zurich", "SZ", "CH" },
 					{ "Schlieren", "Europe/Zurich", "ZH", "CH" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Schaffhausen", "Europe/Zurich", "SH", "CH" },
 					{ "Savièse", "Europe/Zurich", "VS", "CH" },
 					{ "Sarnen", "Europe/Zurich", "OW", "CH" },
@@ -7617,6 +7797,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Séliéguhé", "Africa/Abidjan", "96", "CI" },
 					{ "Séguié", "Africa/Abidjan", "82", "CI" },
 					{ "Séchi", "Africa/Abidjan", "82", "CI" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Satikran", "Africa/Abidjan", "94", "CI" },
 					{ "Sassandra", "Africa/Abidjan", "76", "CI" },
 					{ "Sarhala", "Africa/Abidjan", "97", "CI" },
@@ -8017,6 +8207,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Biankouma", "Africa/Abidjan", "78", "CI" },
 					{ "Béttié", "Africa/Abidjan", "94", "CI" },
 					{ "Béréblo", "Africa/Abidjan", "00", "CI" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Béoumi", "Africa/Abidjan", "90", "CI" },
 					{ "Béoua", "Africa/Abidjan", "78", "CI" },
 					{ "Benzra", "Africa/Abidjan", "96", "CI" },
@@ -8417,6 +8617,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Los Andes", "America/Santiago", "01", "CL" },
 					{ "Longaví", "America/Santiago", "11", "CL" },
 					{ "Loncoche", "America/Santiago", "04", "CL" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Llaillay", "America/Santiago", "01", "CL" },
 					{ "Linares", "America/Santiago", "11", "CL" },
 					{ "Limache", "America/Santiago", "01", "CL" },
@@ -8817,6 +9027,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Yunshan", "Asia/Shanghai", "15", "CN" },
 					{ "Yunnanyi", "Asia/Shanghai", "29", "CN" },
 					{ "Yunmeng Chengguanzhen", "Asia/Shanghai", "12", "CN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Yunmen", "Asia/Shanghai", "33", "CN" },
 					{ "Jinghong", "Asia/Shanghai", "29", "CN" },
 					{ "Yunjin", "Asia/Shanghai", "32", "CN" },
@@ -9217,6 +9437,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Shanghuang", "Asia/Shanghai", "33", "CN" },
 					{ "Shanghai", "Asia/Shanghai", "23", "CN" },
 					{ "Shangde", "Asia/Shanghai", "15", "CN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Shaliuhe", "Asia/Shanghai", "06", "CN" },
 					{ "Shajiang", "Asia/Shanghai", "07", "CN" },
 					{ "Shaji", "Asia/Shanghai", "04", "CN" },
@@ -9617,6 +9847,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Huilong", "Asia/Shanghai", "04", "CN" },
 					{ "Huicheng", "Asia/Shanghai", "01", "CN" },
 					{ "Huicheng", "Asia/Shanghai", "30", "CN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Huguo", "Asia/Shanghai", "32", "CN" },
 					{ "Hufeng", "Asia/Shanghai", "33", "CN" },
 					{ "Huazhou", "Asia/Shanghai", "30", "CN" },
@@ -10017,6 +10257,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Dahedian", "Asia/Shanghai", "15", "CN" },
 					{ "Shimen", "Asia/Shanghai", "15", "CN" },
 					{ "Baiyang", "Asia/Shanghai", "15", "CN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Tielou", "Asia/Shanghai", "15", "CN" },
 					{ "Bashan", "Asia/Shanghai", "33", "CN" },
 					{ "Shuikou", "Asia/Shanghai", "33", "CN" },
@@ -10417,6 +10667,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Moba", "Asia/Shanghai", "15", "CN" },
 					{ "Dianga", "Asia/Shanghai", "15", "CN" },
 					{ "Niba", "Asia/Shanghai", "15", "CN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Mu’er", "Asia/Shanghai", "15", "CN" },
 					{ "Lexiu", "Asia/Shanghai", "15", "CN" },
 					{ "Azitan", "Asia/Shanghai", "15", "CN" },
@@ -10817,6 +11077,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Dawan", "Asia/Shanghai", "33", "CN" },
 					{ "Gulu", "Asia/Shanghai", "33", "CN" },
 					{ "Jindaoxia", "Asia/Shanghai", "33", "CN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Lijia", "Asia/Shanghai", "33", "CN" },
 					{ "Shuangfengqiao", "Asia/Shanghai", "33", "CN" },
 					{ "Huixing", "Asia/Shanghai", "33", "CN" },
@@ -11217,6 +11487,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Yongcheng", "Asia/Shanghai", "33", "CN" },
 					{ "Zhongfeng", "Asia/Shanghai", "33", "CN" },
 					{ "Zhuantang", "Asia/Shanghai", "33", "CN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Guiyang, Guizhou", "Asia/Shanghai", "18", "CN" },
 					{ "Longling County", "Asia/Shanghai", "29", "CN" },
 					{ "Mianzhu, Deyang, Sichuan", "Asia/Shanghai", "32", "CN" },
@@ -11617,6 +11897,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Génova", "America/Bogota", "23", "CO" },
 					{ "Garzón", "America/Bogota", "16", "CO" },
 					{ "Garagoa", "America/Bogota", "36", "CO" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Gamarra", "America/Bogota", "10", "CO" },
 					{ "Nueva Granada", "America/Bogota", "27", "CO" },
 					{ "Galapa", "America/Bogota", "04", "CO" },
@@ -12017,6 +12307,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Fontanar", "America/Havana", "02", "CU" },
 					{ "Fomento", "America/Havana", "14", "CU" },
 					{ "Florida", "America/Havana", "05", "CU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Florencia", "America/Havana", "07", "CU" },
 					{ "Esperanza", "America/Havana", "16", "CU" },
 					{ "Esmeralda", "America/Havana", "05", "CU" },
@@ -12417,6 +12717,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Beroun", "Europe/Prague", "88", "CZ" },
 					{ "Benešov", "Europe/Prague", "88", "CZ" },
 					{ "Benátky nad Jizerou", "Europe/Prague", "88", "CZ" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Bechyně", "Europe/Prague", "79", "CZ" },
 					{ "Aš", "Europe/Prague", "81", "CZ" },
 					{ "Černý Most", "Europe/Prague", "52", "CZ" },
@@ -12817,6 +13127,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Tangermünde", "Europe/Berlin", "14", "DE" },
 					{ "Tangerhütte", "Europe/Berlin", "14", "DE" },
 					{ "Tamm", "Europe/Berlin", "01", "DE" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Tacherting", "Europe/Berlin", "02", "DE" },
 					{ "Syke", "Europe/Berlin", "06", "DE" },
 					{ "Süßen", "Europe/Berlin", "01", "DE" },
@@ -13217,6 +13537,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Rahnsdorf", "Europe/Berlin", "16", "DE" },
 					{ "Rahlstedt", "Europe/Berlin", "04", "DE" },
 					{ "Rahden", "Europe/Berlin", "07", "DE" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Raesfeld", "Europe/Berlin", "07", "DE" },
 					{ "Radolfzell", "Europe/Berlin", "01", "DE" },
 					{ "Radevormwald", "Europe/Berlin", "07", "DE" },
@@ -13617,6 +13947,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Mickten", "Europe/Berlin", "13", "DE" },
 					{ "Michendorf", "Europe/Berlin", "11", "DE" },
 					{ "Michelstadt", "Europe/Berlin", "05", "DE" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Michelau", "Europe/Berlin", "02", "DE" },
 					{ "Meuselwitz", "Europe/Berlin", "15", "DE" },
 					{ "Metzingen", "Europe/Berlin", "01", "DE" },
@@ -14017,6 +14357,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Jever", "Europe/Berlin", "06", "DE" },
 					{ "Jestetten", "Europe/Berlin", "01", "DE" },
 					{ "Jesteburg", "Europe/Berlin", "06", "DE" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Jessen", "Europe/Berlin", "14", "DE" },
 					{ "Jena", "Europe/Berlin", "15", "DE" },
 					{ "Jahnsdorf", "Europe/Berlin", "13", "DE" },
@@ -14417,6 +14767,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Gedern", "Europe/Berlin", "05", "DE" },
 					{ "Gauting", "Europe/Berlin", "02", "DE" },
 					{ "Gau-Algesheim", "Europe/Berlin", "08", "DE" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Gärtringen", "Europe/Berlin", "01", "DE" },
 					{ "Garrel", "Europe/Berlin", "06", "DE" },
 					{ "Garmisch-Partenkirchen", "Europe/Berlin", "02", "DE" },
@@ -14817,6 +15177,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Bruckmühl", "Europe/Berlin", "02", "DE" },
 					{ "Bruckberg", "Europe/Berlin", "02", "DE" },
 					{ "Bruchsal", "Europe/Berlin", "01", "DE" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Bruchköbel", "Europe/Berlin", "05", "DE" },
 					{ "Bruchhausen-Vilsen", "Europe/Berlin", "06", "DE" },
 					{ "Broitzem", "Europe/Berlin", "06", "DE" },
@@ -15217,6 +15587,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Schieder-Schwalenberg", "Europe/Berlin", "07", "DE" },
 					{ "Rödental", "Europe/Berlin", "02", "DE" },
 					{ "Bruchmühlbach-Miesau", "Europe/Berlin", "08", "DE" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Schönenberg-Kübelberg", "Europe/Berlin", "08", "DE" },
 					{ "Mülheim-Kärlich", "Europe/Berlin", "08", "DE" },
 					{ "Florstadt", "Europe/Berlin", "05", "DE" },
@@ -15617,6 +15997,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Imbert", "America/Santo_Domingo", "18", "DO" },
 					{ "Hato Mayor del Rey", "America/Santo_Domingo", "29", "DO" },
 					{ "Guaymate", "America/Santo_Domingo", "12", "DO" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Gaspar Hernández", "America/Santo_Domingo", "08", "DO" },
 					{ "Galván", "America/Santo_Domingo", "02", "DO" },
 					{ "Fantino", "America/Santo_Domingo", "21", "DO" },
@@ -16017,6 +16407,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Naranjito", "America/Guayaquil", "10", "EC" },
 					{ "Naranjal", "America/Guayaquil", "10", "EC" },
 					{ "Muisne", "America/Guayaquil", "09", "EC" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Montecristi", "America/Guayaquil", "14", "EC" },
 					{ "Montalvo", "America/Guayaquil", "13", "EC" },
 					{ "Milagro", "America/Guayaquil", "10", "EC" },
@@ -16417,6 +16817,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Tobarra", "Europe/Madrid", "54", "ES" },
 					{ "Tinajo", "Atlantic/Canary", "53", "ES" },
 					{ "Tías", "Atlantic/Canary", "53", "ES" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Teulada", "Europe/Madrid", "60", "ES" },
 					{ "Teror", "Atlantic/Canary", "53", "ES" },
 					{ "Telde", "Atlantic/Canary", "53", "ES" },
@@ -16817,6 +17227,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Cártama", "Europe/Madrid", "51", "ES" },
 					{ "Cartagena", "Europe/Madrid", "31", "ES" },
 					{ "Carrizal", "Atlantic/Canary", "53", "ES" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Carmona", "Europe/Madrid", "51", "ES" },
 					{ "Carlet", "Europe/Madrid", "60", "ES" },
 					{ "Carcaixent", "Europe/Madrid", "60", "ES" },
@@ -17217,6 +17637,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Oropesa del Mar", "Europe/Madrid", "60", "ES" },
 					{ "Oria", "Europe/Madrid", "59", "ES" },
 					{ "Ourense", "Europe/Madrid", "58", "ES" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Ordes", "Europe/Madrid", "58", "ES" },
 					{ "Ondarroa", "Europe/Madrid", "59", "ES" },
 					{ "Oñati", "Europe/Madrid", "59", "ES" },
@@ -17617,6 +18047,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Chamberí", "Europe/Madrid", "29", "ES" },
 					{ "Carabanchel", "Europe/Madrid", "29", "ES" },
 					{ "Madrid Centro", "Europe/Madrid", "29", "ES" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Retiro", "Europe/Madrid", "29", "ES" },
 					{ "Barri Gòtic", "Europe/Madrid", "56", "ES" },
 					{ "La Latina", "Europe/Madrid", "29", "ES" },
@@ -18017,6 +18457,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Aksum", "Africa/Addis_Ababa", "53", "ET" },
 					{ "Hagere Maryam", "Africa/Addis_Ababa", "51", "ET" },
 					{ "Āgaro", "Africa/Addis_Ababa", "51", "ET" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Adwa", "Africa/Addis_Ababa", "53", "ET" },
 					{ "Ādīs Zemen", "Africa/Addis_Ababa", "46", "ET" },
 					{ "Ādīs K’idamē", "Africa/Addis_Ababa", "46", "ET" },
@@ -18417,6 +18867,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Valentigney", "Europe/Paris", "27", "FR" },
 					{ "Valenciennes", "Europe/Paris", "32", "FR" },
 					{ "Valence", "Europe/Paris", "84", "FR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Valence", "Europe/Paris", "76", "FR" },
 					{ "Valdoie", "Europe/Paris", "27", "FR" },
 					{ "Valbonne", "Europe/Paris", "93", "FR" },
@@ -18817,6 +19277,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Ramonville-Saint-Agne", "Europe/Paris", "76", "FR" },
 					{ "Rambouillet", "Europe/Paris", "11", "FR" },
 					{ "Rambervillers", "Europe/Paris", "44", "FR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Raismes", "Europe/Paris", "32", "FR" },
 					{ "Quincy-Voisins", "Europe/Paris", "11", "FR" },
 					{ "Quincy-sous-Sénart", "Europe/Paris", "11", "FR" },
@@ -19217,6 +19687,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "L'Isle-d'Abeau", "Europe/Paris", "84", "FR" },
 					{ "L'Isle-Adam", "Europe/Paris", "11", "FR" },
 					{ "Lisieux", "Europe/Paris", "28", "FR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Linselles", "Europe/Paris", "32", "FR" },
 					{ "Lingolsheim", "Europe/Paris", "44", "FR" },
 					{ "Linas", "Europe/Paris", "11", "FR" },
@@ -19617,6 +20097,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Feytiat", "Europe/Paris", "75", "FR" },
 					{ "Feurs", "Europe/Paris", "84", "FR" },
 					{ "Ferrière-la-Grande", "Europe/Paris", "32", "FR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Ferney-Voltaire", "Europe/Paris", "84", "FR" },
 					{ "Fenain", "Europe/Paris", "32", "FR" },
 					{ "Feignies", "Europe/Paris", "32", "FR" },
@@ -20017,6 +20507,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Bihorel", "Europe/Paris", "28", "FR" },
 					{ "Biguglia", "Europe/Paris", "94", "FR" },
 					{ "Biganos", "Europe/Paris", "75", "FR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Bidart", "Europe/Paris", "75", "FR" },
 					{ "Biarritz", "Europe/Paris", "75", "FR" },
 					{ "Bezons", "Europe/Paris", "11", "FR" },
@@ -20417,6 +20917,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "West Thurrock", "Europe/London", "ENG", "GB" },
 					{ "Weston-super-Mare", "Europe/London", "ENG", "GB" },
 					{ "West Molesey", "Europe/London", "ENG", "GB" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "City of Westminster", "Europe/London", "ENG", "GB" },
 					{ "West Mersea", "Europe/London", "ENG", "GB" },
 					{ "West Kirby", "Europe/London", "ENG", "GB" },
@@ -20817,6 +21327,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Pontypool", "Europe/London", "WLS", "GB" },
 					{ "Ponteland", "Europe/London", "ENG", "GB" },
 					{ "Pontefract", "Europe/London", "ENG", "GB" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Pontarddulais", "Europe/London", "WLS", "GB" },
 					{ "Ponders End", "Europe/London", "ENG", "GB" },
 					{ "Polmont", "Europe/London", "SCT", "GB" },
@@ -21217,6 +21737,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Heysham", "Europe/London", "ENG", "GB" },
 					{ "Hexham", "Europe/London", "ENG", "GB" },
 					{ "Hetton-Le-Hole", "Europe/London", "ENG", "GB" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Hethersett", "Europe/London", "ENG", "GB" },
 					{ "Heswall", "Europe/London", "ENG", "GB" },
 					{ "Heston", "Europe/London", "ENG", "GB" },
@@ -21617,6 +22147,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Chatham", "Europe/London", "ENG", "GB" },
 					{ "Chasetown", "Europe/London", "ENG", "GB" },
 					{ "Charlton Kings", "Europe/London", "ENG", "GB" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Chard", "Europe/London", "ENG", "GB" },
 					{ "Chapeltown", "Europe/London", "ENG", "GB" },
 					{ "Chapelhall", "Europe/London", "SCT", "GB" },
@@ -22017,6 +22557,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Heywood", "Europe/London", "ENG", "GB" },
 					{ "Old Trafford", "Europe/London", "ENG", "GB" },
 					{ "Burnage", "Europe/London", "ENG", "GB" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Fallowfield", "Europe/London", "ENG", "GB" },
 					{ "Haughton Green", "Europe/London", "ENG", "GB" },
 					{ "Hulme", "Europe/London", "ENG", "GB" },
@@ -22417,6 +22967,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Sanyang", "Africa/Banjul", "05", "GM" },
 					{ "Sanchaba", "Africa/Banjul", "05", "GM" },
 					{ "Sabi", "Africa/Banjul", "04", "GM" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Old Jeswang", "Africa/Banjul", "01", "GM" },
 					{ "Nema Kunku", "Africa/Banjul", "05", "GM" },
 					{ "Mansa Konko", "Africa/Banjul", "02", "GM" },
@@ -22817,6 +23377,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Senahú", "America/Guatemala", "01", "GT" },
 					{ "Sayaxché", "America/Guatemala", "12", "GT" },
 					{ "San Vicente Pacaya", "America/Guatemala", "06", "GT" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Santo Tomás La Unión", "America/Guatemala", "20", "GT" },
 					{ "Santo Domingo Xenacoj", "America/Guatemala", "16", "GT" },
 					{ "Santo Domingo Suchitepéquez", "America/Guatemala", "20", "GT" },
@@ -23217,6 +23787,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Victoria Park", "Asia/Hong_Kong", "HEA", "HK" },
 					{ "Tin Hau", "Asia/Hong_Kong", "HEA", "HK" },
 					{ "Keng Hau", "Asia/Hong_Kong", "NST", "HK" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Jat Min Chuen", "Asia/Hong_Kong", "NST", "HK" },
 					{ "Parc Oasis", "Asia/Hong_Kong", "KSS", "HK" },
 					{ "Cosmopolitan Estate", "Asia/Hong_Kong", "KYT", "HK" },
@@ -23617,6 +24197,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Zsámbék", "Europe/Budapest", "16", "HU" },
 					{ "Zirc", "Europe/Budapest", "23", "HU" },
 					{ "Zalaszentgrót", "Europe/Budapest", "24", "HU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Zalaegerszeg", "Europe/Budapest", "24", "HU" },
 					{ "Veszprém", "Europe/Budapest", "23", "HU" },
 					{ "Veresegyház", "Europe/Budapest", "16", "HU" },
@@ -24017,6 +24607,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Pekanbaru", "Asia/Jakarta", "37", "ID" },
 					{ "Pekalongan", "Asia/Jakarta", "07", "ID" },
 					{ "Pecangaan", "Asia/Jakarta", "07", "ID" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Payakumbuh", "Asia/Jakarta", "24", "ID" },
 					{ "Pati", "Asia/Jakarta", "07", "ID" },
 					{ "Pasuruan", "Asia/Jakarta", "08", "ID" },
@@ -24417,6 +25017,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Greenhills", "Europe/Dublin", "L", "IE" },
 					{ "Donaghmede", "Europe/Dublin", "L", "IE" },
 					{ "Darndale", "Europe/Dublin", "L", "IE" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Donnycarney", "Europe/Dublin", "L", "IE" },
 					{ "South Dublin", "Europe/Dublin", "L", "IE" },
 					{ "Castletroy", "Europe/Dublin", "M", "IE" },
@@ -24817,6 +25427,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Todaraisingh", "Asia/Kolkata", "24", "IN" },
 					{ "Todabhim", "Asia/Kolkata", "24", "IN" },
 					{ "Titron", "Asia/Kolkata", "36", "IN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Titlāgarh", "Asia/Kolkata", "21", "IN" },
 					{ "Titāgarh", "Asia/Kolkata", "28", "IN" },
 					{ "Titābar", "Asia/Kolkata", "03", "IN" },
@@ -25217,6 +25837,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Salem", "Asia/Kolkata", "25", "IN" },
 					{ "Salāya", "Asia/Kolkata", "09", "IN" },
 					{ "Saktī", "Asia/Kolkata", "37", "IN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Sakleshpur", "Asia/Kolkata", "19", "IN" },
 					{ "Sakīt", "Asia/Kolkata", "36", "IN" },
 					{ "Sāitlaw", "Asia/Kolkata", "31", "IN" },
@@ -25617,6 +26247,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Pālakollu", "Asia/Kolkata", "02", "IN" },
 					{ "Pālakkodu", "Asia/Kolkata", "25", "IN" },
 					{ "Pakur", "Asia/Kolkata", "38", "IN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Pākāla", "Asia/Kolkata", "02", "IN" },
 					{ "Paithan", "Asia/Kolkata", "16", "IN" },
 					{ "Pahāsu", "Asia/Kolkata", "36", "IN" },
@@ -26017,6 +26657,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Malīhābād", "Asia/Kolkata", "36", "IN" },
 					{ "Malhārgarh", "Asia/Kolkata", "35", "IN" },
 					{ "Māler Kotla", "Asia/Kolkata", "23", "IN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Mālegaon", "Asia/Kolkata", "16", "IN" },
 					{ "Malavalli", "Asia/Kolkata", "19", "IN" },
 					{ "Malaut", "Asia/Kolkata", "23", "IN" },
@@ -26417,6 +27067,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Kāranja", "Asia/Kolkata", "16", "IN" },
 					{ "Karamsad", "Asia/Kolkata", "09", "IN" },
 					{ "Karambakkudi", "Asia/Kolkata", "25", "IN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Kāramadai", "Asia/Kolkata", "25", "IN" },
 					{ "Kāraikkudi", "Asia/Kolkata", "25", "IN" },
 					{ "Kāraikāl", "Asia/Kolkata", "22", "IN" },
@@ -26817,6 +27477,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Gorakhpur", "Asia/Kolkata", "10", "IN" },
 					{ "Gorakhpur", "Asia/Kolkata", "36", "IN" },
 					{ "Gopināthpur", "Asia/Kolkata", "38", "IN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Gobichettipalayam", "Asia/Kolkata", "25", "IN" },
 					{ "Gopāmau", "Asia/Kolkata", "36", "IN" },
 					{ "Gopālpur", "Asia/Kolkata", "21", "IN" },
@@ -27217,6 +27887,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Chaksu", "Asia/Kolkata", "24", "IN" },
 					{ "Chatrapur", "Asia/Kolkata", "21", "IN" },
 					{ "Chatrā", "Asia/Kolkata", "38", "IN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Chās", "Asia/Kolkata", "38", "IN" },
 					{ "Charthāwal", "Asia/Kolkata", "36", "IN" },
 					{ "Charkhi Dādri", "Asia/Kolkata", "10", "IN" },
@@ -27617,6 +28297,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Badarpur", "Asia/Kolkata", "03", "IN" },
 					{ "Bādāmi", "Asia/Kolkata", "19", "IN" },
 					{ "Badagara", "Asia/Kolkata", "13", "IN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Bada Barabīl", "Asia/Kolkata", "21", "IN" },
 					{ "Bachhrāwān", "Asia/Kolkata", "36", "IN" },
 					{ "Bachhraon", "Asia/Kolkata", "36", "IN" },
@@ -28017,6 +28707,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Jamjamāl", "Asia/Baghdad", "05", "IQ" },
 					{ "Gundê Çê", "Asia/Baghdad", "08", "IQ" },
 					{ "Bayjī", "Asia/Baghdad", "18", "IQ" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Batifa", "Asia/Baghdad", "08", "IQ" },
 					{ "Baqubah", "Asia/Baghdad", "10", "IQ" },
 					{ "Baynjiwayn", "Asia/Baghdad", "05", "IQ" },
@@ -28417,6 +29117,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Pedara", "Europe/Rome", "15", "IT" },
 					{ "Patti", "Europe/Rome", "15", "IT" },
 					{ "Paternò", "Europe/Rome", "15", "IT" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Partinico", "Europe/Rome", "15", "IT" },
 					{ "Partanna", "Europe/Rome", "15", "IT" },
 					{ "Paola", "Europe/Rome", "03", "IT" },
@@ -28817,6 +29527,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Segni", "Europe/Rome", "07", "IT" },
 					{ "Sedriano", "Europe/Rome", "09", "IT" },
 					{ "Sedico", "Europe/Rome", "20", "IT" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Secondigliano", "Europe/Rome", "04", "IT" },
 					{ "Seano", "Europe/Rome", "16", "IT" },
 					{ "Scorzè", "Europe/Rome", "20", "IT" },
@@ -29217,6 +29937,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Montesarchio", "Europe/Rome", "04", "IT" },
 					{ "Monte Sant'Angelo", "Europe/Rome", "13", "IT" },
 					{ "Monte San Giusto", "Europe/Rome", "10", "IT" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Monterotondo", "Europe/Rome", "07", "IT" },
 					{ "Monteroni di Lecce", "Europe/Rome", "13", "IT" },
 					{ "Monte Porzio Catone", "Europe/Rome", "07", "IT" },
@@ -29617,6 +30347,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Collepasso", "Europe/Rome", "13", "IT" },
 					{ "Collegno", "Europe/Rome", "12", "IT" },
 					{ "Colleferro", "Europe/Rome", "07", "IT" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Colle di Val d'Elsa", "Europe/Rome", "16", "IT" },
 					{ "Collecchio", "Europe/Rome", "05", "IT" },
 					{ "Colico Piano", "Europe/Rome", "09", "IT" },
@@ -30017,6 +30757,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Abano Terme", "Europe/Rome", "20", "IT" },
 					{ "Li Punti-San Giovanni", "Europe/Rome", "14", "IT" },
 					{ "Gatteo-Sant'Angelo", "Europe/Rome", "05", "IT" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Rivazzurra", "Europe/Rome", "05", "IT" },
 					{ "Lido Adriano", "Europe/Rome", "05", "IT" },
 					{ "Santa Lucia di Piave", "Europe/Rome", "20", "IT" },
@@ -30417,6 +31167,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Yamazakichō-nakabirose", "Asia/Tokyo", "13", "JP" },
 					{ "Yamaguchi", "Asia/Tokyo", "45", "JP" },
 					{ "Yamaga", "Asia/Tokyo", "21", "JP" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Yakage", "Asia/Tokyo", "31", "JP" },
 					{ "Yaizu", "Asia/Tokyo", "37", "JP" },
 					{ "Yaita", "Asia/Tokyo", "38", "JP" },
@@ -30817,6 +31577,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Kamirenjaku", "Asia/Tokyo", "40", "JP" },
 					{ "Kaminokawa", "Asia/Tokyo", "38", "JP" },
 					{ "Kamiichi", "Asia/Tokyo", "42", "JP" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Kamigōri", "Asia/Tokyo", "13", "JP" },
 					{ "Kameyama", "Asia/Tokyo", "23", "JP" },
 					{ "Kameoka", "Asia/Tokyo", "22", "JP" },
@@ -31217,6 +31987,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Shimokizukuri", "Asia/Tokyo", "03", "JP" },
 					{ "Kitami", "Asia/Tokyo", "12", "JP" },
 					{ "Kaminokuni", "Asia/Tokyo", "12", "JP" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Kamikawa", "Asia/Tokyo", "12", "JP" },
 					{ "Kamiiso", "Asia/Tokyo", "12", "JP" },
 					{ "Iwanai", "Asia/Tokyo", "12", "JP" },
@@ -31617,6 +32397,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Busia", "Africa/Nairobi", "13", "KE" },
 					{ "Bura", "Africa/Nairobi", "16", "KE" },
 					{ "Port Victoria", "Africa/Nairobi", "13", "KE" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Bungoma", "Africa/Nairobi", "12", "KE" },
 					{ "Bondo", "Africa/Nairobi", "46", "KE" },
 					{ "Bondo", "Africa/Nairobi", "46", "KE" },
@@ -32017,6 +32807,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Hwawŏn", "Asia/Seoul", "15", "KR" },
 					{ "Gwangmyeong", "Asia/Seoul", "13", "KR" },
 					{ "Sinan", "Asia/Seoul", "16", "KR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Seogwipo", "Asia/Seoul", "01", "KR" },
 					{ "Yongsan-dong", "Asia/Seoul", "11", "KR" },
 					{ "Songgangdong", "Asia/Seoul", "19", "KR" },
@@ -32417,6 +33217,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Mohale's Hoek", "Africa/Maseru", "15", "LS" },
 					{ "Mazenod", "Africa/Maseru", "14", "LS" },
 					{ "Maseru", "Africa/Maseru", "14", "LS" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Maputsoe", "Africa/Maseru", "12", "LS" },
 					{ "Mapoteng", "Africa/Maseru", "10", "LS" },
 					{ "Mantsebo", "Africa/Maseru", "00", "LS" },
@@ -32817,6 +33627,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Oulad Frej", "Africa/Casablanca", "06", "MA" },
 					{ "Guercif", "Africa/Casablanca", "03", "MA" },
 					{ "Guelmim", "Africa/Casablanca", "10", "MA" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Gourrama", "Africa/Casablanca", "08", "MA" },
 					{ "Goulmima", "Africa/Casablanca", "08", "MA" },
 					{ "Ghafsaï", "Africa/Casablanca", "03", "MA" },
@@ -33217,6 +34037,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Wotje", "Pacific/Majuro", "430", "MH" },
 					{ "Wotho", "Pacific/Majuro", "420", "MH" },
 					{ "RMI Capitol", "Pacific/Majuro", "190", "MH" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Zrnovci", "Europe/Skopje", "C6", "MK" },
 					{ "Zelino", "Europe/Skopje", "C3", "MK" },
 					{ "Zelenikovo", "Europe/Skopje", "C2", "MK" },
@@ -33617,6 +34447,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Souillac", "Indian/Mauritius", "20", "MU" },
 					{ "Sebastopol", "Indian/Mauritius", "13", "MU" },
 					{ "Saint Pierre", "Indian/Mauritius", "15", "MU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Morcellement Saint André", "Indian/Mauritius", "16", "MU" },
 					{ "Rose Belle", "Indian/Mauritius", "14", "MU" },
 					{ "Roches Noire", "Indian/Mauritius", "19", "MU" },
@@ -34017,6 +34857,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "San Martin Texmelucan de Labastida", "America/Mexico_City", "21", "MX" },
 					{ "San Martín de las Pirámides", "America/Mexico_City", "15", "MX" },
 					{ "San Marcos Tlacoyalco", "America/Mexico_City", "21", "MX" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "San Marcos", "America/Mexico_City", "13", "MX" },
 					{ "San Marcos de León", "America/Mexico_City", "30", "MX" },
 					{ "San Marcos", "America/Mexico_City", "12", "MX" },
@@ -34417,6 +35267,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Chichimila", "America/Merida", "31", "MX" },
 					{ "Chichihualco", "America/Mexico_City", "12", "MX" },
 					{ "Chichén-Itzá", "America/Merida", "31", "MX" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Chiautla de Tapia", "America/Mexico_City", "21", "MX" },
 					{ "Chiautla", "America/Mexico_City", "15", "MX" },
 					{ "Chiapa de Corzo", "America/Mexico_City", "05", "MX" },
@@ -34817,6 +35677,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Torreón", "America/Monterrey", "07", "MX" },
 					{ "Topolobampo", "America/Mazatlan", "25", "MX" },
 					{ "Tonalá", "America/Mexico_City", "14", "MX" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Tomatlán", "America/Mexico_City", "14", "MX" },
 					{ "Todos Santos", "America/Mazatlan", "03", "MX" },
 					{ "Tlaquepaque", "America/Mexico_City", "14", "MX" },
@@ -35217,6 +36087,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Ciudad Guzmán", "America/Mexico_City", "14", "MX" },
 					{ "Guerrero", "America/Chihuahua", "06", "MX" },
 					{ "Ciudad Delicias", "America/Chihuahua", "06", "MX" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Ciudad Constitución", "America/Mazatlan", "03", "MX" },
 					{ "Camargo", "America/Chihuahua", "06", "MX" },
 					{ "Anáhuac", "America/Matamoros", "19", "MX" },
@@ -35617,6 +36497,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Paka", "Asia/Kuala_Lumpur", "13", "MY" },
 					{ "Kertih", "Asia/Kuala_Lumpur", "13", "MY" },
 					{ "Gerik", "Asia/Kuala_Lumpur", "07", "MY" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Kulim", "Asia/Kuala_Lumpur", "02", "MY" },
 					{ "Selama", "Asia/Kuala_Lumpur", "07", "MY" },
 					{ "Bandar Baharu", "Asia/Kuala_Lumpur", "02", "MY" },
@@ -36017,6 +36907,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Karibib", "Africa/Windhoek", "29", "NA" },
 					{ "Karasburg", "Africa/Windhoek", "31", "NA" },
 					{ "Henties Bay", "Africa/Windhoek", "29", "NA" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Grootfontein", "Africa/Windhoek", "39", "NA" },
 					{ "Gobabis", "Africa/Windhoek", "35", "NA" },
 					{ "Eenhana", "Africa/Windhoek", "33", "NA" },
@@ -36417,6 +37317,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Gagarawa", "Africa/Lagos", "39", "NG" },
 					{ "Gabarin", "Africa/Lagos", "46", "NG" },
 					{ "Funtua", "Africa/Lagos", "24", "NG" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Fiditi", "Africa/Lagos", "32", "NG" },
 					{ "Ezza-Ohu", "Africa/Lagos", "53", "NG" },
 					{ "Etinan", "Africa/Lagos", "21", "NG" },
@@ -36817,6 +37727,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Opmeer", "Europe/Amsterdam", "07", "NL" },
 					{ "Opheusden", "Europe/Amsterdam", "03", "NL" },
 					{ "Oosterwolde", "Europe/Amsterdam", "02", "NL" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Oosterpark", "Europe/Amsterdam", "04", "NL" },
 					{ "Oosterhout", "Europe/Amsterdam", "06", "NL" },
 					{ "Oosterbeek", "Europe/Amsterdam", "03", "NL" },
@@ -37217,6 +38137,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Gjøvik", "Europe/Oslo", "34", "NO" },
 					{ "Fredrikstad", "Europe/Oslo", "13", "NO" },
 					{ "Førde", "Europe/Oslo", "46", "NO" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Florø", "Europe/Oslo", "46", "NO" },
 					{ "Flekkefjord", "Europe/Oslo", "42", "NO" },
 					{ "Fetsund", "Europe/Oslo", "01", "NO" },
@@ -37617,6 +38547,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Uchiza", "America/Lima", "22", "PE" },
 					{ "Tumbes", "America/Lima", "24", "PE" },
 					{ "Túcume", "America/Lima", "14", "PE" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Trujillo", "America/Lima", "13", "PE" },
 					{ "Tocache", "America/Lima", "22", "PE" },
 					{ "Tingo María", "America/Lima", "10", "PE" },
@@ -38017,6 +38957,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Tapilon", "Asia/Manila", "07", "PH" },
 					{ "Tanza", "Asia/Manila", "NCR", "PH" },
 					{ "Tantangan", "Asia/Manila", "12", "PH" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Tanjay", "Asia/Manila", "07", "PH" },
 					{ "Tangub", "Asia/Manila", "10", "PH" },
 					{ "Tandag", "Asia/Manila", "13", "PH" },
@@ -38417,6 +39367,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Nato", "Asia/Manila", "05", "PH" },
 					{ "Natividad", "Asia/Manila", "01", "PH" },
 					{ "Nattapian", "Asia/Manila", "02", "PH" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Nasugbu", "Asia/Manila", "40", "PH" },
 					{ "Nasipit", "Asia/Manila", "13", "PH" },
 					{ "Narra", "Asia/Manila", "41", "PH" },
@@ -38817,6 +39777,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Eraan", "Asia/Manila", "41", "PH" },
 					{ "Entablado", "Asia/Manila", "03", "PH" },
 					{ "Saravia", "Asia/Manila", "06", "PH" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Enrile", "Asia/Manila", "02", "PH" },
 					{ "El Salvador", "Asia/Manila", "10", "PH" },
 					{ "El Nido", "Asia/Manila", "41", "PH" },
@@ -39217,6 +40187,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Alabel", "Asia/Manila", "12", "PH" },
 					{ "Alabat", "Asia/Manila", "40", "PH" },
 					{ "Ajuy", "Asia/Manila", "06", "PH" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Agusan", "Asia/Manila", "10", "PH" },
 					{ "Agupit", "Asia/Manila", "05", "PH" },
 					{ "Aguisan", "Asia/Manila", "06", "PH" },
@@ -39617,6 +40597,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Bhopalwala", "Asia/Karachi", "04", "PK" },
 					{ "Bhit Shah", "Asia/Karachi", "05", "PK" },
 					{ "Bhiria", "Asia/Karachi", "05", "PK" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Bhimber", "Asia/Karachi", "06", "PK" },
 					{ "Bhera", "Asia/Karachi", "04", "PK" },
 					{ "Bhawana", "Asia/Karachi", "04", "PK" },
@@ -40017,6 +41007,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Strzałkowo", "Europe/Warsaw", "86", "PL" },
 					{ "Stryszawa", "Europe/Warsaw", "77", "PL" },
 					{ "Stronie Śląskie", "Europe/Warsaw", "72", "PL" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Stęszew", "Europe/Warsaw", "86", "PL" },
 					{ "Starogard Gdański", "Europe/Warsaw", "82", "PL" },
 					{ "Stargard", "Europe/Warsaw", "87", "PL" },
@@ -40417,6 +41417,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Gurabo", "America/Puerto_Rico", "063", "PR" },
 					{ "Hatillo", "America/Puerto_Rico", "065", "PR" },
 					{ "Hormigueros", "America/Puerto_Rico", "067", "PR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Ingenio", "America/Puerto_Rico", "137", "PR" },
 					{ "Humacao", "America/Puerto_Rico", "069", "PR" },
 					{ "Isabel Segunda", "America/Puerto_Rico", "147", "PR" },
@@ -40817,6 +41827,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Alhandra", "Europe/Lisbon", "14", "PT" },
 					{ "Algueirão", "Europe/Lisbon", "14", "PT" },
 					{ "Algés", "Europe/Lisbon", "14", "PT" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Alfornelos", "Europe/Lisbon", "14", "PT" },
 					{ "Alenquer", "Europe/Lisbon", "14", "PT" },
 					{ "Aldeia de Paio Pires", "Europe/Lisbon", "19", "PT" },
@@ -41217,6 +42237,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Al ‘Unayzah", "Asia/Qatar", "01", "QA" },
 					{ "Umm Şalāl Muḩammad", "Asia/Qatar", "09", "QA" },
 					{ "Umm Şalāl ‘Alī", "Asia/Qatar", "09", "QA" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Musay‘īd", "Asia/Qatar", "10", "QA" },
 					{ "Umm Ghuwaylīnah", "Asia/Qatar", "14", "QA" },
 					{ "Nu‘ayjah", "Asia/Qatar", "01", "QA" },
@@ -41617,6 +42647,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Moisei", "Europe/Bucharest", "25", "RO" },
 					{ "Moineşti", "Europe/Bucharest", "04", "RO" },
 					{ "Mogoşoaia", "Europe/Bucharest", "43", "RO" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Modelu", "Europe/Bucharest", "41", "RO" },
 					{ "Moceşti", "Europe/Bucharest", "30", "RO" },
 					{ "Mizil", "Europe/Bucharest", "30", "RO" },
@@ -42017,6 +43057,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Baia Sprie", "Europe/Bucharest", "25", "RO" },
 					{ "Baia Mare", "Europe/Bucharest", "25", "RO" },
 					{ "Baia", "Europe/Bucharest", "34", "RO" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Baciu", "Europe/Bucharest", "13", "RO" },
 					{ "Bacău", "Europe/Bucharest", "04", "RO" },
 					{ "Băbeni", "Europe/Bucharest", "39", "RO" },
@@ -42417,6 +43467,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Urus-Martan", "Europe/Moscow", "12", "RU" },
 					{ "Urmary", "Europe/Moscow", "16", "RU" },
 					{ "Urkarakh", "Europe/Moscow", "17", "RU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Uritsk", "Europe/Moscow", "66", "RU" },
 					{ "Uren’", "Europe/Moscow", "51", "RU" },
 					{ "Urazovo", "Europe/Moscow", "09", "RU" },
@@ -42817,6 +43877,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Remontnoye", "Europe/Moscow", "61", "RU" },
 					{ "Redkino", "Europe/Moscow", "77", "RU" },
 					{ "Razumnoye", "Europe/Moscow", "09", "RU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Rayevskiy", "Asia/Yekaterinburg", "08", "RU" },
 					{ "Rayevskaya", "Europe/Moscow", "38", "RU" },
 					{ "Rasskazovo", "Europe/Moscow", "72", "RU" },
@@ -43217,6 +44287,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Medvezh’yegorsk", "Europe/Moscow", "28", "RU" },
 					{ "Medvedovskaya", "Europe/Moscow", "38", "RU" },
 					{ "Medvedevo", "Europe/Moscow", "45", "RU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Mednogorsk", "Asia/Yekaterinburg", "55", "RU" },
 					{ "Mechetinskaya", "Europe/Moscow", "61", "RU" },
 					{ "Mayskiy", "Europe/Moscow", "09", "RU" },
@@ -43617,6 +44697,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Kadom", "Europe/Moscow", "62", "RU" },
 					{ "Kadnikov", "Europe/Moscow", "85", "RU" },
 					{ "Kachkanar", "Asia/Yekaterinburg", "71", "RU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Kabardinka", "Europe/Moscow", "38", "RU" },
 					{ "Kabanovo", "Europe/Moscow", "47", "RU" },
 					{ "Izobil’nyy", "Europe/Moscow", "70", "RU" },
@@ -44017,6 +45107,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Argudan", "Europe/Moscow", "22", "RU" },
 					{ "Ardon", "Europe/Moscow", "68", "RU" },
 					{ "Ardatov", "Europe/Moscow", "51", "RU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Ardatov", "Europe/Moscow", "46", "RU" },
 					{ "Apsheronsk", "Europe/Moscow", "38", "RU" },
 					{ "Aprelevka", "Europe/Moscow", "47", "RU" },
@@ -44417,6 +45517,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Kozul’ka", "Asia/Krasnoyarsk", "91", "RU" },
 					{ "Kozhevnikovo", "Asia/Tomsk", "75", "RU" },
 					{ "Kosikha", "Asia/Barnaul", "04", "RU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Kosh-Agach", "Asia/Barnaul", "03", "RU" },
 					{ "Kormilovka", "Asia/Omsk", "54", "RU" },
 					{ "Korkino", "Asia/Yekaterinburg", "13", "RU" },
@@ -44817,6 +45927,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Sovetskaya Gavan’", "Asia/Vladivostok", "30", "RU" },
 					{ "Smirnykh", "Asia/Sakhalin", "64", "RU" },
 					{ "Shakhtersk", "Asia/Sakhalin", "64", "RU" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Poronaysk", "Asia/Sakhalin", "64", "RU" },
 					{ "Petropavlovsk-Kamchatsky", "Asia/Kamchatka", "92", "RU" },
 					{ "Ola", "Asia/Magadan", "44", "RU" },
@@ -45217,6 +46337,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Södertälje", "Europe/Stockholm", "26", "SE" },
 					{ "Södermalm", "Europe/Stockholm", "26", "SE" },
 					{ "Söderköping", "Europe/Stockholm", "16", "SE" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Söderhamn", "Europe/Stockholm", "03", "SE" },
 					{ "Smedjebacken", "Europe/Stockholm", "10", "SE" },
 					{ "Skutskär", "Europe/Stockholm", "21", "SE" },
@@ -45617,6 +46747,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Metlika", "Europe/Ljubljana", "73", "SI" },
 					{ "Mengeš", "Europe/Ljubljana", "72", "SI" },
 					{ "Medvode", "Europe/Ljubljana", "71", "SI" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Markovci", "Europe/Ljubljana", "J3", "SI" },
 					{ "Maribor", "Europe/Ljubljana", "J2", "SI" },
 					{ "Makole", "Europe/Ljubljana", "O5", "SI" },
@@ -46017,6 +47157,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Oodweyne", "Africa/Mogadishu", "19", "SO" },
 					{ "Mogadishu", "Africa/Mogadishu", "02", "SO" },
 					{ "Marka", "Africa/Mogadishu", "14", "SO" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Mahaddayweyne", "Africa/Mogadishu", "13", "SO" },
 					{ "Luuq", "Africa/Mogadishu", "06", "SO" },
 					{ "Las Khorey", "Africa/Mogadishu", "12", "SO" },
@@ -46417,6 +47567,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Kui Buri", "Asia/Bangkok", "57", "TH" },
 					{ "Krabi", "Asia/Bangkok", "63", "TH" },
 					{ "Ko Lanta", "Asia/Bangkok", "63", "TH" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Tha Khanon", "Asia/Bangkok", "60", "TH" },
 					{ "Khiri Mat", "Asia/Bangkok", "09", "TH" },
 					{ "Khao Yoi", "Asia/Bangkok", "56", "TH" },
@@ -46817,6 +47977,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Kebili", "Africa/Tunis", "31", "TN" },
 					{ "Ksar Hellal", "Africa/Tunis", "16", "TN" },
 					{ "Carthage", "Africa/Tunis", "36", "TN" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "El Fahs", "Africa/Tunis", "37", "TN" },
 					{ "Galaat el Andeless", "Africa/Tunis", "38", "TN" },
 					{ "Gafour", "Africa/Tunis", "22", "TN" },
@@ -47217,6 +48387,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Emet", "Europe/Istanbul", "43", "TR" },
 					{ "Elmalı", "Europe/Istanbul", "07", "TR" },
 					{ "Elmadağ", "Europe/Istanbul", "68", "TR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Eleşkirt", "Europe/Istanbul", "04", "TR" },
 					{ "Elbistan", "Europe/Istanbul", "46", "TR" },
 					{ "Elazığ", "Europe/Istanbul", "23", "TR" },
@@ -47617,6 +48797,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Amasra", "Europe/Istanbul", "87", "TR" },
 					{ "Almus", "Europe/Istanbul", "60", "TR" },
 					{ "Alaplı", "Europe/Istanbul", "85", "TR" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Alaca", "Europe/Istanbul", "19", "TR" },
 					{ "Akyurt", "Europe/Istanbul", "68", "TR" },
 					{ "Akyazı", "Europe/Istanbul", "54", "TR" },
@@ -48017,6 +49207,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Yuzhne", "Europe/Kyiv", "17", "UA" },
 					{ "Bunhe", "Europe/Kyiv", "05", "UA" },
 					{ "Yevpatoriya", "Europe/Simferopol", "11", "UA" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Yenakiieve", "Europe/Kyiv", "05", "UA" },
 					{ "Yavoriv", "Europe/Kyiv", "15", "UA" },
 					{ "Yasinya", "Europe/Kyiv", "25", "UA" },
@@ -48417,6 +49617,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Kripenskyi", "Europe/Kyiv", "14", "UA" },
 					{ "Kreminna", "Europe/Kyiv", "14", "UA" },
 					{ "Kremenets", "Europe/Kyiv", "22", "UA" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Kremenchuk", "Europe/Kyiv", "18", "UA" },
 					{ "Khrustalnyi", "Europe/Kyiv", "14", "UA" },
 					{ "Lyman", "Europe/Kyiv", "05", "UA" },
@@ -48817,6 +50027,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Henderson", "America/Chicago", "TX", "US" },
 					{ "Fort Hunt", "America/New_York", "VA", "US" },
 					{ "Trinity", "America/New_York", "FL", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Villas", "America/New_York", "FL", "US" },
 					{ "Bessemer", "America/Chicago", "AL", "US" },
 					{ "Paducah", "America/Chicago", "KY", "US" },
@@ -49217,6 +50437,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Lake Mary", "America/New_York", "FL", "US" },
 					{ "Lake Wales", "America/New_York", "FL", "US" },
 					{ "Lake Worth Beach", "America/New_York", "FL", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Lake Worth Corridor", "America/New_York", "FL", "US" },
 					{ "Lakeland", "America/New_York", "FL", "US" },
 					{ "Lakeland Highlands", "America/New_York", "FL", "US" },
@@ -49617,6 +50847,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Swainsboro", "America/New_York", "GA", "US" },
 					{ "Sylvester", "America/New_York", "GA", "US" },
 					{ "Thomasville", "America/New_York", "GA", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Thomaston", "America/New_York", "GA", "US" },
 					{ "Thomson", "America/New_York", "GA", "US" },
 					{ "Tifton", "America/New_York", "GA", "US" },
@@ -50017,6 +51257,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Woodmere", "America/Chicago", "LA", "US" },
 					{ "Zachary", "America/Chicago", "LA", "US" },
 					{ "Youngsville", "America/Chicago", "LA", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Aberdeen", "America/New_York", "MD", "US" },
 					{ "Accokeek", "America/New_York", "MD", "US" },
 					{ "Adelphi", "America/New_York", "MD", "US" },
@@ -50417,6 +51667,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Senatobia", "America/Chicago", "MS", "US" },
 					{ "Southaven", "America/Chicago", "MS", "US" },
 					{ "Saint Martin", "America/Chicago", "MS", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Starkville", "America/Chicago", "MS", "US" },
 					{ "Tupelo", "America/Chicago", "MS", "US" },
 					{ "Vancleave", "America/Chicago", "MS", "US" },
@@ -50817,6 +52077,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Sulphur", "America/Chicago", "OK", "US" },
 					{ "Tahlequah", "America/Chicago", "OK", "US" },
 					{ "Tecumseh", "America/Chicago", "OK", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "The Village", "America/Chicago", "OK", "US" },
 					{ "Tulsa", "America/Chicago", "OK", "US" },
 					{ "Tuttle", "America/Chicago", "OK", "US" },
@@ -51217,6 +52487,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Granbury", "America/Chicago", "TX", "US" },
 					{ "Grand Prairie", "America/Chicago", "TX", "US" },
 					{ "Granite Shoals", "America/Chicago", "TX", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Grapevine", "America/Chicago", "TX", "US" },
 					{ "Greatwood", "America/Chicago", "TX", "US" },
 					{ "Greenville", "America/Chicago", "TX", "US" },
@@ -51617,6 +52897,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Martinsburg", "America/New_York", "WV", "US" },
 					{ "Morgantown", "America/New_York", "WV", "US" },
 					{ "Moundsville", "America/New_York", "WV", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "New Martinsville", "America/New_York", "WV", "US" },
 					{ "Nitro", "America/New_York", "WV", "US" },
 					{ "Oak Hill", "America/New_York", "WV", "US" },
@@ -52017,6 +53307,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Montgomery", "America/Chicago", "IL", "US" },
 					{ "Monticello", "America/Chicago", "IL", "US" },
 					{ "Morgan Park", "America/Chicago", "IL", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Morris", "America/Chicago", "IL", "US" },
 					{ "Morton", "America/Chicago", "IL", "US" },
 					{ "Morton Grove", "America/Chicago", "IL", "US" },
@@ -52417,6 +53717,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "West Bridgewater", "America/New_York", "MA", "US" },
 					{ "West Concord", "America/New_York", "MA", "US" },
 					{ "West Springfield", "America/New_York", "MA", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "West Yarmouth", "America/New_York", "MA", "US" },
 					{ "Westfield", "America/New_York", "MA", "US" },
 					{ "Westford", "America/New_York", "MA", "US" },
@@ -52817,6 +54127,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Wahpeton", "America/Chicago", "ND", "US" },
 					{ "West Fargo", "America/Chicago", "ND", "US" },
 					{ "Beatrice", "America/Chicago", "NE", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Bellevue", "America/Chicago", "NE", "US" },
 					{ "Blair", "America/Chicago", "NE", "US" },
 					{ "Chalco", "America/Chicago", "NE", "US" },
@@ -53217,6 +54537,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Central Islip", "America/New_York", "NY", "US" },
 					{ "Cheektowaga", "America/New_York", "NY", "US" },
 					{ "Chestnut Ridge", "America/New_York", "NY", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Chinatown", "America/New_York", "NY", "US" },
 					{ "Cicero", "America/New_York", "NY", "US" },
 					{ "Clay", "America/New_York", "NY", "US" },
@@ -53617,6 +54947,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "West Hills", "America/New_York", "NY", "US" },
 					{ "West Islip", "America/New_York", "NY", "US" },
 					{ "West Point", "America/New_York", "NY", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "West Sayville", "America/New_York", "NY", "US" },
 					{ "West Seneca", "America/New_York", "NY", "US" },
 					{ "Westbury", "America/New_York", "NY", "US" },
@@ -54017,6 +55357,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Shiloh", "America/New_York", "PA", "US" },
 					{ "Shippensburg", "America/New_York", "PA", "US" },
 					{ "Somerset", "America/New_York", "PA", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Souderton", "America/New_York", "PA", "US" },
 					{ "South Williamsport", "America/New_York", "PA", "US" },
 					{ "State College", "America/New_York", "PA", "US" },
@@ -54417,6 +55767,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Boyes Hot Springs", "America/Los_Angeles", "CA", "US" },
 					{ "Brawley", "America/Los_Angeles", "CA", "US" },
 					{ "Brea", "America/Los_Angeles", "CA", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Brentwood", "America/Los_Angeles", "CA", "US" },
 					{ "Buellton", "America/Los_Angeles", "CA", "US" },
 					{ "Buena Park", "America/Los_Angeles", "CA", "US" },
@@ -54817,6 +56177,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Rio Del Mar", "America/Los_Angeles", "CA", "US" },
 					{ "Rio Linda", "America/Los_Angeles", "CA", "US" },
 					{ "Ripon", "America/Los_Angeles", "CA", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Riverbank", "America/Los_Angeles", "CA", "US" },
 					{ "Riverside", "America/Los_Angeles", "CA", "US" },
 					{ "Rocklin", "America/Los_Angeles", "CA", "US" },
@@ -55217,6 +56587,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Alhambra", "America/Phoenix", "AZ", "US" },
 					{ "Anthem", "America/Phoenix", "AZ", "US" },
 					{ "Apache Junction", "America/Phoenix", "AZ", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Arizona City", "America/Phoenix", "AZ", "US" },
 					{ "Avondale", "America/Phoenix", "AZ", "US" },
 					{ "Avra Valley", "America/Phoenix", "AZ", "US" },
@@ -55617,6 +56997,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Moses Lake", "America/Los_Angeles", "WA", "US" },
 					{ "Mount Vernon", "America/Los_Angeles", "WA", "US" },
 					{ "Mount Vista", "America/Los_Angeles", "WA", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Mountlake Terrace", "America/Los_Angeles", "WA", "US" },
 					{ "Mukilteo", "America/Los_Angeles", "WA", "US" },
 					{ "Newcastle", "America/Los_Angeles", "WA", "US" },
@@ -56017,6 +57407,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Johnston", "America/New_York", "RI", "US" },
 					{ "Elmendorf Air Force Base", "America/Anchorage", "AK", "US" },
 					{ "Dixiana", "America/Chicago", "AL", "US" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Cranberry Township", "America/New_York", "PA", "US" },
 					{ "Laurel Hill", "America/New_York", "VA", "US" },
 					{ "Harrison", "America/Chicago", "WI", "US" },
@@ -56417,6 +57817,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Lecherías", "America/Caracas", "02", "VE" },
 					{ "El Limón", "America/Caracas", "04", "VE" },
 					{ "El Hatillo", "America/Caracas", "15", "VE" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "El Dorado", "America/Caracas", "06", "VE" },
 					{ "El Baúl", "America/Caracas", "08", "VE" },
 					{ "Ejido", "America/Caracas", "14", "VE" },
@@ -56817,6 +58227,16 @@ namespace ScheduleAppBackend.Migrations
 					{ "Qumbu", "Africa/Johannesburg", "05", "ZA" },
 					{ "Queenstown", "Africa/Johannesburg", "05", "ZA" },
 					{ "Queensdale", "Africa/Johannesburg", "05", "ZA" },
+				}
+			);
+
+
+			migrationBuilder.InsertData(
+				table: "LocationCities",
+				columns: ["Name", "TimeZone", "State", "Country"],
+				columnTypes: ["text", "text", "text", "varchar(2)"],
+				values: new object[,]
+				{
 					{ "Prince Albert", "Africa/Johannesburg", "11", "ZA" },
 					{ "Prieska", "Africa/Johannesburg", "08", "ZA" },
 					{ "Pretoria", "Africa/Johannesburg", "06", "ZA" },
@@ -57201,12 +58621,14 @@ namespace ScheduleAppBackend.Migrations
 				}
 			);
 
+
+
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-			migrationBuilder.Sql("DELETE FROM LocationCities");
+			migrationBuilder.Sql("DELETE FROM \"LocationCities\"");
 
         }
     }
