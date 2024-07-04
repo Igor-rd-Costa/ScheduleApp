@@ -41,7 +41,7 @@ export class ServicesService {
         return new Promise<BusinessService | null>(async resolve => {
             let cachedService = await this.cache.GetService(id, businessId);
             const cachedData : CachedDataInfo<number> | null = cachedService === null ? null : {id: cachedService.id, lastEditDate: cachedService.lastEditDate};
-            this.http.get<BusinessService>(this.controllerAddress+`?id=${cachedService?.id ?? ''}&businessId=${businessId}&cache=${JSON.stringify(cachedData ?? {})}`, {withCredentials: true}).subscribe({
+            this.http.get<BusinessService>(this.controllerAddress+`?id=${id}&businessId=${businessId}&cache=${JSON.stringify(cachedData ?? {})}`, {withCredentials: true}).subscribe({
                 next: service => {
                 if (service) {
                     this.cache.AddService(service);

@@ -212,16 +212,20 @@ export default class CacheService {
         return await this.locationCountries?.All() ?? [];
     }
 
+    public async GetLocationCountry(countryId: number) {
+        return (await this.locationCountries?.Where(c => c.id == countryId) ?? [])[0] ?? null;
+    }
+
     public async AddLocationStates(states : State[]) {
         return await this.locationStates?.AddRange(states) ?? false;
     }
 
-    public async GetLocationStates(country : string) {
-        return await this.locationStates?.Where(s => s.countryCode === country) ?? [];
+    public async GetLocationStates(countryId : number) {
+        return await this.locationStates?.Where(s => s.countryId === countryId) ?? [];
     }
 
-    public async GetLocationState(country : string, state : string) {
-        const s = await this.locationStates?.Where(s => s.countryCode === country && s.code === state) ?? [];
+    public async GetLocationState(stateId : number) {
+        const s = await this.locationStates?.Where(s => s.id === stateId) ?? [];
         if (s.length === 0)
             return null;
         return s[0];
@@ -231,8 +235,8 @@ export default class CacheService {
         return await this.locationCities?.AddRange(cities) ?? false;
     }
 
-    public async GetLocationCities(country : string, state : string) {
-        return await this.locationCities?.Where(c => c.country === country && c.state === state) ?? [];
+    public async GetLocationCities(countryId : number, stateId : number) {
+        return await this.locationCities?.Where(c => c.countryId === countryId && c.stateId === stateId) ?? [];
     }
 
     public async GetLocationCity(cityId : number) {
@@ -267,8 +271,8 @@ export default class CacheService {
         db.createObjectStore("BusinessesServices", {keyPath: 'id'});
         db.createObjectStore("BusinessesCategories", {keyPath: 'id'});
         db.createObjectStore("BusinessesHours", {keyPath: 'id'});
-        db.createObjectStore("LocationCountries", {keyPath: 'isoCode'});
-        db.createObjectStore("LocationStates", {keyPath: 'code'});
+        db.createObjectStore("LocationCountries", {keyPath: 'id'});
+        db.createObjectStore("LocationStates", {keyPath: 'id'});
         db.createObjectStore("LocationCities", {keyPath: 'id'});
     }
 }

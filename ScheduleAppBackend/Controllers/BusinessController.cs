@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ScheduleAppBackend.Context;
 using ScheduleAppBackend.Helpers;
 using ScheduleAppBackend.Models;
+using ScheduleAppBackend.Services.Interfaces;
 using ScheduleAppBackend.Types;
 using System.Globalization;
 using System.Text;
@@ -19,10 +20,13 @@ namespace ScheduleAppBackend.Controllers
     {
         private readonly ScheduleAppContext m_Context;
         private readonly UserManager<User> m_UserManager;
-        public BusinessController(ScheduleAppContext context, UserManager<User> userManager) 
+        private readonly ILocationService m_LocationService;
+        public BusinessController(ScheduleAppContext context, UserManager<User> userManager, 
+            ILocationService locationService) 
         {
             m_Context = context;
             m_UserManager = userManager;
+            m_LocationService = locationService;
         }
 
 
@@ -51,6 +55,7 @@ namespace ScheduleAppBackend.Controllers
             }
             if (business == null)
                 return NotFound();
+            
 
             if (cache != null && cache.CachedDates.ContainsKey(business.Id))
             {
@@ -103,7 +108,7 @@ namespace ScheduleAppBackend.Controllers
         }
 
         [HttpGet("appointments")]
-        async public Task<IActionResult> GetAppointments([FromQuery(Name = "cache")] string cacheString)
+        public async Task<IActionResult> GetAppointments([FromQuery(Name = "cache")] string cacheString)
         {
             User? user = await m_UserManager.GetUserAsync(User);
             if (user == null) 
@@ -117,10 +122,43 @@ namespace ScheduleAppBackend.Controllers
             List<Appointment> appointments = m_Context.Appointments.Where(a => a.BusinessId == businessId).ToList();
             List<Appointment> futureAppointments = [];
 
-            int cityCode = m_Context.Businesses.Where(b => b.Id == businessId).Select(b => b.CityCode).First();
-            string timezone = m_Context.LocationCities.Where(c => c.Id == cityCode).Select(c => c.TimeZone).First();
-            int tzOffset = m_Context.LocationTimeZones.Where(tz => tz.Name == timezone).Select(tz => tz.Offset).First();
-            DateTimeOffset today = new DateTimeOffset(DateTime.UtcNow).ToOffset(new TimeSpan(tzOffset, 0, 0));
+            int cityId = m_Context.Businesses.Where(b => b.Id == businessId).Select(b => b.CityId).First();
+            LocationCity? city = m_Context.LocationCities.Where(c => c.Id == cityId).FirstOrDefault();
+            if (city == null)
+            {
+                city = await m_LocationService.GetCity(cityId);
+                if (city == null)
+                    return NotFound("Could not find business's location information.");
+            }
+            LocationTimeZone? timeZone = null;
+            if (city.TimeZoneId == null)
+            {
+                timeZone = await m_LocationService.GetTimeZone(city.Id);
+                if (timeZone != null)
+                {
+                    LocationTimeZone? tz = m_Context.LocationTimeZones.Where(tz => tz.Name == timeZone.Name).FirstOrDefault();
+                    if (tz == null)
+                    {
+                        m_Context.LocationTimeZones.Add(timeZone);
+                        m_Context.SaveChanges();
+                    }
+                    else
+                    {
+                        timeZone = tz;
+                    }
+                    city.TimeZoneId = timeZone.Id;
+                    m_Context.LocationCities.Update(city);
+                    m_Context.SaveChanges();
+                }
+            }
+            else
+            {
+                timeZone = m_Context.LocationTimeZones.Where(tz => tz.Id == city.TimeZoneId).FirstOrDefault();
+            }
+            if (timeZone == null)
+                return NotFound("Could not find business's timezone information.");
+
+            DateTimeOffset today = new DateTimeOffset(DateTime.UtcNow).ToOffset(new TimeSpan(timeZone.Offset, 0, 0));
 
             foreach (Appointment appointment in appointments)
             {
@@ -150,10 +188,43 @@ namespace ScheduleAppBackend.Controllers
             List<Appointment> appointments = m_Context.Appointments.Where(a => a.BusinessId == businessId).ToList();
             List<Appointment> pastAppointments = [];
 
-            int cityCode = m_Context.Businesses.Where(b => b.Id == businessId).Select(b => b.CityCode).First();
-            string timezone = m_Context.LocationCities.Where(c => c.Id == cityCode).Select(c => c.TimeZone).First();
-            int tzOffset = m_Context.LocationTimeZones.Where(tz => tz.Name == timezone).Select(tz => tz.Offset).First();
-            DateTimeOffset today = new DateTimeOffset(DateTime.UtcNow).ToOffset(new TimeSpan(tzOffset, 0, 0));
+            int cityId = m_Context.Businesses.Where(b => b.Id == businessId).Select(b => b.CityId).First();
+            LocationCity? city = m_Context.LocationCities.Where(c => c.Id == cityId).FirstOrDefault();
+            if (city == null)
+            {
+                city = await m_LocationService.GetCity(cityId);
+                if (city == null)
+                    return NotFound("Could not find business's location information.");
+            }
+            LocationTimeZone? timeZone = null;
+            if (city.TimeZoneId == null)
+            {
+                timeZone = await m_LocationService.GetTimeZone(city.Id);
+                if (timeZone != null)
+                {
+                    LocationTimeZone? tz = m_Context.LocationTimeZones.Where(tz => tz.Name == timeZone.Name).FirstOrDefault();
+                    if (tz == null)
+                    {
+                        m_Context.LocationTimeZones.Add(timeZone);
+                        m_Context.SaveChanges();
+                    }
+                    else
+                    {
+                        timeZone = tz;
+                    }
+                    city.TimeZoneId = timeZone.Id;
+                    m_Context.LocationCities.Update(city);
+                    m_Context.SaveChanges();
+                }
+            }
+            else
+            {
+                timeZone = m_Context.LocationTimeZones.Where(tz => tz.Id == city.TimeZoneId).FirstOrDefault();
+            }
+            if (timeZone == null)
+                return NotFound("Could not find business's timezone information.");
+
+            DateTimeOffset today = new DateTimeOffset(DateTime.UtcNow).ToOffset(new TimeSpan(timeZone.Offset, 0, 0));
 
             foreach (Appointment appointment in appointments)
             {
@@ -187,9 +258,9 @@ namespace ScheduleAppBackend.Controllers
                 BusinessUrl = MakeCustomUrl(info.Name),
                 Address = info.Address,
                 AddressNumber = info.AddressNumber,
-                CountryCode = info.Country,
-                StateCode = info.State,
-                CityCode = info.City, 
+                CountryId = info.Country,
+                StateId = info.State,
+                CityId = info.City, 
                 LastEditDate = DateTime.UtcNow
             };
 

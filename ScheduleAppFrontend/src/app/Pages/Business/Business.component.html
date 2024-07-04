@@ -26,16 +26,16 @@
                 <div class="row-start-1 col-start-2 w-full">
                     <label class="text-white mb-2">Country</label>
                     <FormInput type="select" formControlName="Country">
-                        @for (country of countries; track country.isoCode) {
-                            <option [value]="country.isoCode">{{country.name}}</option>
+                        @for (country of countries; track country.id) {
+                            <option [value]="country.id">{{country.name}}</option>
                         }
                     </FormInput>
                 </div>
                 <div class="row-start-2 col-start-1 w-full">
                     <label class="text-white mb-2">State</label>
                     <FormInput type="select" formControlName="State">
-                        @for (state of states; track state.code) {
-                            <option [value]="state.code">{{state.name}}</option>
+                        @for (state of states; track state.id) {
+                            <option [value]="state.id">{{state.name}}</option>
                         }
                     </FormInput>
                 </div>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="pl-2 mt-2 text-gray-200 text-[0.7rem] flex items-center gap-x-1 col-span-2">
                     <Icon type="location_on"/>
-                    {{business()!.address}}, {{business()!.addressNumber}} - {{cityName()}}, {{stateName()}}-{{business()!.countryCode}}
+                    {{business()!.address}}, {{business()!.addressNumber}} - {{cityName()}}, {{stateName()}}-{{countryName()}}
                 </div>
                 @if (allowEdit) {
                     <div class="pl-4 pt-4 pb-4">

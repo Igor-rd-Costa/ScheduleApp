@@ -14,8 +14,8 @@
 </header>
 <header class="hidden sm:grid h-[3.5rem] font-arial bg-[#151515] shadow-[0px_-1px_2px_0px_#050505] relative z-[20] 
 items-center grid-cols-[auto_1fr_auto] text-goldenDark *:cursor-pointer">
-    <AppLogo/>
-    <div class="justify-self-center text-[14px] font-medium inline-flex gap-x-8
+    <AppLogo class="col-start-1 row-start-1"/>
+    <div class="col-start-1 row-start-1 col-span-3 justify-self-center text-[14px] font-medium inline-flex gap-x-8
     *:hover:text-goldenLight *:transition-all *:ease-linear *:duration-200">
         <button class="uppercase relative hover:scale-[1.2] flex items-center justify-center" (click)="GoToHome()" (mouseenter)="OnMouseEnter($event)" (mouseleave)="OnMouseLeave($event)">
             <div class="w-fit">
@@ -30,7 +30,7 @@ items-center grid-cols-[auto_1fr_auto] text-goldenDark *:cursor-pointer">
             </div>
         </button>
     </div>
-    <div class="flex justify-end items-center">
+    <div class="flex justify-end items-center col-start-3 row-start-1">
         <button id="profile-menu-button" class="w-fit h-fit hover:text-goldenLight text-[18px]
         flex items-center gap-x-1 pr-6 pl-4" (click)="OpenProfileMenu()">
         <Icon size="28px" type="person"/>

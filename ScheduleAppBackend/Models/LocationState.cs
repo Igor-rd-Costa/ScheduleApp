@@ -6,13 +6,16 @@ using System.Text.Json.Serialization;
 namespace ScheduleAppBackend.Models
 {
     [Table("LocationStates")]
-    [PrimaryKey("Code", "CountryCode")]
+    [PrimaryKey("Id")]
     public class LocationState
     {
-        public string Code { get; set; }
-        [MaxLength(2)]
-        public string CountryCode { get; set; } = "";
+        public int Id { get; set; }
+        public int CountryId { get; set; }
         public string Name { get; set; } = "";
+
+        [JsonIgnore]
+        [ForeignKey("CountryId")]
+        public LocationCountry Country { get; set; } = default!;
     }
 
 }

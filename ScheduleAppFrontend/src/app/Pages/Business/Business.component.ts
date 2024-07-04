@@ -37,16 +37,17 @@ export class Business implements AfterViewChecked, AfterViewInit {
     Description: new FormControl(""),
     Address: new FormControl("", {validators: Validators.required}),
     Number : new FormControl<number|''>('', {validators: Validators.required}),
-    Country: new FormControl("", {validators: Validators.required}),
-    State: new FormControl("", {validators: Validators.required}),
+    Country: new FormControl<number>(0, {validators: Validators.required}),
+    State: new FormControl<number>(0, {validators: Validators.required}),
     City: new FormControl<number|''>('', {validators: Validators.required})
   });
   business = signal<undefined|null|BusinessInfo>(undefined);
   services = signal<BusinessServiceInfo[]>([]);
   categories = signal<BusinessCategory[]>([]);
 
-  cityName = signal("");
+  countryName = signal("");
   stateName = signal("");
+  cityName = signal("");
 
   countries : Country[] = [];
   states : State[] = [];
@@ -58,9 +59,9 @@ export class Business implements AfterViewChecked, AfterViewInit {
     this.businessSetupForm.controls.State.disable();
     this.businessSetupForm.controls.City.disable();
     this.businessSetupForm.controls.Country.valueChanges.subscribe(value => {
-      this.businessSetupForm.controls.State.setValue('');
-      this.businessSetupForm.controls.City.setValue('');
-      if (value === "" || value === null) {
+      this.businessSetupForm.controls.State.setValue(-1);
+      this.businessSetupForm.controls.City.setValue(-1);
+      if (value === -1 || value === null) {
         this.states = [];
         this.businessSetupForm.controls.State.disable();
         this.businessSetupForm.controls.City.disable();
@@ -75,14 +76,14 @@ export class Business implements AfterViewChecked, AfterViewInit {
     });
     this.businessSetupForm.controls.State.valueChanges.subscribe(value => {
       this.businessSetupForm.controls.City.setValue('');
-      if (value === "" || value === null) {
+      if (value === -1 || value === null) {
         this.cities = [];
         this.businessSetupForm.controls.City.disable();
         }
         else {
         this.businessSetupForm.controls.City.enable();
         const country = this.businessSetupForm.controls.Country.value;
-        if (country === "" || country === null)
+        if (country === -1 || country === null)
           return;
         this.locationService.GetCities(country, value).then(cities => {
           this.cities = cities;
@@ -115,11 +116,14 @@ export class Business implements AfterViewChecked, AfterViewInit {
           for (let day = WeekDay.Sunday; day <= WeekDay.Saturday; day++)
             this.openingHours.set(day, hours.filter(h => h.day === day).sort((a, b) => a.intervalStart - b.intervalStart));
         });
-        this.locationService.GetCity(this.business()!.cityCode).then(city => {
-          this.cityName.set(city?.name ?? "");
+        this.locationService.GetCountry(this.business()!.countryId).then(country => {
+          this.countryName.set(country?.name ?? "");
         });
-        this.locationService.GetState(this.business()!.countryCode, this.business()!.stateCode).then(state => {
+        this.locationService.GetState(this.business()!.stateId).then(state => {
           this.stateName.set(state?.name ?? "");
+        });
+        this.locationService.GetCity(this.business()!.cityId).then(city => {
+          this.cityName.set(city?.name ?? "");
         });
       } else {
         this.locationService.GetCountries().then(countries => {
@@ -178,14 +182,15 @@ export class Business implements AfterViewChecked, AfterViewInit {
       description: this.businessSetupForm.controls.Description.value ?? "",
       address: this.businessSetupForm.controls.Address.value ?? "",
       addressNumber: this.businessSetupForm.controls.Number.value ?? 0,
-      country: this.businessSetupForm.controls.Country.value ?? "",
-      state: this.businessSetupForm.controls.State.value ?? "",
-      city: this.businessSetupForm.controls.City.value ?? 0
-    }).then(result => {
+      country: this.businessSetupForm.controls.Country.value ?? -1,
+      state: this.businessSetupForm.controls.State.value ?? -1,
+      city: this.businessSetupForm.controls.City.value ?? -1
+    }).then(async result => {
       if (result != null) {
-        this.business.set(this.authService.GetLoggedBusiness());
-        this.categories.set([]);
-        this.services.set([]);
+        this.business.set(result);
+        this.countryName.set((await this.locationService.GetCountry(this.business()?.countryId ?? -1))?.name ?? "");
+        this.stateName.set((await this.locationService.GetState(this.business()?.stateId ?? -1))?.name ?? "");
+        this.cityName.set((await this.locationService.GetCity(this.business()?.cityId ?? -1))?.name ?? "");
       }
     });
   }

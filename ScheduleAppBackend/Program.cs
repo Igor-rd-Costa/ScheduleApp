@@ -14,6 +14,8 @@ builder.Services.AddDbContext<ScheduleAppContext>(options =>
     );
 });
 builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddHttpClient();
 builder.Services.AddIdentityCore<User>(options =>
 {
     options.User.RequireUniqueEmail = true;

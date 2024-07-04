@@ -2,16 +2,17 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { App } from "../App.component";
 import CacheService from "./CacheService";
-import { state } from "@angular/animations";
 
 export type Country = {
+    id: number,
     isoCode : string,
-    name : string
+    name : string,
+    currency: string
 }
 
 export type State = {
-    code : string,
-    countryCode : string,
+    id: number,
+    countryId : number,
     name : string
 }
 
@@ -19,8 +20,8 @@ export type City = {
     id : number,
     name : string,
     timeZone : string,
-    country : string,
-    state : string
+    countryId : number,
+    stateId : number
 }
 
 @Injectable()
@@ -32,14 +33,14 @@ export class LocationService {
     public async GetCountries() {
         return new Promise<Country[]>(async resolve => {
             const c = await this.cacheService.GetLocationCountries();
-            if (c.length !== 0) {
-                resolve(c);
-                return;
-            }
-            this.http.get<Country[]>(this.controllerAddress+"countries", {withCredentials: true}).subscribe({
-                next: countries => {
+            this.http.get<Country[]>(this.controllerAddress+`countries?cacheCount=${c.length}`, {withCredentials: true}).subscribe({
+                next: async countries => {
+                    if (countries === null) {
+                        resolve(c);
+                        return;
+                    }
                     this.cacheService.AddLocationCountries(countries);
-                    resolve(countries);
+                    resolve(await this.cacheService.GetLocationCountries());
                 },
                 error: err => {
                     console.error(err);
@@ -49,15 +50,35 @@ export class LocationService {
         });
     }
 
-    public async GetStates(country : string) {
+    public async GetCountry(countryId: number) {
+        return new Promise<Country|null>(async resolve => {
+            const c = await this.cacheService.GetLocationCountry(countryId);
+            if (c !== null) {
+                resolve(c);
+                return;
+            }
+            this.http.get<Country>(this.controllerAddress+`country?countryId=${countryId}`, {withCredentials: true}).subscribe({
+                next: country => {
+                    this.cacheService.AddLocationCountries([country]);
+                    resolve(country);
+                },
+                error: err => {
+                    console.error(err);
+                    resolve(null);
+                }
+            });
+        });
+    }
+
+    public async GetStates(countryId : number) {
         return new Promise<State[]>(async resolve => {
-            const s = await this.cacheService.GetLocationStates(country);
-            this.http.get<State[]|null>(this.controllerAddress+`states?country=${country}&cache=${s.length}`, {withCredentials: true}).subscribe({
+            const s = await this.cacheService.GetLocationStates(countryId);
+            this.http.get<State[]|null>(this.controllerAddress+`states?countryId=${countryId}&cache=${s.length}`, {withCredentials: true}).subscribe({
                 next: states => {
                     if (states === null) {
                         resolve(s);
                         return;
-                    }
+                    }   
                     this.cacheService.AddLocationStates(states);
                     resolve(states);
                 },
@@ -69,14 +90,14 @@ export class LocationService {
         });
     }
 
-    public async GetState(countryCode : string, stateCode : string) {
+    public async GetState(stateId : number) {
         return new Promise<State|null>(async resolve => {
-            const s = await this.cacheService.GetLocationState(countryCode, stateCode) ?? null;
+            const s = await this.cacheService.GetLocationState(stateId) ?? null;
             if (s !== null) {
                 resolve(s);
                 return;
             }
-            this.http.get<State>(this.controllerAddress+`state?countryCode=${countryCode}&stateCode=${stateCode}`, {withCredentials: true}).subscribe({
+            this.http.get<State>(this.controllerAddress+`state?stateId=${stateId}`, {withCredentials: true}).subscribe({
                 next: state => {
                     this.cacheService.AddLocationStates([state]);
                     resolve(state);
@@ -89,10 +110,10 @@ export class LocationService {
         });
     }
 
-    public async GetCities(country: string, state : string) {
+    public async GetCities(countryId: number, stateId : number) {
         return new Promise<City[]>(async resolve => {
-            const c = await this.cacheService.GetLocationCities(country, state);
-            this.http.get<City[]|null>(this.controllerAddress+`cities?country=${country}&state=${state}&cache=${c.length}`, {withCredentials: true}).subscribe({
+            const c = await this.cacheService.GetLocationCities(countryId, stateId);
+            this.http.get<City[]|null>(this.controllerAddress+`cities?countryId=${countryId}&stateId=${stateId}&cache=${c.length}`, {withCredentials: true}).subscribe({
                 next: cities => {
                     if (cities === null) {
                         resolve(c);
@@ -109,14 +130,14 @@ export class LocationService {
         });
     }
 
-    public async GetCity(cityCode : number) {
+    public async GetCity(cityId : number) {
         return new Promise<City | null>(async resolve => {
-            const c = await this.cacheService.GetLocationCity(cityCode);
+            const c = await this.cacheService.GetLocationCity(cityId);
             if (c !== null) {
                 resolve(c);
                 return;
-                }
-            this.http.get<City>(this.controllerAddress+`city?id=${cityCode}`, {withCredentials: true}).subscribe({
+            }
+            this.http.get<City>(this.controllerAddress+`city?cityId=${cityId}`, {withCredentials: true}).subscribe({
                 next: city => {
                     this.cacheService.AddLocationCities([city]);
                     resolve(city);

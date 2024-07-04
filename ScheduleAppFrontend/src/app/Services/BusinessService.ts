@@ -13,9 +13,9 @@ export type Business = {
     businessUrl : string,
     address : string,
     addressNumber : number,
-    countryCode : string,
-    stateCode : string,
-    cityCode : number,
+    countryId : number,
+    stateId : number,
+    cityId : number,
     hasUnseenNotifications: boolean,
     lastEditDate: Date,
 }
@@ -25,8 +25,8 @@ export type BusinessCreateInfo = {
     description : string,
     address : string,
     addressNumber : number,
-    country : string,
-    state : string,
+    country : number,
+    state : number,
     city : number
 }
 
@@ -206,6 +206,7 @@ export default class BusinessService {
         return new Promise<Business | null>(resolve => {
             this.http.post<Business>(this.businessControllerAddress, info, {withCredentials: true}).subscribe({
                 next: result => {
+                    console.log("Got result", result);
                     this.cache.SetLoggedBusiness(result);
                     this.cache.AddBusiness(result);
                     resolve(result);

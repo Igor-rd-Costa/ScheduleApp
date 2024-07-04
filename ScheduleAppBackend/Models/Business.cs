@@ -22,10 +22,9 @@ namespace ScheduleAppBackend.Models
         public string BusinessUrl { get; set; } = "";
         public string Address { get; set; } = "";
         public int AddressNumber { get; set; }
-        [MaxLength(2)]
-        public string CountryCode { get; set; } = "";
-        public string StateCode { get; set; } = "";
-        public int CityCode { get; set; }
+        public int CountryId { get; set; }
+        public int StateId { get; set; }
+        public int CityId { get; set; }
         public DateTime LastEditDate { get; set; }
         public bool HasUnseenNotifications { get; set; }
 
@@ -33,13 +32,13 @@ namespace ScheduleAppBackend.Models
         [ForeignKey("OwnerId")]
         public User User { get; set; }
         [JsonIgnore]
-        [ForeignKey("CountryCode")]
+        [ForeignKey("CountryId")]
         public LocationCountry Country { get; set; }
         [JsonIgnore]
-        [ForeignKey("StateCode, CountryCode")]
+        [ForeignKey("StateId")]
         public LocationState State { get; set; }
         [JsonIgnore]
-        [ForeignKey("CityCode")]
+        [ForeignKey("CityId")]
         public LocationCity City { get; set; }
     }
 }

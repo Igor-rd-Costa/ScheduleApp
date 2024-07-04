@@ -12,8 +12,8 @@ using ScheduleAppBackend.Context;
 namespace ScheduleAppBackend.Migrations
 {
     [DbContext(typeof(ScheduleAppContext))]
-    [Migration("20240703045827_AddCoutriesInfo")]
-    partial class AddCoutriesInfo
+    [Migration("20240704033431_UpdateLocationTables")]
+    partial class UpdateLocationTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,13 +75,11 @@ namespace ScheduleAppBackend.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("character varying(60)");
 
-                    b.Property<int>("CityCode")
+                    b.Property<int>("CityId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("CountryCode")
-                        .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("character varying(2)");
+                    b.Property<int>("CountryId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -101,19 +99,18 @@ namespace ScheduleAppBackend.Migrations
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("StateCode")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("StateId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityCode");
+                    b.HasIndex("CityId");
 
-                    b.HasIndex("CountryCode");
+                    b.HasIndex("CountryId");
 
                     b.HasIndex("OwnerId");
 
-                    b.HasIndex("StateCode", "CountryCode");
+                    b.HasIndex("StateId");
 
                     b.ToTable("Businesses");
                 });
@@ -286,69 +283,93 @@ namespace ScheduleAppBackend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("character varying(2)");
+                    b.Property<int>("CountryId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("StateId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("TimeZone")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("TimeZoneId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("StateId");
+
+                    b.HasIndex("TimeZoneId");
 
                     b.ToTable("LocationCities");
                 });
 
             modelBuilder.Entity("ScheduleAppBackend.Models.LocationCountry", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("ISOCode")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("ISOCode");
+                    b.HasKey("Id");
 
                     b.ToTable("LocationCountries");
                 });
 
             modelBuilder.Entity("ScheduleAppBackend.Models.LocationState", b =>
                 {
-                    b.Property<string>("Code")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.Property<string>("CountryCode")
-                        .HasMaxLength(2)
-                        .HasColumnType("character varying(2)");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Code", "CountryCode");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
 
                     b.ToTable("LocationStates");
                 });
 
             modelBuilder.Entity("ScheduleAppBackend.Models.LocationTimeZone", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Offset")
                         .HasColumnType("integer");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.ToTable("LocationTimeZones");
                 });
@@ -459,13 +480,13 @@ namespace ScheduleAppBackend.Migrations
                 {
                     b.HasOne("ScheduleAppBackend.Models.LocationCity", "City")
                         .WithMany()
-                        .HasForeignKey("CityCode")
+                        .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ScheduleAppBackend.Models.LocationCountry", "Country")
                         .WithMany()
-                        .HasForeignKey("CountryCode")
+                        .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -477,7 +498,7 @@ namespace ScheduleAppBackend.Migrations
 
                     b.HasOne("ScheduleAppBackend.Models.LocationState", "State")
                         .WithMany()
-                        .HasForeignKey("StateCode", "CountryCode")
+                        .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -565,6 +586,44 @@ namespace ScheduleAppBackend.Migrations
                         .IsRequired();
 
                     b.Navigation("Business");
+                });
+
+            modelBuilder.Entity("ScheduleAppBackend.Models.LocationCity", b =>
+                {
+                    b.HasOne("ScheduleAppBackend.Models.LocationCountry", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScheduleAppBackend.Models.LocationState", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScheduleAppBackend.Models.LocationTimeZone", "TimeZone")
+                        .WithMany()
+                        .HasForeignKey("TimeZoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Country");
+
+                    b.Navigation("State");
+
+                    b.Navigation("TimeZone");
+                });
+
+            modelBuilder.Entity("ScheduleAppBackend.Models.LocationState", b =>
+                {
+                    b.HasOne("ScheduleAppBackend.Models.LocationCountry", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Country");
                 });
 #pragma warning restore 612, 618
         }

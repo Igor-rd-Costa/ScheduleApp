@@ -61,8 +61,7 @@ export default class AuthService {
     HasUnseenNotifications() : boolean {
         const u = this.UserHasUnseenNotifications();
         const b = this.BusinessHasUnseenNotifications();
-        console.log("Called", {u, b});
-        return u || b; 
+        return u || b;
     }
 
     UserHasUnseenNotifications(): boolean {
@@ -137,7 +136,6 @@ export default class AuthService {
                         this.loggedBusiness.set(null);
                     } else {
                         if (sessionData.user !== null) {
-                            console.log("Updating user!");
                             this.cache.SetLoggedUser(sessionData.user)
                             this.loggedUser.set(sessionData.user)   
                         }

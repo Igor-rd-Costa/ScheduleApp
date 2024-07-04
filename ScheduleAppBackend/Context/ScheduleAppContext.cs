@@ -9,7 +9,6 @@ namespace ScheduleAppBackend.Context
         public ScheduleAppContext(DbContextOptions<ScheduleAppContext> options)
             : base(options)
         {
-
         }
 
         public DbSet<User> Users { get; set; } = default!;
@@ -21,8 +20,8 @@ namespace ScheduleAppBackend.Context
         public DbSet<BusinessEmployee> BusinessEmployees { get; set; } = default!;
         public DbSet<BusinessEmployeeHours> BusinessEmployeesHours { get; set; } = default!;
 
-        public DbSet<BusinessNotification> BusinessNotifications { get; set; }
-        public DbSet<UserNotification> UserNotifications { get; set; }
+        public DbSet<BusinessNotification> BusinessNotifications { get; set; } = default!;
+        public DbSet<UserNotification> UserNotifications { get; set; } = default!;
 
         public DbSet<LocationCountry> LocationCountries { get; set; } = default!;
         public DbSet<LocationState> LocationStates { get; set; } = default!;

@@ -10,10 +10,19 @@ namespace ScheduleAppBackend.Models
     public class LocationCity
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string TimeZone { get; set; }
-        [MaxLength(2)]
-        public string Country { get; set; }
-        public string State { get; set; }
+        public string Name { get; set; } = "";
+        public int? TimeZoneId { get; set; }
+        public int CountryId { get; set; }
+        public int StateId { get; set; }
+
+        [JsonIgnore]
+        [ForeignKey("TimeZoneId")]
+        public LocationTimeZone TimeZone { get; set; } = default!;
+        [JsonIgnore]
+        [ForeignKey("CountryId")]
+        public LocationCountry Country { get; set; } = default!;
+        [JsonIgnore]
+        [ForeignKey("StateId")]
+        public LocationState State { get; set; } = default!;
     }
 }

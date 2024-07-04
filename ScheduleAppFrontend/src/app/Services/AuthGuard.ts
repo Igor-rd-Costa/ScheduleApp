@@ -9,21 +9,20 @@ export const AuthGuard : CanActivateFn = async (route: ActivatedRouteSnapshot, s
     const cache : CacheService = inject(CacheService);
 
     let rt = route.url[0]?.path ?? "";
-
     const sessionData = await authService.GetSessionData();
-    const isOtherUserBusinessPage = (rt === 'business' && route.children[0]);
-    const pathRequiresAuth = !(rt === 'login' || rt === 'register' || rt === '');
+    const isOtherUserBusinessPage = (rt === 'business' && route.params['businessUrl'] !== undefined);
     const hasOptionalAuth = rt === 'businesses' || isOtherUserBusinessPage;
-    if (hasOptionalAuth)
+    const isNoAuthPath = (rt === 'login' || rt === 'register' || rt === '');
+    if (hasOptionalAuth) 
         return true;
     if (sessionData.isLogged) {
-        if (!pathRequiresAuth) {
+        if (isNoAuthPath) {
             router.navigate(['home']);
             return false;
         }
         return true;
     } else {
-        if (pathRequiresAuth) {
+        if (!isNoAuthPath) {
             router.navigate(['login']);
             return false;
         }
