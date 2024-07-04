@@ -284,7 +284,7 @@ namespace ScheduleAppBackend.Controllers
         }
 
         [HttpGet("search")]
-        async public Task<IActionResult> Search([FromQuery] SearchBusinessInfo info)
+        public IActionResult Search([FromQuery] SearchBusinessInfo info)
         {
             Cache<Guid> cache = HelperFunctions.ParseGuidCacheStringArray(info.Cached);
             List<CachedDataInfo<Guid>> cachedBusinesses = m_Context.Businesses.Select(b => new CachedDataInfo<Guid>()

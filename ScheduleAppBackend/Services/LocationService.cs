@@ -31,6 +31,10 @@ namespace ScheduleAppBackend.Services
             public int GeonameId { get; set; }
             [JsonPropertyName("name")]
             public string Name { get; set; } = "";
+            [JsonPropertyName("countryId")]
+            public string CountryId { get; set; } = "";
+            [JsonPropertyName("adminCode2")]
+            public string StateId { get; set; } = "";
             [JsonPropertyName("fcode")]
             public string FCode { get; set; } = "";
         }
@@ -113,6 +117,23 @@ namespace ScheduleAppBackend.Services
         public async Task<LocationState?> GetState(int stateId)
         {
             LocationState? state = null;
+            var request = await m_Http.GetAsync(m_GeoNamesAddress + $"getJSON?geonameId={stateId}&username={m_GeoNamesUsername}");
+            var response = JsonSerializer.Deserialize<GeoNamesState>(await request.Content.ReadAsStringAsync());
+            if (response == null || response.FCode != "ADM1")
+                return state;
+
+            try
+            {
+                state = new()
+                {
+                    Id = response.GeonameId,
+                    Name = response.Name,
+                    CountryId = int.Parse(response.CountryId)
+                };
+            } catch (Exception) 
+            {
+                return null;
+            }
             return state;
         }
 
@@ -137,6 +158,25 @@ namespace ScheduleAppBackend.Services
         public async Task<LocationCity?> GetCity(int cityId)
         {
             LocationCity? city = null;
+            var request = await m_Http.GetAsync(m_GeoNamesAddress + $"getJSON?geonameId={cityId}&username={m_GeoNamesUsername}");
+            var response = JsonSerializer.Deserialize<GeoNamesState>(await request.Content.ReadAsStringAsync());
+            if (response == null || response.FCode != "ADM2")
+                return city;
+
+            try
+            {
+                city = new()
+                {
+                    Id = response.GeonameId,
+                    Name = response.Name,
+                    TimeZoneId = null,
+                    CountryId = int.Parse(response.CountryId),
+                    StateId = int.Parse(response.StateId)
+                };
+            } catch(Exception)
+            {
+                return null;
+            }
             return city;
         }
         public async Task<LocationTimeZone?> GetTimeZone(int cityId)

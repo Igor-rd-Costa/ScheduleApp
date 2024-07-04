@@ -25,10 +25,6 @@ namespace ScheduleAppBackend.Controllers
         [HttpGet("countries")]
         public async Task<IActionResult> GetCountries([FromQuery] int cacheCount)
         {
-            User? user = await m_UserManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
-
             List<LocationCountry> countries = [];
             if (m_Context.LocationCountries.Count() == 0)
             {
@@ -67,10 +63,6 @@ namespace ScheduleAppBackend.Controllers
         [HttpGet("states")]
         public async Task<IActionResult> GetStates([FromQuery] int? countryId, [FromQuery] int cache)
         {
-            User? user = await m_UserManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
-
             if (countryId == null)
                 return BadRequest();
 
@@ -78,11 +70,6 @@ namespace ScheduleAppBackend.Controllers
             if (states.Count == 0)
             {
                 states = await m_LocationService.GetStates(countryId.Value);
-                Console.WriteLine("Found States:");
-                foreach(var state in states)
-                {
-                    Console.WriteLine($"{{ {state.Id}, {state.Name}, {state.CountryId} }}");
-                }
                 m_Context.LocationStates.AddRange(states);
                 m_Context.SaveChanges();
             }
@@ -95,10 +82,6 @@ namespace ScheduleAppBackend.Controllers
         [HttpGet("state")]
         public async Task<IActionResult> GetState([FromQuery] int? stateId)
         {
-            User? user = await m_UserManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
-
             if (stateId == null)
                 return BadRequest();
 
@@ -114,10 +97,6 @@ namespace ScheduleAppBackend.Controllers
         [HttpGet("cities")]
         public async Task<IActionResult> GetCities([FromQuery] int? countryId, [FromQuery] int? stateId, [FromQuery] int cache)
         {
-            User? user = await m_UserManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
-
             if (countryId == null || stateId == null)
                 return BadRequest();
 
@@ -138,14 +117,12 @@ namespace ScheduleAppBackend.Controllers
         [HttpGet("city")]
         public async Task<IActionResult> GetCity([FromQuery] int cityId)
         {
-            User? user = await m_UserManager.GetUserAsync(User);
-            if (user == null)
-                return Unauthorized();
-
             LocationCity? city = m_Context.LocationCities.Where(c => c.Id == cityId).FirstOrDefault();
             if (city == null)
             {
                 city = await m_LocationService.GetCity(cityId);
+                if (city == null)
+                    return NotFound();
             }
             return Ok(city);
         }
