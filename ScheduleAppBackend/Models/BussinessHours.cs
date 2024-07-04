@@ -20,7 +20,7 @@ namespace ScheduleAppBackend.Models
         public DateTime LastEditDate { get; set; }
 
         [JsonIgnore]
-        [ForeignKey("BusinessId")] 
-        public Business Business { get; set; }
+        [ForeignKey("BusinessId")]
+        public Business Business { get; set; } = default!;
     }
 }

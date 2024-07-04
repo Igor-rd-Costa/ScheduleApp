@@ -12,11 +12,11 @@ namespace ScheduleAppBackend.Models
         public int Id { get; set; }
         [Column(TypeName = "uuid")]
         public Guid BusinessId { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         public DateTime LastEditDate { get; set; }
 
         [JsonIgnore]
-        [ForeignKey("BusinessId")] 
-        public Business Business { get; set; }
+        [ForeignKey("BusinessId")]
+        public Business Business { get; set; } = default!;
     }
 }

@@ -6,7 +6,7 @@ namespace ScheduleAppBackend.Types
     public class BusinessServiceData
     {
         public int Id { get; set; }
-        public string BusinessId { get; set; }
+        public string BusinessId { get; set; } = "";
         public int? CategoryId { get; set; }
         public string Name { get; set; } = "";
         [MaxLength(300)]
@@ -24,8 +24,8 @@ namespace ScheduleAppBackend.Types
 
     public class CreateServiceInfo
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; } = "";
+        public string Description { get; set; } = "";
         public decimal? Price { get; set; }
         public ushort Duration { get; set; }
         public int? CategoryId { get; set; }
@@ -33,8 +33,8 @@ namespace ScheduleAppBackend.Types
     public class UpdateServiceInfo
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; } = "";
+        public string Description { get; set; } = "";
         public decimal? Price { get; set; }
         public ushort Duration { get; set; }
         public int? CategoryId { get; set; }
@@ -46,12 +46,12 @@ namespace ScheduleAppBackend.Types
 
     public class CreateCategoryInfo
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
     }
     public class UpdateCategoryInfo
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
     }
     public class DeleteCategoryInfo
     {

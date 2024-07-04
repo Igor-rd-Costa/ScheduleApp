@@ -57,16 +57,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("Dev", policyOptions =>
+    options.AddPolicy("CorsPolicy", policyOptions =>
     {
-        policyOptions.WithOrigins(builder.Configuration.GetConnectionString("DevFrontendAddress") ?? "http://localhost:4200")
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowCredentials();
-    });
-    options.AddPolicy("Prod", policyOptions =>
-    {
-        policyOptions.WithOrigins(builder.Configuration.GetConnectionString("ProdLoadBalancerAddress") ?? "")
+        policyOptions.WithOrigins(builder.Configuration.GetConnectionString("FrontendAddress") ?? "http://localhost:4200")
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials();
@@ -75,14 +68,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-if (builder.Environment.IsDevelopment())
-{
-    app.UseCors("Dev");
-} 
-else
-{
-    app.UseCors("Prod");
-}
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
 app.UseAuthentication();
 

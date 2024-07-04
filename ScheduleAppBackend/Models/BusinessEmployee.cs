@@ -16,9 +16,9 @@ namespace ScheduleAppBackend.Models
 
         [JsonIgnore]
         [ForeignKey("EmployeeId")]
-        public User Employee { get; set; }
+        public User Employee { get; set; } = default!;
         [JsonIgnore]
         [ForeignKey("BusinessId")]
-        public Business Business { get; set; }
+        public Business Business { get; set; } = default!;
     }
 }

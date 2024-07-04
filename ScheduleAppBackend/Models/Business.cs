@@ -30,15 +30,15 @@ namespace ScheduleAppBackend.Models
 
         [JsonIgnore]
         [ForeignKey("OwnerId")]
-        public User User { get; set; }
+        public User User { get; set; } = default!;
         [JsonIgnore]
         [ForeignKey("CountryId")]
-        public LocationCountry Country { get; set; }
+        public LocationCountry Country { get; set; } = default!;
         [JsonIgnore]
         [ForeignKey("StateId")]
-        public LocationState State { get; set; }
+        public LocationState State { get; set; } = default!;
         [JsonIgnore]
         [ForeignKey("CityId")]
-        public LocationCity City { get; set; }
+        public LocationCity City { get; set; } = default!;
     }
 }

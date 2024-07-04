@@ -10,9 +10,9 @@ namespace ScheduleAppBackend.Models
     [PrimaryKey("Id", "OwnerId")]
     public class UserNotification : NotificationBase
     {
-        
+
         [ForeignKey("OwnerId")]
         [JsonIgnore]
-        User User { get; set; }
+        User User { get; set; } = default!;
     }
 }

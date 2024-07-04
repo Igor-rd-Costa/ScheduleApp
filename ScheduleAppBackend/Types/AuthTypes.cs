@@ -7,7 +7,7 @@ namespace ScheduleAppBackend.Types
 {
     public class LoginResult
     {
-        public User User { get; set; }
+        public User User { get; set; } = default!;
         public Business? Business { get; set; }
     }
     public class LoginInfo

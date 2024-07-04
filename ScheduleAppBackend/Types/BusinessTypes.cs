@@ -4,7 +4,7 @@ namespace ScheduleAppBackend.Types
 {
     public class CachedDataInfo<T>
     {
-        public T Id { get; set; }
+        public T Id { get; set; } = default!;
         public DateTime LastEditDate { get; set; }
     }
 
@@ -21,7 +21,7 @@ namespace ScheduleAppBackend.Types
     }
     public class SearchBusinessInfo
     {
-        public string Query { get; set; }
-        public string Cached { get; set; }
+        public string Query { get; set; } = "";
+        public string Cached { get; set; } = "";
     }
 }

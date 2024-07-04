@@ -11,6 +11,6 @@ namespace ScheduleAppBackend.Models
     {
         [ForeignKey("OwnerId")]
         [JsonIgnore]
-        Business Business { get; set; }
+        Business Business { get; set; } = default!;
     }
 }

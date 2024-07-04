@@ -17,9 +17,9 @@
 
     public class BusinessHoursUpdateInfo
     {
-        public List<BusinessHourCreateInfo> CreateInfo { get; set; }
-        public List<BusinessHourUpdateInfo> UpdateInfo { get; set; }
-        public List<int> DeleteInfo { get; set; }
+        public List<BusinessHourCreateInfo> CreateInfo { get; set; } = [];
+        public List<BusinessHourUpdateInfo> UpdateInfo { get; set; } = [];
+        public List<int> DeleteInfo { get; set; } = [];
     }
 
     public class BusinessHourDeleteInfo
