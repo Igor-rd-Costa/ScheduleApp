@@ -13,7 +13,7 @@ rounded bg-[#333333] shadow-[2px_2px_5px_1px_#11111155] right-0 top-16 cursor-de
         }
         @for (notification of notifications; track notification.id) {
             @if (type === NotificationType.USER_NOTIFICATION) {
-                <NotificationItem [heading]="notification.heading" [visualized]="notification.wasVisualized" 
+                <NotificationItem [heading]="notification.heading" [visualized]="notification.wasVisualized" [time]="notification.time"
                 [notificationId]="notification.id" (Close)="OnNotificationClose($event)">
                     <p class="text-[#DDDDDDFF] text-[0.8rem]">{{notification.message.split('\t')[0]}}</p>
                     <div class="bottom-content">
@@ -21,7 +21,8 @@ rounded bg-[#333333] shadow-[2px_2px_5px_1px_#11111155] right-0 top-16 cursor-de
                     </div>
                 </NotificationItem>    
             } @else {
-                <NotificationItem [heading]="notification.heading" [visualized]="notification.wasVisualized" [notificationId]="notification.id" (Close)="OnNotificationClose($event)">
+                <NotificationItem [heading]="notification.heading" [visualized]="notification.wasVisualized" [time]="notification.time" 
+                [notificationId]="notification.id" (Close)="OnNotificationClose($event)">
                     <p class="text-[#DDDDDDFF] text-[0.8rem]">{{notification.message.split('\t')[0]}} | {{notification.message.split('\t')[1]}}</p>
                     <div class="bottom-content">
                         <p class="text-[#DDDDDDFF] text-[0.8rem]">{{Time.DateTimeToString(ParseInt(notification.message.split('\t')[2]), false)}}</p>
