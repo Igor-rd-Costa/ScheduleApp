@@ -11,7 +11,7 @@ import { Time } from 'src/app/Utils/Time';
 })
 export class AppointmentCard {  
   Time = Time;
-  @Input() serviceIcon : IconType = 'cut';
+  @Input() serviceIcon : IconType|null = null;
   @Input() serviceName : string = "";
   @Input() servicePrice : number | null = null;
   @Input() serviceDuration : number = 0;

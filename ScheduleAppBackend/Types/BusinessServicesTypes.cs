@@ -26,6 +26,7 @@ namespace ScheduleAppBackend.Types
     {
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
+        public string? Icon { get; set; } = null;
         public decimal? Price { get; set; }
         public ushort Duration { get; set; }
         public int? CategoryId { get; set; }
@@ -35,6 +36,7 @@ namespace ScheduleAppBackend.Types
         public int Id { get; set; }
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
+        public string? Icon { get; set; } = null;
         public decimal? Price { get; set; }
         public ushort Duration { get; set; }
         public int? CategoryId { get; set; }

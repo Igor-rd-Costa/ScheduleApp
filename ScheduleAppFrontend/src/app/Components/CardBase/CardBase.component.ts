@@ -9,7 +9,7 @@ import { Icon, IconType } from '../Icon/Icon.component';
 })
 export class CardBase {
   @ViewChildren(Icon) icons! : Icon[];
-  @Input() cardIcons : IconType[] = [];
+  @Input() cardIcons : (IconType|null)[] = [];
   @Input() heading : string = "";
   @Input() minHeight : string = "7rem";
 }

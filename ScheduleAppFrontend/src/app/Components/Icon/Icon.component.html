@@ -1,3 +1,5 @@
-<span class="material-symbols-outlined flex" [style]="{fontSize: size}" #element>
-    {{type}}
-</span>
+@if (type !== null) {
+    <span class="material-symbols-outlined flex" [style]="{fontSize: size}" #element>
+        {{type}}
+    </span>
+}

@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { App } from "../App.component";
 import CacheService, { CachedDataInfo } from "./CacheService";
+import { IconType } from "../Components/Icon/Icon.component";
 
 export type BusinessService = {
     id: number,
@@ -9,8 +10,9 @@ export type BusinessService = {
     categoryId: number | null,
     name: string,
     description: string,
-    duration: number,
+    icon: IconType | null,
     price: number | null,
+    duration: number,
     lastEditDate: Date
 }
 
@@ -81,14 +83,14 @@ export class ServicesService {
     });
     }
 
-    async AddService(name : string, description : string, price : number | null, duration : number, categoryId : number | null) {
+    async AddService(name: string, description: string, icon: IconType | null, price: number | null, duration: number, categoryId: number | null) {
         return new Promise<CreationResult>(resolve => {
             let bId = this.cache.GetLoggedBusiness()?.id;
             if (!bId) {
                 resolve({id: -1, date: new Date(0)});
                 return;
             }
-            this.http.post<CreationResult>(this.controllerAddress, {name, description, price, duration, categoryId}, {withCredentials: true}).subscribe({
+            this.http.post<CreationResult>(this.controllerAddress, {name, description, icon, price, duration, categoryId}, {withCredentials: true}).subscribe({
                 next: result => {
                     this.cache.AddService({
                         id: result.id,
@@ -96,6 +98,7 @@ export class ServicesService {
                         categoryId: categoryId,
                         name: name,
                         description: description,
+                        icon: icon,
                         price: price,
                         duration: duration,
                         lastEditDate: result.date
@@ -110,14 +113,14 @@ export class ServicesService {
         });
     }
 
-    async UpdateService(id : number, name : string, description : string, price : number | null, duration : number, categoryId : number | null) {
+    async UpdateService(id : number, name : string, description : string, icon: IconType | null, price : number | null, duration : number, categoryId : number | null) {
         return new Promise<boolean>(resolve => {
             let businessId = this.cache.GetLoggedBusiness()?.id;
             if (!businessId) {
                 resolve(false);
                 return;
             }
-            this.http.patch<Date>(this.controllerAddress, {id, name, description, price, duration, categoryId}, {withCredentials: true}).subscribe({
+            this.http.patch<Date>(this.controllerAddress, {id, name, description, icon, price, duration, categoryId}, {withCredentials: true}).subscribe({
                 next: date => {
                     let service : BusinessService = {
                         id: id,
@@ -125,6 +128,7 @@ export class ServicesService {
                         categoryId: categoryId,
                         name: name,
                         description: description,
+                        icon: icon,
                         price: price,
                         duration: duration,
                         lastEditDate: date

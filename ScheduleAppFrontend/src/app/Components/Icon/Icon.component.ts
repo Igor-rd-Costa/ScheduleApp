@@ -17,6 +17,6 @@ export type IconType =  'visibility' | 'cut' | 'schedule' | 'person' | 'work' | 
 export class Icon {
   protected Icon = Icon;
   @ViewChild('element') element! : ElementRef<HTMLElement>;
-  @Input() type : IconType = 'visibility';
+  @Input() type : IconType|null = null;
   @Input() size : string = '24px';
 }

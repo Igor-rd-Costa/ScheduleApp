@@ -33,7 +33,7 @@
 </div>
 <div class="grid pt-4 pb-4 gap-y-4 sm:justify-center" #card>
     <CardBase [cardIcons]="['add']" heading="Add Service">
-        <form [formGroup]="addServiceForm" class="pl-2 pb-2 grid gap-y-1 max-w-[70%]" method="post" (submit)="AddService($event)">
+        <form [formGroup]="addServiceForm" class="h-[21.38rem] overflow-hidden pl-2 pb-2 grid gap-y-1 max-w-[75%]" method="post" (submit)="AddService($event)">
             <div>
                 <label>
                     Name:
@@ -49,11 +49,9 @@
                 </label>
                 <FormInput type="textarea" formControlName="Description"/>
             </div>
-            <div class="flex items-center">
+            <div class="flex items-center overflow-visible z-[10]">
                 <div>Icon:</div>
-                <div class="ml-2 w-fit p-[2px] border rounded-lg text-goldenDark border-goldenDark cursor-default">
-                    <Icon type="visibility"/>
-                </div>
+                <IconInput formControlName="Icon" class="ml-2"/>
             </div>
             <div class="flex gap-x-1 items-center">
                 <label>
@@ -87,6 +85,6 @@
     </CardBase>
     @for (service of services; track service.id) {
         <EditableServiceCard (Edited)="OnServiceEdited($event)" (Deleted)="OnServiceDeleted($event)" [serviceId]="service.id" [serviceName]="service.name" [serviceDuration]="service.duration" 
-        [categories]="categories" [servicePrice]="service.price" [serviceDescription]="service.description" [serviceCategory]="service.categoryId"/>
+        [categories]="categories" [serviceIcon]="service.icon" [servicePrice]="service.price" [serviceDescription]="service.description" [serviceCategory]="service.categoryId"/>
     }
 </div>

@@ -8,14 +8,15 @@ import { BusinessCategory, BusinessService, CategoryDeleteInfo, ServicesService 
 import CacheService from 'src/app/Services/CacheService';
 import { Router } from '@angular/router';
 import { MainButton } from 'src/app/Components/MainButton/MainButton.component';
-import { Icon } from 'src/app/Components/Icon/Icon.component';
+import { Icon, IconType } from 'src/app/Components/Icon/Icon.component';
 import { FormInput } from 'src/app/Components/FormInput/FormInput.component';
 import { CenterCardWrapper } from 'src/app/Utils/CenterCardWrapper';
+import { IconInput } from 'src/app/Components/IconInput/IconInput.component';
 
 @Component({
   selector: 'DashboardServices',
   standalone: true,
-  imports: [Heading, MainButton, Icon, FormInput, EditableCategoryCard, EditableServiceCard, CardBase, ReactiveFormsModule],
+  imports: [Heading, MainButton, Icon, FormInput, EditableCategoryCard, EditableServiceCard, CardBase, ReactiveFormsModule, IconInput],
   templateUrl: './DashboardServices.component.html',
 })
 export class DashboardServices {
@@ -26,6 +27,7 @@ export class DashboardServices {
   addServiceForm = new FormGroup({
     Name: new FormControl('', {validators: [Validators.required]}),
     Description: new FormControl(''),
+    Icon: new FormControl<IconType|null>(null),
     Price: new FormControl<number|null>(null),
     Duration: new FormControl<number>(30, {validators: [Validators.required]}),
     Category: new FormControl<number|null>(null)
@@ -40,7 +42,6 @@ export class DashboardServices {
     this.servicesService.GetServices(null).then(services => {
       this.services = services;
     });
-
     window.addEventListener('resize', () => {
       this.wrappers.forEach(wrapper => {
         CenterCardWrapper(wrapper.nativeElement);
@@ -58,6 +59,7 @@ export class DashboardServices {
     event.preventDefault();
     const name = this.addServiceForm.controls.Name.value!;
     const description = this.addServiceForm.controls.Description.value ?? "";
+    const icon = this.addServiceForm.controls.Icon.value;
     let price = this.addServiceForm.controls.Price.value;
     const duration = this.addServiceForm.controls.Duration.value!;
     let category = this.addServiceForm.controls.Category.value;
@@ -67,7 +69,7 @@ export class DashboardServices {
     if (typeof(price) === 'string') {
       price = parseFloat((price as string).replace(',', '.'));
     }
-    this.servicesService.AddService(name, description, price, duration, category).then(result =>{
+    this.servicesService.AddService(name, description, icon, price, duration, category).then(result =>{
       if (result.id !== -1) {
         this.services.push({
           id: result.id,
@@ -75,6 +77,7 @@ export class DashboardServices {
           categoryId: category,
           name: name,
           description: description,
+          icon: icon,
           price: price,
           duration: duration, 
           lastEditDate: result.date

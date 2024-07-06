@@ -107,6 +107,7 @@ namespace ScheduleAppBackend.Controllers
                 BusinessId = business.Id,
                 CategoryId = info.CategoryId,
                 Description = info.Description,
+                Icon = info.Icon,
                 Price = info.Price,
                 Duration = info.Duration,
                 LastEditDate = date
@@ -138,6 +139,7 @@ namespace ScheduleAppBackend.Controllers
             service.CategoryId = info.CategoryId;
             service.Name = info.Name;
             service.Description = info.Description;
+            service.Icon = info.Icon;
             service.Price = info.Price;
             service.Duration = info.Duration;
             service.LastEditDate = DateTime.UtcNow;

@@ -17,6 +17,7 @@ namespace ScheduleAppBackend.Models
         public string Name { get; set; } = "";
         [MaxLength(300)]
         public string Description { get; set; } = "";
+        public string? Icon { get; set; } = null;
         public decimal? Price { get; set; }
         public ushort Duration { get; set; }
         public DateTime LastEditDate { get; set; }

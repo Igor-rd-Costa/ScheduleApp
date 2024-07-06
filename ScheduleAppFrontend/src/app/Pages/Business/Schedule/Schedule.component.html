@@ -10,7 +10,7 @@
     </div>
     <div class="flex flex-col items-center justify-center pb-4">
         <div class="w-screen sm:flex sm:justify-center" #card>
-            <BusinessServiceCard [serviceId]="service()!.id" [serviceName]="service()!.name" 
+            <BusinessServiceCard [serviceId]="service()!.id" [serviceName]="service()!.name" [serviceIcon]="service()!.icon" 
             [serviceDescription]="service()!.description" [servicePrice]="service()!.price" [serviceDuration]="service()!.duration" 
             [canSchedule]="false" [showButton]="false"/>
         </div>

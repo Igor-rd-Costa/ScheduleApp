@@ -1,8 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, signal, ViewChild } from '@angular/core';
 import { AppointmentCard } from 'src/app/Components/AppointmentCard/AppointmentCard.component';
 import { Heading } from 'src/app/Components/Heading/Heading.component';
 import BusinessService from 'src/app/Services/BusinessService';
 import { AppointmentInfo, ScheduleService } from 'src/app/Services/ScheduleService';
+import { CenterCardWrapper } from 'src/app/Utils/CenterCardWrapper';
 
 @Component({
   selector: 'DashboardHistory',
@@ -10,7 +11,8 @@ import { AppointmentInfo, ScheduleService } from 'src/app/Services/ScheduleServi
   imports: [Heading, AppointmentCard],
   templateUrl: './DashboardHistory.component.html',
 })
-export class DashboardHistory {
+export class DashboardHistory implements AfterViewInit {
+  @ViewChild('card') wrapper!: ElementRef<HTMLElement>
   pastAppointments = signal<AppointmentInfo[]>([]);
 
   constructor(private businessService: BusinessService, private scheduleService: ScheduleService) {
@@ -22,6 +24,13 @@ export class DashboardHistory {
           return 1;
         }));
       })
-    })
+    });
+    window.addEventListener('resize', () => {
+      CenterCardWrapper(this.wrapper.nativeElement);
+    });
+  }
+  
+  ngAfterViewInit(): void {
+    CenterCardWrapper(this.wrapper.nativeElement);
   }
 }

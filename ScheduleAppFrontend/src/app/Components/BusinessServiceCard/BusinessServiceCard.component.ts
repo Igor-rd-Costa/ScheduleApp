@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, output } from '@angular/core';
 import { CardBase } from '../CardBase/CardBase.component';
-import { Icon } from '../Icon/Icon.component';
+import { Icon, IconType } from '../Icon/Icon.component';
 import { MainButton } from '../MainButton/MainButton.component';
 import { Router } from '@angular/router';
 
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class BusinessServiceCard {
   @Input() serviceName : string = "";
   @Input() serviceDescription : string = "";
+  @Input() serviceIcon: IconType|null = null; 
   @Input() servicePrice : number|null = null;
   @Input() serviceDuration : number = 0;
   @Input() serviceId : number = -1;

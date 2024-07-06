@@ -58,7 +58,7 @@
 } @else if (business() !== undefined) {
     <div class="pt-6 pb-6 sm:flex sm:flex-col sm:items-center">
         <div class="grid grid-cols-[auto_1fr] items-center justify-items-center w-full">
-            <button class="text-[#DDDDDD] self-start hover:text-white ml-8 col-start-1 row-start-1" (click)="GoToProfile()">
+            <button class="hidden sm:block text-[#DDDDDD] self-start hover:text-white ml-8 col-start-1 row-start-1" (click)="GoToProfile()">
                 <Icon size="32px" type="keyboard_arrow_left"/>
             </button>
             <div class="pl-4 sm:pl-0 pr-4 pb-4 grid grid-cols-[auto_1fr] grid-rows-[1fr_auto] col-start-1 col-span-2 row-start-1 w-screen sm:max-w-[30rem]">
@@ -108,7 +108,7 @@
                         <div class="pb-6 pt-6 grid gap-4 overflow-y-scroll" #card>
                             @for (service of GetServicesInCategory(category.id); track service.id) {
                                 <BusinessServiceCard (Click)="OnServiceClick($event)" [serviceName]="service.name" [serviceDescription]="service.description"
-                                [servicePrice]="service.price" [serviceDuration]="service.duration" [serviceId]="service.id" [canSchedule]="!allowEdit"/>
+                                [servicePrice]="service.price" [serviceIcon]="service.icon" [serviceDuration]="service.duration" [serviceId]="service.id" [canSchedule]="!allowEdit"/>
                             }
                         </div>
                     </MinimizableCard>
@@ -118,7 +118,7 @@
                         <div class="pb-6 pt-6 grid gap-4 w-screen overflow-y-scroll" #card>
                             @for (service of GetServicesInCategory(null); track service.id) {
                                 <BusinessServiceCard (Click)="OnServiceClick($event)" [serviceName]="service.name" [serviceDescription]="service.description"
-                                [servicePrice]="service.price" [serviceDuration]="service.duration" [serviceId]="service.id" [canSchedule]="!allowEdit"/>
+                                [servicePrice]="service.price" [serviceIcon]="service.icon" [serviceDuration]="service.duration" [serviceId]="service.id" [canSchedule]="!allowEdit"/>
                             }
                         </div>
                     </MinimizableCard>

@@ -18,9 +18,7 @@
             </div>
             <div class="flex items-center">
                 <div>Icon:</div>
-                <div class="ml-2 w-fit p-[2px] border rounded-lg text-goldenDark border-goldenDark cursor-default">
-                    <Icon [type]="serviceIcon"/>
-                </div>
+                <IconInput formControlName="Icon"/>
             </div>
             <div class="flex items-center gap-x-1">
                 <label>
@@ -67,7 +65,8 @@
             </div>
             <div class="flex items-center">
                 <div>Icon:</div>
-                <div class="ml-2 p-[2px] border rounded-lg text-goldenDark border-goldenDark cursor-default">
+                <div class="w-[2rem] h-[2rem] ml-2 flex justify-center items-center border rounded-lg 
+                text-goldenDark border-goldenDark select-none shadow-[2px_2px_4px_0px_#111111]">
                     <Icon [type]="serviceIcon"/>
                 </div>
             </div>

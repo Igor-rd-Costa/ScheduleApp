@@ -1,0 +1,19 @@
+<div class="relative select-none">
+    <div id="icon-input-button" class="w-[2rem] h-[2rem] flex justify-center items-center border rounded-lg text-goldenDark border-goldenDark cursor-pointer select-none shadow-[2px_2px_4px_0px_#111111]
+    hover:text-goldenLight hover:border-goldenLight" (click)="ToggleIconList()">
+        <Icon [type]="value"/>
+    </div>
+    <div id="icon-input-menu" [style]="{display: showIconList() ? 'block' : 'none'}" class="absolute w-[12rem] pt-1 pb-1 z-[10] top-[2.3rem] overflow-scroll 
+    h-[8rem] left-0 w-[208px] flex flex-wrap bg-[#252525] shadow-[2px_2px_5px_1px_#11111155] rounded text-[#DDDDDD]">
+        @for (category of iconInputIcons; track 0) {
+            <div class="grid grid-cols-1 grid-rows-[auto_1fr] pl-2 pr-2" #category>
+                <h6 class="text-[#AAAAAA] border-b border-[#AAAAAA11] h-[1.5rem]">{{category.name}}</h6>
+                <div class="flex flex-wrap gap-2 w-full pt-2 pb-2">
+                    @for (icon of category.icons; track 0) {
+                        <IconInputItem [selected]="value === icon" [value]="icon" (Select)="OnSelect($event)"/>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -16,7 +16,7 @@
     </div>
     <div class="flex justify-center flex-col items-center">
         <OpeningHoursInput [hours]="openingHours" [day]="selectedDay"/>
-        <div class="mt-4 flex w-full">
+        <div class="mt-4 mb-4 flex w-full">
             <div class="w-full flex justify-center">
                 <MainButton (Click)="Save()" 
                 [disabled]="input !== undefined ? (!input.touched() || input.sectionsPerDayCount > input.maxTimeSectionsPerDay) : true">

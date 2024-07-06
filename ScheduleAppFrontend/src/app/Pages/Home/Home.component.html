@@ -5,7 +5,7 @@ ml-4 text-[1.3rem] mb-[0.5rem] mr-4 mt-4 sm:justify-center">
 </h2>
 <div class="mt-4 mb-4 grid gap-4 sm:justify-center" #card>
     @for (appointment of appointments; track appointment.id) {
-        <AppointmentCard [serviceIcon]="'cut'" [serviceName]="appointment.serviceName" [businessName]="appointment.businessName"
+        <AppointmentCard [serviceIcon]="appointment.serviceIcon" [serviceName]="appointment.serviceName" [businessName]="appointment.businessName"
             [appointmentTime]="appointment.time" [employeeName]="appointment.employeeName" [servicePrice]="appointment.price" 
             [serviceDuration]="appointment.duration"/>
     }

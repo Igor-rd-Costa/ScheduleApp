@@ -83,7 +83,7 @@
                         {{selectedEmployee?.firstName}}
                     </div>
                     <div class="flex items-center gap-x-1">
-                        <Icon type="cut"/>
+                        <Icon [type]="service?.icon ?? null"/>
                         {{service?.name}}
                     </div>
                     <div class="flex items-center gap-x-1">

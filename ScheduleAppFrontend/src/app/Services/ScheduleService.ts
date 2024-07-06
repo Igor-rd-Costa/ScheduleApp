@@ -5,6 +5,7 @@ import { DateTime, Hour, Time } from "../Utils/Time";
 import BusinessService from "./BusinessService";
 import { BusinessService as BusinessServiceData } from "./ServicesService";
 import { ServicesService } from "./ServicesService";
+import { IconType } from "../Components/Icon/Icon.component";
 
 export type Appointment = {
     id: number,
@@ -20,6 +21,7 @@ export type AppointmentInfo = {
     businessName : string,
     employeeName : string, 
     serviceName : string,
+    serviceIcon: IconType|null,
     price : number | null,
     duration : number,
     time : number
@@ -81,6 +83,7 @@ export class ScheduleService {
             businessName: business.name,
             employeeName: employee.firstName,
             serviceName: service.name,
+            serviceIcon: service.icon,
             price: service.price,
             duration: service.duration,
             time: a.time
@@ -122,7 +125,6 @@ export class ScheduleService {
         return new Promise<boolean>(resolve => {
            this.http.post<Appointment>(this.controllerAddress, {serviceId, businessId, employeeId, time}, {withCredentials: true}).subscribe({
             next: appointment => {
-                console.log("Set to time", Time.DateTimeToString(appointment.time));
                 resolve(true);
             },
             error: err => {
