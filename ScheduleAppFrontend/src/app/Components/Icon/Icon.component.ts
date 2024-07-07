@@ -6,7 +6,9 @@ export type IconType =  'visibility' | 'cut' | 'schedule' | 'person' | 'work' | 
                         'save' | 'transition_slide' | 'keyboard_arrow_left' | 'keyboard_arrow_right' |
                         'keyboard_arrow_up' | 'keyboard_arrow_down' | 'location_on' | 'payments' |
                         'logout' | 'notifications' | 'notifications_active' | 'calendar_month' | 'event_available' |
-                        'calendar_clock';
+                        'calendar_clock' | 'health_and_beauty' | 'handyman' | 'pets' | 'chair' | 'cleaning_services' | 
+                        'dry_cleaning' | 'local_laundry_service' | 'vacuum' | 'cleaning' | 'home_repair_service' |
+                        'electrical_services' | 'plumbing' | 'front_hand' | 'back_hand';
 
 @Component({
   selector: 'Icon',

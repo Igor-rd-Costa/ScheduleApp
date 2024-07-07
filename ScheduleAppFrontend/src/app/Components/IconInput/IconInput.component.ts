@@ -11,7 +11,11 @@ type IconCategory = {
 const iconInputIcons: IconCategory[] = [
   {
     name: "Icons",
-    icons: [null, 'visibility', 'logout', 'location_on', 'sunny', 'cut', 'store', 'person']
+    icons: [
+      null, 'cut', 'health_and_beauty', 'handyman', 'pets', 'chair', 'cleaning_services', 'dry_cleaning',
+      'local_laundry_service', 'vacuum', 'cleaning', 'home_repair_service', 'electrical_services', 'plumbing',
+      'front_hand', 'back_hand'
+    ]
   }
 ];
 
