@@ -124,7 +124,6 @@ export class BusinessHoursService {
       }
       this.http.patch<BusinessHours[]>(this.controllerAddress, {CreateInfo: updateInfo.createInfo, UpdateInfo: updateInfo.updateInfo, DeleteInfo: updateInfo.deleteInfo}, {withCredentials: true}).subscribe({
         next: async result => {
-          console.log(result);
           this.cacheService.DeleteBusinessHours(updateInfo.deleteInfo);
           const toUpdate = await this.cacheService.BusinessHoursWhere(bh => {
             for (let i = 0; i < updateInfo.updateInfo.length; i++) {
@@ -133,7 +132,6 @@ export class BusinessHoursService {
             }
             return false;
           });
-          console.log(toUpdate);
           for (let i = 0; i < updateInfo.updateInfo.length; i++) {
             for (let j = 0; j < toUpdate.length; j++) {
               if (updateInfo.updateInfo[i].id === toUpdate[j].id)

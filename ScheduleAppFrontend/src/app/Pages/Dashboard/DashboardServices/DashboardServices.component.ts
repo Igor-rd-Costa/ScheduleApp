@@ -145,10 +145,8 @@ export class DashboardServices {
         break;
       }
     }
-    console.log("Services", Array.from(this.services));
     for (let i = 0; i < this.services.length; i++) {
       if (this.services[i].categoryId === info.categoryId) {
-        console.log(this.services[i]);
         if (info.deleteServices) {
           this.services.splice(i, 1);
           i--;

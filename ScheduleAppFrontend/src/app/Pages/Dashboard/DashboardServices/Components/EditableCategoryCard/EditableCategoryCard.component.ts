@@ -42,9 +42,7 @@ export class EditableCategoryCard implements AfterViewInit {
 
   Edit(event : SubmitEvent) {
     event.preventDefault();
-    console.log("Here:", this.editCategoryForm.controls.Name.value!);
     this.servicesService.UpdateCategory(this.categoryId, this.editCategoryForm.controls.Name.value!).then(success => {
-      console.log("Here too:", success);
       this.LeaveEditMode();
       if (success)
         this.Edited.emit(this.categoryId);

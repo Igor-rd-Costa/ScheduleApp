@@ -54,14 +54,11 @@ export class BusinessHoursForm implements AfterViewInit {
     App.PopUpMessageBox.BusinessHoursSave(value).then(result => {
       if (result) {
         this.businessHoursService.UpdateBusinessHours(value).then(async success => {
-          console.log("HereHere", success);
           if (success) {
-            console.log("Good!");
             const business = this.cacheService.GetLoggedBusiness();
             if (business) {
               this.openingHours = await this.cacheService.BusinessHoursWhere(bh => bh.businessId === business.id);
             }
-            console.log("Got Here!");
             this.GoBack();
           }
         });

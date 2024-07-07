@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, signal, viewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { Time } from 'src/app/Utils/Time';
 
 @Component({

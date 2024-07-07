@@ -39,7 +39,6 @@ export class Time {
       if (h == 24)
         h = 0;
     }
-    console.log(h, m);
     return (h << 8) + m;
   }
 

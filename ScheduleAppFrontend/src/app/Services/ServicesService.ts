@@ -189,7 +189,6 @@ export class ServicesService {
     async AddCategory(name : string) {
         return new Promise<CreationResult>(resolve => {
             let businessId = this.cache.GetLoggedBusiness()?.id;
-            console.log("Got", businessId);
             if (!businessId) {
                 resolve({id: -1, date: new Date(0)});
                 return;

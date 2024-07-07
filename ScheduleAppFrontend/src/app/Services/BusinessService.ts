@@ -206,7 +206,6 @@ export default class BusinessService {
         return new Promise<Business | null>(resolve => {
             this.http.post<Business>(this.businessControllerAddress, info, {withCredentials: true}).subscribe({
                 next: result => {
-                    console.log("Got result", result);
                     this.cache.SetLoggedBusiness(result);
                     this.cache.AddBusiness(result);
                     resolve(result);
