@@ -33,6 +33,9 @@ module.exports = {
       },
       fontFamily: {
         'arial': 'Arial'
+      },
+      boxShadow: {
+        'card': '2px 2px 5px 1px #11111155'
       }
     },
   },

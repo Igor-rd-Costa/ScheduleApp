@@ -6,19 +6,22 @@
         History
     </Heading>
 </div>
-<!--TODO Add date filter-->
-<!-- <div class="flex pl-4 pt-4 gap-x-4">
-    <div class="bg-goldenDark text-center p-1 pl-2 pr-2 rounded gap-x-1 flex">
-        01/05/2024
-        <Icon type="calendar_month"/>
-    </div>
-    <div class="bg-goldenDark text-center p-1 pl-2 pr-2 rounded gap-x-1 flex">
-        21/06/2024
-        <Icon type="calendar_month"/>
-    </div>
-</div> -->
 <div class="pt-6 grid gap-y-4 sm:flex sm:gap-x-4 sm:flex-wrap sm:pl-8" #card>
-    @for (appointment of pastAppointments(); track appointment.id) {
+    <div class="grid grid-cols-2 text-[#DDDDDD] text-[0.8rem]">
+        <div class="flex items-center justify-self-start gap-x-1">
+            <span class="uppercase">
+                From
+            </span>
+            <DateInput [formControl]="filterForm.controls.StartDate"/>
+        </div>
+        <div class="flex items-center justify-self-end gap-x-1">
+            <span class="uppercase">
+            To
+            </span>
+            <DateInput [formControl]="filterForm.controls.EndDate" [minValue]="filterForm.controls.StartDate.value"/>
+        </div>
+    </div>
+    @for (appointment of filteredAppointments; track appointment.id) {
         <AppointmentCard [serviceName]="appointment.serviceName" [businessName]="appointment.businessName" [servicePrice]="appointment.price"
         [appointmentTime]="appointment.time" [employeeName]="appointment.employeeName" [serviceDuration]="appointment.duration"/>
     }

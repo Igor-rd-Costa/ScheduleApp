@@ -1,0 +1,50 @@
+<div id="date-input-display" class="flex rounded shadow-card h-[1.7rem] text-[0.9rem] select-none" #display>
+    <div [style]="disabled() ? {color: '#AAAAAA'} : {}" class="flex items-center justify-center pl-2 pr-2 bg-[#333333] text-[#DDDDDD] h-full rounded-tl rounded-bl">
+        {{GetSelectedDateString()}}
+    </div>
+    <button [style]="this.disabled() ? {backgroundColor: '#444444'} : {backgroundColor: this.showSelector() ? '#CDA05C' : ''}" class="flex items-center justify-center bg-goldenDark hover:bg-goldenLight text-black rounded-br 
+    rounded-tr h-full w-[1.7rem] shadow-[-3px_0px_5px_-1px_#11111155]" (click)="OnClick()" [disabled]="disabled()">
+        <Icon type="calendar_month"/>
+    </button>
+</div>
+@defer(when showSelector()) {
+    <div id="date-input-selector" [style]="{display: showSelector() ? 'block' : 'none'}" class="absolute" #selector>
+        <div class="absolute select-none w-fit text-[1rem] top-2 bg-[#333333] z-[10] rounded shadow-card">
+            <div class="grid items-center pt-1 pb-1 border-b border-[#444444FF] grid-cols-[auto_1fr_auto] ml-2 mr-2">
+                <button class="hover:text-white" (click)="PreviousMonth()">
+                    <Icon type="keyboard_arrow_left"/>
+                </button>
+                <div class="flex justify-center">
+                    {{GetMonth()}} {{visibleYear()}}
+                </div>
+                <button class="hover:text-white" (click)="NextMonth()">
+                    <Icon type="keyboard_arrow_right"/>
+                </button>
+            </div>
+            <div class="ml-2 mr-2 text-[0.9rem]">
+                <div class="grid items-center pb-2 justify-items-center gap-1 gap-x-2 
+                grid-cols-[1.7rem_1.7rem_1.7rem_1.7rem_1.7rem_1.7rem_1.7rem] grid-rows-[1.7rem_1.7rem_1.7rem_1.7rem_1.7rem_1.7rem]">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fry</span>
+                    <span>Sat</span>
+                    @for (_ of [].constructor(monthDays().offset); track _) {
+                        <span></span>
+                    }
+                    @for (day of monthDays().days; track day) {
+                        @if (IsDaySelectable(day)) {                                
+                            <span [style]="(value.getFullYear() === visibleYear() && value.getMonth() === visibleMonth() && value.getDate() === day) ? 
+                            {color: '#CDA05C', backgroundColor: '#3A3A3A', boxShadow: '2px 2px 5px 1px #11111155'} : {}" (click)="SelectDay(day)"  
+                            class="hover:text-goldenLight text-[#CCCCCC] cursor-pointer rounded h-full w-full flex items-center justify-center">{{day}}</span>
+                        } @else {
+                            <span class="text-[#AAAAAA] rounded h-full w-full flex items-center justify-center">{{day}}</span>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

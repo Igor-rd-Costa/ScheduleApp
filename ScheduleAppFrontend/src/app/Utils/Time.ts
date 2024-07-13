@@ -9,6 +9,14 @@ export type HourInfo = {
   minutes: number
 }
 
+export type DateTimeInfo = {
+  year: number,
+  month: number,
+  day: number,
+  hour: number,
+  minute: number
+}
+
 export class Time {
   private constructor() {}
 
@@ -51,6 +59,15 @@ export class Time {
     return {hours: hour >> 8, minutes: hour & 0b11111111};
   }
 
+  public static DateTimeToDateTimeInfo(dateTime: DateTime): DateTimeInfo {
+    return {
+      year: (dateTime >> 11) & 0b111111111111,
+      month: (dateTime >> 23) & 0b1111,
+      day: (dateTime >> 27) & 0b11111,
+      hour: (dateTime >> 6) & 0b11111,
+      minute: dateTime & 0b111111
+    }
+  }
 
   public static MakeDateTime(day : number, month: number, year : number, hour : number, minutes : number) {
     let dateTime : DateTime = minutes;
