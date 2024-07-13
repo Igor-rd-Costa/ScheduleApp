@@ -149,6 +149,8 @@ export class DateInput implements ControlValueAccessor, OnChanges {
           if (left + width > windowWidth) {
             const xOffset = windowWidth - width;
             (this.selector.nativeElement as HTMLElement).style.left = (xOffset - 16) + 'px';
+          } else {
+            (this.selector.nativeElement as HTMLElement).style.left = '';
           }
         }
       };
