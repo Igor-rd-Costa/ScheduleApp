@@ -141,12 +141,14 @@ export class DateInput implements ControlValueAccessor, OnChanges {
     this.showSelector.set(!this.showSelector());
     if (this.showSelector()) {
       const UpdateSelectorPosition = () => {
-        const rect = this.selector.nativeElement.firstElementChild?.getBoundingClientRect();
+        const rect = this.selector.nativeElement.getBoundingClientRect();
         if (rect) {
-          const left = rect.x;
-          const width = rect.width;
+          (this.selector.nativeElement as HTMLElement).style.left = '';
+          let left = this.selector.nativeElement.getBoundingClientRect().x;
+          const width = this.selector.nativeElement.firstElementChild!.getBoundingClientRect().width;
           const windowWidth = window.innerWidth;
           if (left + width > windowWidth) {
+            console.log("Got here");
             const xOffset = windowWidth - width;
             (this.selector.nativeElement as HTMLElement).style.left = (xOffset - 16) + 'px';
           } else {
@@ -154,14 +156,10 @@ export class DateInput implements ControlValueAccessor, OnChanges {
           }
         }
       };
-      if (this.selector)
-        UpdateSelectorPosition();
-      else {
-        setTimeout(() => {
-          if (this.selector)
-            UpdateSelectorPosition();
-        }, 10);
-      }
+      setTimeout(() => {
+        if (this.selector)
+          UpdateSelectorPosition();
+      }, 10);
     }
   }
 
