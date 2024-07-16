@@ -53,12 +53,11 @@ export class Dashboard implements AfterViewInit {
   OnSelectionChange(selectedItem: DashboardMenuItem) {
     selectedItem.Select();
     for (let i = 0; i < this.menuItems.length; i++) {
-      if (this.menuItems.get(i) === selectedItem) {
-        this.router.navigate(['dashboard'], {queryParams: {menuItem: this.menuItems.get(i)?.itemId ?? "appointments"}});
-      } else if (this.menuItems.get(i)?.IsSelected()) {
+      if (this.menuItems.get(i) !== selectedItem) {
         this.menuItems.get(i)?.Unselect();
       }
     }
+    this.router.navigate(['dashboard'], {queryParams: {menuItem: selectedItem.itemId ?? "A"}});
   }
 
   GoToBusiness() {

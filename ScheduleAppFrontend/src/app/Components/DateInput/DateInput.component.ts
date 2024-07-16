@@ -56,6 +56,11 @@ export class DateInput implements ControlValueAccessor, OnChanges {
       if (this.value.getTime() < date.getTime()) {
         date.setDate(date.getDate() + 1);
         this._value.set(date);
+        if (!this.wasTouched) {
+          this.wasTouched = true;
+          this.onTouched()(this.value);
+        }
+        this.onChange()(this.value);
       }
     }
     if (changes['maxValue']) {
@@ -63,12 +68,22 @@ export class DateInput implements ControlValueAccessor, OnChanges {
       if (this.value.getTime() > date.getTime()) {
         date.setDate(date.getDate() - 1);
         this._value.set(date);
+        if (!this.wasTouched) {
+          this.wasTouched = true;
+          this.onTouched()(this.value);
+        }
+        this.onChange()(this.value);
       }
     }
   }
 
   writeValue(date: Date): void {
-    this._value.set(date);
+    if (this.minValue && date.getTime() < this.minValue.getTime())
+      this._value.set(this.minValue);
+    else if (this.maxValue && date.getTime() > this.maxValue.getTime())  
+      this._value.set(this.maxValue);
+    else
+      this._value.set(date);
   }
   registerOnChange(fn: (newVal: Date) => void): void {
     this.onChange.set(fn);
@@ -100,6 +115,8 @@ export class DateInput implements ControlValueAccessor, OnChanges {
 
   SelectDay(day : number) {
     const date = new Date(this.visibleYear(), this.visibleMonth(), day);
+    if (this._value().getTime() === date.getTime())
+      return;
     this._value.set(date);
     if (!this.wasTouched) {
       this.wasTouched = true;
@@ -148,7 +165,6 @@ export class DateInput implements ControlValueAccessor, OnChanges {
           const width = this.selector.nativeElement.firstElementChild!.getBoundingClientRect().width;
           const windowWidth = window.innerWidth;
           if (left + width > windowWidth) {
-            console.log("Got here");
             const xOffset = windowWidth - width;
             (this.selector.nativeElement as HTMLElement).style.left = (xOffset - 16) + 'px';
           } else {

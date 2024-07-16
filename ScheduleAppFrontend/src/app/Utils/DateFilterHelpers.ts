@@ -2,9 +2,7 @@ import { AppointmentInfo } from "../Services/ScheduleService";
 import { Time } from "./Time";
 
 
-
-
-export default function FilterAppointments(start: Date|null, end: Date|null, appointments: AppointmentInfo[]) {
+export function FilterAppointments(start: Date|null, end: Date|null, appointments: AppointmentInfo[]) {
   let filteredAppointments = [];
   for (let i = 0; i < appointments.length; i++) {
     const appointment = appointments[i];
@@ -46,5 +44,34 @@ export default function FilterAppointments(start: Date|null, end: Date|null, app
     else
       return 1;
   });
+}
+
+export function IsValidDateParamString(dateString: string|undefined) {
+  if (!dateString || dateString.length !== 8)
+    return false;
+
+  const day = parseInt(dateString.substring(0, 2));
+  const month = parseInt(dateString.substring(2, 4)) - 1;
+  const year = parseInt(dateString.substring(4, 8));
+  if (isNaN(day) || isNaN(month) || isNaN(year))
+    return false;
+
+  const date = new Date(year, month, day);
+  if (date.getDate() !== day || date.getMonth() !== month || date.getFullYear() !== year)
+    return false;
+
+  return true;
+}
+
+export function DateParamStringToDate(dateString: string) {
+  const day = parseInt(dateString.substring(0, 2));
+  const month = parseInt(dateString.substring(2, 4)) - 1;
+  const year = parseInt(dateString.substring(4, 8));
+
+  return new Date(year, month, day);
+}
+
+export function DateToDateParamString(date: Date) {
+  return `${date.getDate() < 10 ? '0' : ''}${date.getDate()}${(date.getMonth() + 1) < 10 ? '0' : ''}${date.getMonth() + 1}${date.getFullYear()}`;
 }
 
